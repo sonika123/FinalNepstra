@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorAppBlack">#363538</color>
+    <color name="colorAppRed">#C72617</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorLightGreen">#18B49C</color>
+    <color name="colorAppWhite">#DEDEDE</color>
+    <color name="colorAddToCartRedButton">#CC3B2D</color>
+    <color name="colorAddToCartItemsBackground">#EAE4E4</color>
+    <color name="colorAddToCartPairs">#E0E0E0</color>
+</resources>

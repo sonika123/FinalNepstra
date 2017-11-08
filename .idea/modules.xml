@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FinalNepstra.iml" filepath="$PROJECT_DIR$/FinalNepstra.iml" />
+      <module fileurl="file://C:\Users\Prakriti\AndroidStudioProjects\FinalNepstra\NepstraAdd.iml" filepath="C:\Users\Prakriti\AndroidStudioProjects\FinalNepstra\NepstraAdd.iml" />
+      <module fileurl="file://C:\Users\Prakriti\AndroidStudioProjects\FinalNepstra\NepstraAddToCart.iml" filepath="C:\Users\Prakriti\AndroidStudioProjects\FinalNepstra\NepstraAddToCart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>

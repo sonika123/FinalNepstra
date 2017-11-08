@@ -1,0 +1,24 @@
+<tabs>
+
+    <tab
+        id="@+id/tab_dummy"
+                icon="@drawable/home_icon"
+        title="Home" />
+
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/home_icon"
+        title="Home" />
+    <tab
+        id="@+id/tab_products"
+        icon="@drawable/catalogue_icon"
+        title="Products" />
+    <tab
+        id="@+id/tab_order"
+        icon="@drawable/order_icon"
+        title="Order" />
+    <tab
+        id="@+id/tab_account"
+        icon="@drawable/account_icon"
+        title="Account" />
+</tabs>

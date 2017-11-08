@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_new_arrival"
+            android:title="New arrival"
+            android:icon="@drawable/btn_new_arrival"
+            android:iconTint="@color/colorWhite"
+
+            />
+        <item
+            android:id="@+id/nav_womens"
+            android:title="Womens"
+            android:icon="@drawable/btn_womens"/>
+        <item
+            android:id="@+id/nav_mens"
+            android:title="Mens"
+            android:icon="@drawable/btn_mens"/>
+
+        <item
+            android:id="@+id/nav_jewellry"
+            android:title="Jewellery"
+            android:icon="@drawable/btn_jewellery"
+            />
+        <item
+            android:id="@+id/nav_books"
+            android:title="Kids"
+            android:icon="@drawable/btn_books"
+            />
+        <item
+            android:id="@+id/nav_sports"
+            android:title="Sports"
+            android:icon="@drawable/btn_sports"
+
+            />
+        <item
+            android:id="@+id/nav_arts_and_craft"
+            android:title="Arts &amp; Craft"
+            android:icon="@drawable/btn_arts"
+            />
+        <item
+            android:id="@+id/nav_category"
+            android:title="Category"
+            android:icon="@drawable/btn_catagory"/>
+        <item
+            android:id="@+id/nav_contact"
+            android:title="Contacts"
+            android:icon="@drawable/btn_contact_us"
+            />
+        <item
+            android:id="@+id/nav_about_us"
+            android:title="About Us"
+            android:icon="@drawable/btn_about"
+            />
+
+    </group>
+
+
+</menu>

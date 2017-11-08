@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <SearchView
+            android:id="@+id/search_it"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:focusable="true"
+            android:background="@drawable/thin_black_rectangular_border"
+            android:focusableInTouchMode="true"
+            android:iconifiedByDefault="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.synnapps.carouselview.CarouselView
+            android:id="@+id/carouselview"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/search_it"
+            app:layout_constraintStart_toStartOf="@+id/search_it"
+            app:layout_constraintTop_toBottomOf="@+id/search_it" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fadeScrollbars="false"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="8dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="@+id/carouselview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/carouselview"
+            app:layout_constraintTop_toBottomOf="@+id/carouselview" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

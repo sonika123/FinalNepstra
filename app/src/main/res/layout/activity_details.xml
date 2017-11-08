@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbardetails"
+                android:background="@color/colorAppBlack"
+                app:theme="@style/ToolbarColoredSearchIcon"
+                app:title="Product Details"
+                app:titleTextColor="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:id="@+id/image"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher"
+            />
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:text="UGG BUTTON BOOTS"
+            android:textSize="24dp"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/txt_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:text="$100"
+            android:textSize="20dp"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/txt_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Description"
+            android:textSize="20sp" />
+
+
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>
