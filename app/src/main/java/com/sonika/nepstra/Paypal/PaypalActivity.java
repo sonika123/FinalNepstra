@@ -38,11 +38,11 @@ public class PaypalActivity extends AppCompatActivity implements View.OnClickLis
     //The views
     private Button buttonPay;
     SharedPreferences sm;
-  //  private EditText editTextAmount;
+    //  private EditText editTextAmount;
 
     //Payment Amount
-     String paymentAmount;
-     String name, country, mail, phoneno;
+    String paymentAmount;
+    String name,city, country,state, mail, phoneno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +58,10 @@ public class PaypalActivity extends AppCompatActivity implements View.OnClickLis
 
         startService(intent);
     }
+
     @Override
     public void onClick(View v) {
         getPayment();
-       // addAppProvidedShippingAddress(PayPalPayment);
-
 
     }
 
@@ -88,57 +87,46 @@ public class PaypalActivity extends AppCompatActivity implements View.OnClickLis
 
         sm = getSharedPreferences("USER_LOGIN", 0);
         paymentAmount = sm.getString("total_amount", null);
-        Log.e("hellopayment", paymentAmount);
         sm = getSharedPreferences("USER_LOGIN", 0);
         country = sm.getString("country", null);
-     //   Log.e("hellopayment", country);
-         PayPalPayment payment = new PayPalPayment(new BigDecimal(paymentAmount), "USD", "Total cost:",
-                 PayPalPayment.PAYMENT_INTENT_SALE);
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(paymentAmount), "USD", "Total cost:", PayPalPayment.PAYMENT_INTENT_SALE);
+        enableShippingAddressRetrieval(payment, true);
+        addAppProvidedShippingAddress(payment);
+        Intent intent = new Intent(this, PaymentActivity.class);
 
-        PayPalPayment payment1 = new PayPalPayment(new BigDecimal(paymentAmount), "USD", "Address:",
-              PayPalPayment.PAYMENT_INTENT_SALE);
-//        PayPalPayment payment2 = new PayPalPayment(new BigDecimal(paymentAmount), "USD", "Name:",
-//                PayPalPayment.PAYMENT_INTENT_SALE);
-//        PayPalPayment payment3 = new PayPalPayment(new BigDecimal(paymentAmount), "USD", "Address:",
-//                PayPalPayment.PAYMENT_INTENT_SALE);
-//        PayPalPayment payment4 = new PayPalPayment(new BigDecimal(paymentAmount), "USD", "Address:",
-//                PayPalPayment.PAYMENT_INTENT_SALE);
-            //Creating Paypal Payment activity intent
-            Intent intent = new Intent(this, PaymentActivity.class);
+        //putting the paypal configuration to the intent
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
 
-            //putting the paypal configuration to the intent
-            intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        //Puting paypal payment to the intent
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
 
-            //Puting paypal payment to the intent
-            intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment );
-            intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment1 );
-//            intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment2 );
-//            intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment3 );
-//            intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment4 );
-
-            //Starting the intent activity for result
-            //the request code will be used on the method onActivityResult
-            startActivityForResult(intent, PAYPAL_REQUEST_CODE);
-        }
+        //Starting the intent activity for result
+        //the request code will be used on the method onActivityResult
+        startActivityForResult(intent, PAYPAL_REQUEST_CODE);
+    }
 
     private void addAppProvidedShippingAddress(PayPalPayment paypalPayment) {
 
         sm = getSharedPreferences("USER_LOGIN", 0);
         name = sm.getString("total_amount", null);
-        Log.e("hellopayment", name);
+        sm = getSharedPreferences("USER_LOGIN", 0);
+        city = sm.getString("total_amount", null);
+        sm = getSharedPreferences("USER_LOGIN", 0);
+        state = sm.getString("total_amount", null);
         sm = getSharedPreferences("USER_LOGIN", 0);
         phoneno = sm.getString("phone", null);
-        Log.e("hellopayment", phoneno);
         sm = getSharedPreferences("USER_LOGIN", 0);
         mail = sm.getString("email", null);
-        Log.e("hellopayment",mail);
         sm = getSharedPreferences("USER_LOGIN", 0);
         country = sm.getString("country", null);
-        Log.e("hellopayment", country);
 
-        ShippingAddress shippingAddress = new ShippingAddress().recipientName(name).line1(country)
-                        .city("Austin").state(mail).postalCode(phoneno).countryCode("US");
+        ShippingAddress shippingAddress =  new ShippingAddress().recipientName(name).line1("52 North Main St.")
+                .city(city).state(state).postalCode("78729").countryCode("US");
         paypalPayment.providedShippingAddress(shippingAddress);
+//        ShippingAddress shippingAddress =  new ShippingAddress().recipientName(name).line1("52 North Main St.")
+//                .city("Austin").state("TX").postalCode("78729").countryCode("US");
+//        paypalPayment.providedShippingAddress(shippingAddress);
+
 
     }
 
@@ -148,9 +136,6 @@ public class PaypalActivity extends AppCompatActivity implements View.OnClickLis
     private void enableShippingAddressRetrieval(PayPalPayment paypalPayment, boolean enable) {
         paypalPayment.enablePayPalShippingAddressesRetrieval(enable);
     }
-
-
-
 
 
     @Override

@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <TextView
             android:id="@+id/txt_billing_details"
             android:layout_width="wrap_content"
@@ -29,48 +28,77 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txt_first_name"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:id="@+id/linear_layout_for_txtfirstname_txtlastname"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="First name"
-            android:textColor="@color/colorAppBlack"
-            app:layout_constraintStart_toStartOf="@+id/txt_billing_details"
-            app:layout_constraintTop_toBottomOf="@+id/txt_billing_details" />
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_billing_details">
 
-        <TextView
-            android:id="@+id/txt_last_name"
-            android:layout_width="wrap_content"
+
+
+            <TextView
+                android:id="@+id/txt_first_name"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="First name"
+                android:textColor="@color/colorAppBlack"
+                />
+
+            <TextView
+                android:id="@+id/txt_last_name"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="Last name"
+                android:textColor="@color/colorAppBlack"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_for_firstname_lastname"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="105dp"
-            android:text="Last name"
-            android:textColor="@color/colorAppBlack"
-            app:layout_constraintStart_toEndOf="@+id/txt_first_name"
-            app:layout_constraintTop_toTopOf="@+id/txt_first_name" />
-
-        <EditText
-            android:id="@+id/lbl_first_name"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:background="@drawable/thin_red_rectangular_border"
-            android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="@+id/txt_first_name"
-            app:layout_constraintTop_toBottomOf="@+id/txt_first_name" />
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_for_txtfirstname_txtlastname">
 
-        <EditText
-            android:id="@+id/lbl_last_name"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/thin_red_rectangular_border"
-            android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="@+id/txt_last_name"
-            app:layout_constraintTop_toBottomOf="@+id/txt_last_name" />
 
+            <EditText
+                android:id="@+id/lbl_first_name"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/thin_red_rectangular_border"
+                android:ems="10"
+                android:inputType="textPersonName"
+                />
+
+            <EditText
+                android:id="@+id/lbl_last_name"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/thin_red_rectangular_border"
+                android:ems="10"
+                android:inputType="textPersonName"
+                />
+
+        </LinearLayout>
         <TextView
             android:id="@+id/txt_company_name"
             android:layout_width="wrap_content"
@@ -78,8 +106,8 @@
             android:layout_marginTop="8dp"
             android:text="Company name"
             android:textColor="@color/colorAppBlack"
-            app:layout_constraintStart_toStartOf="@+id/lbl_first_name"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_first_name" />
+            app:layout_constraintStart_toStartOf="@+id/linear_layout_for_firstname_lastname"
+            app:layout_constraintTop_toBottomOf="@+id/linear_layout_for_firstname_lastname" />
 
         <EditText
             android:id="@+id/lbl_company_name"
@@ -89,8 +117,8 @@
             android:background="@drawable/thin_red_rectangular_border"
             android:ems="10"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/lbl_last_name"
-            app:layout_constraintStart_toStartOf="@+id/lbl_first_name"
+            app:layout_constraintEnd_toEndOf="@+id/linear_layout_for_firstname_lastname"
+            app:layout_constraintStart_toStartOf="@+id/linear_layout_for_firstname_lastname"
             app:layout_constraintTop_toBottomOf="@+id/txt_company_name" />
 
         <TextView
@@ -197,50 +225,76 @@
             app:layout_constraintStart_toStartOf="@+id/lbl_town_city"
             app:layout_constraintTop_toBottomOf="@+id/txt_state_zone" />
 
-        <TextView
-            android:id="@+id/txt_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Phone"
-            android:textColor="@color/colorAppBlack"
-            app:layout_constraintStart_toStartOf="@+id/lbl_state_zone"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_state_zone" />
-
-        <EditText
-            android:id="@+id/lbl_phone"
+        <LinearLayout
+            android:id="@+id/linear_layout_for_txtphone_txtpostcode"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="4dp"
-            android:ems="10"
-            android:inputType="number"
-            android:background="@drawable/thin_red_rectangular_border"
-            app:layout_constraintEnd_toEndOf="@+id/lbl_first_name"
-            app:layout_constraintStart_toStartOf="@+id/lbl_first_name"
-            app:layout_constraintTop_toBottomOf="@+id/txt_phone" />
-
-        <TextView
-            android:id="@+id/txt_post_code_zip"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Postcode / ZIP"
-            android:textColor="@color/colorAppBlack"
-            app:layout_constraintStart_toStartOf="@+id/txt_last_name"
-            app:layout_constraintTop_toBottomOf="@+id/editText8" />
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lbl_state_zone">
 
-        <EditText
-            android:id="@+id/lbl_post_code_zip"
+
+
+            <TextView
+                android:id="@+id/txt_phone"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:textColor="@color/colorAppBlack"
+                />
+
+            <TextView
+                android:id="@+id/txt_post_code_zip"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="Postcode / ZIP"
+                android:textColor="@color/colorAppBlack"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_for_phone_postcode"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:background="@drawable/thin_red_rectangular_border"        app:layout_constraintEnd_toEndOf="@+id/lbl_last_name"
-            app:layout_constraintStart_toStartOf="@+id/lbl_last_name"
-            app:layout_constraintTop_toBottomOf="@+id/txt_post_code_zip" />
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_for_txtphone_txtpostcode">
 
+            <EditText
+                android:id="@+id/lbl_phone"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:inputType="number"
+                android:background="@drawable/thin_red_rectangular_border"
+                />
+
+
+            <EditText
+                android:id="@+id/lbl_post_code_zip"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/thin_red_rectangular_border"        app:layout_constraintEnd_toEndOf="@+id/lbl_last_name"
+                />
+
+        </LinearLayout>
         <TextView
             android:id="@+id/txt_email_address"
             android:layout_width="wrap_content"
@@ -248,8 +302,8 @@
             android:layout_marginTop="8dp"
             android:text="Email address"
             android:textColor="@color/colorAppBlack"
-            app:layout_constraintStart_toStartOf="@+id/lbl_phone"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_phone" />
+            app:layout_constraintStart_toStartOf="@+id/linear_layout_for_phone_postcode"
+            app:layout_constraintTop_toBottomOf="@+id/linear_layout_for_phone_postcode" />
 
         <EditText
             android:id="@+id/lbl_email_address"
@@ -259,8 +313,8 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:background="@drawable/thin_red_rectangular_border"
-            app:layout_constraintEnd_toEndOf="@+id/editText8"
-            app:layout_constraintStart_toStartOf="@+id/editText8"
+            app:layout_constraintEnd_toEndOf="@+id/linear_layout_for_phone_postcode"
+            app:layout_constraintStart_toStartOf="@+id/linear_layout_for_phone_postcode"
             app:layout_constraintTop_toBottomOf="@+id/txt_email_address" />
 
         <CheckBox
