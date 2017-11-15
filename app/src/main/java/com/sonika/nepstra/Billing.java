@@ -162,18 +162,17 @@ public class Billing extends AppCompatActivity {
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Map<String, String> params = new HashMap<>();
-                            params.put("email", _name.getText().toString());
-                            params.put("first_name", _email.getText().toString());
-                            params.put("last_name", _email.getText().toString());
-                            params.put("company", _email.getText().toString());
-                            params.put("address_1", _email.getText().toString());
-                            params.put("address_2", _email.getText().toString());
-                            params.put("city", _email.getText().toString());
-                            params.put("state", _email.getText().toString());
-                            params.put("postcode", _email.getText().toString());
-                            params.put("country", _email.getText().toString());
-                            params.put("email", _email.getText().toString());
-                            params.put("phone", _email.getText().toString());
+                            params.put("first_name", sname);
+                            params.put("last_name", slname);
+                            params.put("company", scname);
+                            params.put("address_1", saddress_1);
+                            params.put("address_2", saddress_2);
+                            params.put("city", scity);
+                            params.put("state", sstate);
+                            params.put("postcode",spostcode);
+                            params.put("country", scountry);
+                            params.put("email", semail);
+                            params.put("phone", sphone);
                             return params;
                         }
                     };
