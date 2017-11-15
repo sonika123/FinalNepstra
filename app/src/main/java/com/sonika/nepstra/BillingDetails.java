@@ -77,7 +77,7 @@ public class BillingDetails extends AppCompatActivity {
 //                    phone.setError("Please enter your valid number");
                 } else {
                     Log.e("Tag", "signupPrakriti");
-                    new registerAsyncTask();
+                    new registerAsyncTask().execute();
                 }
             }
         });
@@ -158,12 +158,14 @@ public class BillingDetails extends AppCompatActivity {
             registerActivityHashMap.put("email", semail);
             registerActivityHashMap.put("phone", sphone);
             JsonParserA jsonParser = new JsonParserA();
-            JSONObject jsonObject = jsonParser.performPostCI("http://nepstra.com/api/android/newcustomer.php?email=semail&first_name=sname&last_name=slname&username=sname&password=pass&b[first_name]=sname&b[last_name]=slname&b[company]=cname&b[address_1]=saddress_1&b[address_2]=saddress_2&b[city]=scity&b[state]=sstate&b[postcode]=spostcode&b[country]=scountry&b[email]=semail&b[phone]=sphone", registerActivityHashMap);
+            JSONObject jsonObject = jsonParser.performPostCI("http://nepstra.com/api/android/newcustomer.php?email=prak@email.com&first_name=fn&last_name=ln&username=prak@email.com&password=pass&b[first_name]=bfn&b[last_name]=bln&b[company]=bc&b[address_1]=ba1&b[address_2]=ba2&b[city]=bc&b[state]=bs&b[postcode]=bpc&b[country]=bc&b[email]=abcdef@email.com&b[phone]=bp&s[first_name]=sfn&s[last_name]=sln&s[company]=sc&s[address_1]=sa1&s[address_2]=sa2&s[city]=sc&s[state]=ss&s[postcode]=spc&s[country]=sc&s[email]=prak@email.com&s[phone]=sp", registerActivityHashMap);
 
             try {
                 if (jsonObject == null) {
                     flag = 1;
+                    Log.e("Tag", "checkPrakriti");
                 } else if (jsonObject.getString("status").equals("success")) {
+                    Log.e("Tag", "check1Prakriti");
                     flag = 2;
                 } else {
                     flag = 3;

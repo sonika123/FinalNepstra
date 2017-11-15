@@ -1,8 +1,10 @@
 package com.sonika.nepstra;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -99,7 +101,6 @@ public class Billing extends AppCompatActivity {
 //                    phone.setError("Please enter your valid number");
 
 
-
                     SharedPreferences sm = getSharedPreferences("USER_LOGIN", 0);
                     SharedPreferences.Editor editor = sm.edit();
                     editor.putString("name", sname);
@@ -139,10 +140,7 @@ public class Billing extends AppCompatActivity {
                     RequestQueue queue = Volley.newRequestQueue(Billing.this);
                     //this is the url where you want to send the request
                     //TODO: replace with your own url to send request, as I am using my own localhost for this tutorial
-                    String url = "http://nepstra.com/api/android/newcustomer.php?email=prak@email.com&first_name=fn&last_name=ln&username=prak@email.com" +
-                            "&password=pass&b[first_name]=bfn&b[last_name]=bln&b[company]=bc&b[address_1]=ba1&b[address_2]=ba2&b[city]=bc" +
-                            "&b[state]=bs&b[postcode]=bpc&b[country]=bc&b[email]=abcdef@email.com&b[phone]=bp&s[first_name]=sfn&s[last_name]=sln" +
-                            "&s[company]=sc&s[address_1]=sa1&s[address_2]=sa2&s[city]=sc&s[state]=ss&s[postcode]=spc&s[country]=sc&s[email]=prak@email.com&s[phone]=sp";
+                    String url = "http://nepstra.com/api/android/newcustomer.php";
 
                     // Request a string response from the provided URL.
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -150,7 +148,9 @@ public class Billing extends AppCompatActivity {
                                 @Override
                                 public void onResponse(String response) {
                                     // Display the response string.
-                                    _response.setText(response);
+
+
+                                    // _response.setText(response);
                                 }
                             }, new Response.ErrorListener() {
                         @Override
@@ -169,7 +169,7 @@ public class Billing extends AppCompatActivity {
                             params.put("address_2", saddress_2);
                             params.put("city", scity);
                             params.put("state", sstate);
-                            params.put("postcode",spostcode);
+                            params.put("postcode", spostcode);
                             params.put("country", scountry);
                             params.put("email", semail);
                             params.put("phone", sphone);
@@ -179,6 +179,5 @@ public class Billing extends AppCompatActivity {
                     // Add the request to the RequestQueue.
                     queue.add(stringRequest);
                 }
-                Intent i = new Intent( Billing.this , PaypalActivity.class);
-                startActivity(i);
+
             }});}}
