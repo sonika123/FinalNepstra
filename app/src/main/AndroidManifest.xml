@@ -65,6 +65,7 @@
             android:name=".Paypal.PaypalActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".BillingDetails"></activity>
+        <activity android:name=".Billing"></activity>
 
 
 

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -75,6 +76,7 @@ public class BillingDetails extends AppCompatActivity {
 //                } else if (!isValidContact(sphone)) {
 //                    phone.setError("Please enter your valid number");
                 } else {
+                    Log.e("Tag", "signupPrakriti");
                     new registerAsyncTask();
                 }
             }

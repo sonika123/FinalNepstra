@@ -80,7 +80,7 @@ public class OrderedProducts extends AppCompatActivity implements ListViewListen
 
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(OrderedProducts.this, BillingDetails.class);
+                Intent i = new Intent(OrderedProducts.this, Billing.class);
                 startActivity(i);
             }
         });
