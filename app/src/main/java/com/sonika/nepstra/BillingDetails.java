@@ -150,7 +150,7 @@ public class BillingDetails extends AppCompatActivity {
             registerActivityHashMap.put("first_name", sname);
             registerActivityHashMap.put("last_name", slname);
             registerActivityHashMap.put("username", sname);
-            registerActivityHashMap.put("password", sname);
+           // registerActivityHashMap.put("password", sname);
             registerActivityHashMap.put("b[first_name]", sname);
             registerActivityHashMap.put("b[last_name]", slname);
             registerActivityHashMap.put("b[company]", scname);
@@ -162,14 +162,19 @@ public class BillingDetails extends AppCompatActivity {
             registerActivityHashMap.put("b[country]", scountry);
             registerActivityHashMap.put("b[email]", semail);
             registerActivityHashMap.put("b[phone]", sphone);
+            registerActivityHashMap.put("s[first_name]", sname);
+            registerActivityHashMap.put("s[last_name]", slname);
+            registerActivityHashMap.put("s[company]", scname);
+            registerActivityHashMap.put("s[address_1]", saddress_1);
+            registerActivityHashMap.put("s[address_2]", saddress_2);
+            registerActivityHashMap.put("s[city]", scity);
+            registerActivityHashMap.put("s[state]", sstate);
+            registerActivityHashMap.put("s[postcode]", spostcode);
+            registerActivityHashMap.put("s[country]", scountry);
+            registerActivityHashMap.put("s[email]", semail);
+            registerActivityHashMap.put("s[phone]", sphone);
             JsonParserA jsonParser = new JsonParserA();
-            JSONObject jsonObject = jsonParser.performPostCI("http://nepstra.com/api/android/newcustomer.php" +
-                    "?email=prak@email.com&first_name=fn&last_name=ln&username=prak@email.com" +
-                    "&password=pass&b[first_name]=bfn&b[last_name]=bln&b[company]=bc&b[address_1]=ba1" +
-                    "&b[address_2]=ba2&b[city]=bc&b[state]=bs&b[postcode]=bpc&b[country]=bc" +
-                    "&b[email]=abcdef@email.com&b[phone]=bp&s[first_name]=sfn&s[last_name]=sln" +
-                    "&s[company]=sc&s[address_1]=sa1&s[address_2]=sa2&s[city]=sc&s[state]=ss" +
-                    "&s[postcode]=spc&s[country]=sc&s[email]=prak@email.com&s[phone]=sp", registerActivityHashMap);
+            JSONObject jsonObject = jsonParser.performPostCI("http://nepstra.com/api/android/newcustomer.php", registerActivityHashMap);
 
             try {
                 if (jsonObject == null) {

@@ -25,7 +25,10 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.sonika.nepstra.Paypal.PaypalActivity;
@@ -134,77 +137,146 @@ public class Billing extends AppCompatActivity {
 
                 } else {
                     Log.e("Tag", "signupPrakriti");
-                    try {
-                        RequestQueue requestQueue = Volley.newRequestQueue(Billing.this);
-                        String URL = "http://nepstra.com/api/android/newcustomer.php?email=prak@email.com&first_name=fn&last_name=ln&username=prak@email.com&password=pass&b[first_name]=bfn&b[last_name]=bln&b[company]=bc&b[address_1]=ba1&b[address_2]=ba2&b[city]=bc&b[state]=bs&b[postcode]=bpc&b[country]=bc&b[email]=abcdef@email.com&b[phone]=bp&s[first_name]=sfn&s[last_name]=sln&s[company]=sc&s[address_1]=sa1&s[address_2]=sa2&s[city]=sc&s[state]=ss&s[postcode]=spc&s[country]=sc&s[email]=prak@email.com&s[phone]=sp";
-                        JSONObject jsonBody = new JSONObject();
-                       jsonBody.put("Title", " Demo");
-                       jsonBody.put("Author", "BNK");
-                     final String requestBody = jsonBody.toString();
-                        // Instantiate the RequestQueue.
-                  //  RequestQueue queue = Volley.newRequestQueue(Billing.this);
-                    //this is the url where you want to send the request
-                    //TODO: replace with your own url to send request, as I am using my own localhost for this tutorial
-                  //  String url = "http://nepstra.com/api/android/newcustomer.php";
+                    mprogressDialog= new ProgressDialog(Billing.this);
+                    mprogressDialog.setMessage("Loading...");
+                    mprogressDialog.show();
 
-                    // Request a string response from the provided URL.
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+                    RequestQueue queue = Volley.newRequestQueue(Billing.this);
+
+
+                    StringRequest sr = new StringRequest(Request.Method.POST, "http://nepstra.com/api/android/newcustomer.php",
+
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    // Display the response string.
+                                    Intent i = new Intent(Billing.this, PaypalActivity.class);
+                                    startActivity(i);
+                                    mprogressDialog.hide();
 
-                                    Log.i("VOLLEY", response);
-                                    // _response.setText(response);
+                                    Log.e("HttpClient", "success! response: " + response.toString());
+                                }},
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.e("HttpClient", "error: " + error.toString());
+                                    mprogressDialog.hide();
                                 }
-                            }, new Response.ErrorListener() {
+                            }) {
                         @Override
-                        public void onErrorResponse(VolleyError error) {
-                           // _response.setText("That didn't work!");
-                            Log.e("VOLLEY", error.toString());
-                        }
-                    }) {
-                        //adding parameters to the request
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String, String> params = new HashMap<>();
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
                             params.put("email", semail);
                             params.put("first_name", sname);
                             params.put("last_name", slname);
                             params.put("username", sname);
-                            params.put("password", sname);
-                            params.put("b[first_name]", sname);
-                            params.put("b[last_name]", slname);
-                            params.put("b[company]", scname);
-                            params.put("b[address_1]", saddress_1);
-                            params.put("b[address_2]", saddress_2);
-                            params.put("b[city]", scity);
-                            params.put("b[state]", sstate);
-                            params.put("b[postcode]", spostcode);
-                            params.put("b[country]", scountry);
-                            params.put("b[email]", semail);
-                            params.put("b[phone]", sphone);
-//                            params.put("first_name", sname);
-//                            params.put("last_name", slname);
-//                            params.put("company", scname);
-//                            params.put("address_1", saddress_1);
-//                            params.put("address_2", saddress_2);
-//                            params.put("city", scity);
-//                            params.put("state", sstate);
-//                            params.put("postcode", spostcode);
-//                            params.put("country", scountry);
-//                            params.put("email", semail);
-//                            params.put("phone", sphone);
+                            params.put("billing[first_name]", sname);
+                            params.put("billing[last_name]", slname);
+                            params.put("billing[company]", scname);
+                            params.put("billing[address_1]", saddress_1);
+                            params.put("billing[address_2]", saddress_2);
+                            params.put("billing[city]", scity);
+                            params.put("billing[state]", sstate);
+                            params.put("billing[postcode]", spostcode);
+                            params.put("billing[country]", scountry);
+                            params.put("billing[email]", semail);
+                            params.put("billing[phone]", sphone);
+                            params.put("shipping[first_name]", sname);
+                            params.put("shipping[last_name]", slname);
+                            params.put("shipping[company]", scname);
+                            params.put("shipping[address_1]", saddress_1);
+                            params.put("shipping[address_2]", saddress_2);
+                            params.put("shipping[city]", scity);
+                            params.put("shipping[state]", sstate);
+                            params.put("shipping[postcode]", spostcode);
+                            params.put("shipping[country]", scountry);
+                            params.put("shipping[email]", semail);
+                            params.put("shipping[phone]", sphone);
                             return params;
                         }
 
-
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("Content-Type", "application/x-www-form-urlencoded");
+                            return params;
+                        }
                     };
-                        Intent i = new Intent( Billing.this, PaypalActivity.class);
 
-                        startActivity(i);
-                    // Add the request to the RequestQueue.
-                    requestQueue.add(stringRequest);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }}}});}}
+
+
+                    queue.add(sr);
+                }}});}}
+//                        RequestQueue requestQueue = Volley.newRequestQueue(Billing.this);
+//                        String URL = "http://nepstra.com/api/android/newcustomer.php?email=prak@email.com&first_name=fn&last_name=ln&username=prak@email.com&password=pass&b[first_name]=bfn&b[last_name]=bln&b[company]=bc&b[address_1]=ba1&b[address_2]=ba2&b[city]=bc&b[state]=bs&b[postcode]=bpc&b[country]=bc&b[email]=abcdef@email.com&b[phone]=bp&s[first_name]=sfn&s[last_name]=sln&s[company]=sc&s[address_1]=sa1&s[address_2]=sa2&s[city]=sc&s[state]=ss&s[postcode]=spc&s[country]=sc&s[email]=prak@email.com&s[phone]=sp";
+//                        JSONObject jsonBody = new JSONObject();
+//                       jsonBody.put("Title", " Demo");
+//                       jsonBody.put("Author", "BNK");
+//                     final String requestBody = jsonBody.toString();
+//                        // Instantiate the RequestQueue.
+//                  //  RequestQueue queue = Volley.newRequestQueue(Billing.this);
+//                    //this is the url where you want to send the request
+//                    //TODO: replace with your own url to send request, as I am using my own localhost for this tutorial
+//                  //  String url = "http://nepstra.com/api/android/newcustomer.php";
+//
+//                    // Request a string response from the provided URL.
+//                    StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+//                            new Response.Listener<String>() {
+//                                @Override
+//                                public void onResponse(String response) {
+//                                    // Display the response string.
+//                                    Intent i = new Intent(Billing.this, PaypalActivity.class);
+//                                    startActivity(i);
+//
+//
+//                                    Log.i("VOLLEYSUCESS", response);
+//                                    // _response.setText(response);
+//                                }
+//                            }, new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+//                           // _response.setText("That didn't work!");
+//                            Log.i("VOLLEYERROR", error.toString());
+//                        }
+//                    }) {
+//                        //adding parameters to the request
+//                        @Override
+//                        protected Map<String, String> getParams() throws AuthFailureError {
+//                            Map<String, String> params = new HashMap<>();
+//                            params.put("email", semail);
+//                            params.put("first_name", sname);
+//                            params.put("last_name", slname);
+//                            params.put("username", sname);
+//                            params.put("password", sname);
+//                            params.put("b[first_name]", sname);
+//                            params.put("b[last_name]", slname);
+//                            params.put("b[company]", scname);
+//                            params.put("b[address_1]", saddress_1);
+//                            params.put("b[address_2]", saddress_2);
+//                            params.put("b[city]", scity);
+//                            params.put("b[state]", sstate);
+//                            params.put("b[postcode]", spostcode);
+//                            params.put("b[country]", scountry);
+//                            params.put("b[email]", semail);
+//                            params.put("b[phone]", sphone);
+////                            params.put("first_name", sname);
+////                            params.put("last_name", slname);
+////                            params.put("company", scname);
+////                            params.put("address_1", saddress_1);
+////                            params.put("address_2", saddress_2);
+////                            params.put("city", scity);
+////                            params.put("state", sstate);
+////                            params.put("postcode", spostcode);
+////                            params.put("country", scountry);
+////                            params.put("email", semail);
+////                            params.put("phone", sphone);
+//                            return params;
+//                        }
+//
+//
+//                    };
+//
+//                    // Add the request to the RequestQueue.
+//                    requestQueue.add(stringRequest);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }}}});}}
