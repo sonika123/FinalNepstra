@@ -38,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -144,7 +145,11 @@ public class Billing extends AppCompatActivity {
                     RequestQueue queue = Volley.newRequestQueue(Billing.this);
 
 
-                    StringRequest sr = new StringRequest(Request.Method.POST, "http://nepstra.com/api/android/newcustomer.php",
+//                    String uri = Uri.parse("http://nepstra.com/api/android/newcustomer.php?email=prakash1111@email.com&first_name=fn&last_name=ln&username=prakriti1111@email.com&password=pass&b[first_name]=bfn&b[last_name]=bln&b[company]=bc&b[address_1]=ba1&b[address_2]=ba2&b[city]=bc&b[state]=bs&b[postcode]=bpc&b[country]=bc&b[email]=prakriti1111@email.com&b[phone]=bp&s[first_name]=sfn&s[last_name]=sln&s[company]=sc&s[address_1]=sa1&s[address_2]=sa2&s[city]=sc&s[state]=ss&s[postcode]=spc&s[country]=sc&s[email]=prakriti1111@email.com&s[phone]=sphttp://nepstra.com/api/android/newcustomer.php?email=prakriti1111@email.com&first_name=fn&last_name=ln&username=prakriti1111@email.com&password=pass&b[first_name]=bfn&b[last_name]=bln&b[company]=bc&b[address_1]=ba1&b[address_2]=ba2&b[city]=bc&b[state]=bs&b[postcode]=bpc&b[country]=bc&b[email]=prakriti1111@email.com&b[phone]=bp&s[first_name]=sfn&s[last_name]=sln&s[company]=sc&s[address_1]=sa1&s[address_2]=sa2&s[city]=sc&s[state]=ss&s[postcode]=spc&s[country]=sc&s[email]=prakriti1111@email.com&s[phone]=sp")
+//                            .buildUpon()
+//                            .appendQueryParameter("email", "val")
+//                            .build().toString();
+                    StringRequest sr = new StringRequest(Request.Method.POST, "http://nepstra.com/api/android/newcustomer.php/",
 
                             new Response.Listener<String>() {
                                 @Override
@@ -169,28 +174,29 @@ public class Billing extends AppCompatActivity {
                             params.put("first_name", sname);
                             params.put("last_name", slname);
                             params.put("username", sname);
-                            params.put("billing[first_name]", sname);
-                            params.put("billing[last_name]", slname);
-                            params.put("billing[company]", scname);
-                            params.put("billing[address_1]", saddress_1);
-                            params.put("billing[address_2]", saddress_2);
-                            params.put("billing[city]", scity);
-                            params.put("billing[state]", sstate);
-                            params.put("billing[postcode]", spostcode);
-                            params.put("billing[country]", scountry);
-                            params.put("billing[email]", semail);
-                            params.put("billing[phone]", sphone);
-                            params.put("shipping[first_name]", sname);
-                            params.put("shipping[last_name]", slname);
-                            params.put("shipping[company]", scname);
-                            params.put("shipping[address_1]", saddress_1);
-                            params.put("shipping[address_2]", saddress_2);
-                            params.put("shipping[city]", scity);
-                            params.put("shipping[state]", sstate);
-                            params.put("shipping[postcode]", spostcode);
-                            params.put("shipping[country]", scountry);
-                            params.put("shipping[email]", semail);
-                            params.put("shipping[phone]", sphone);
+                            params.put("password", sname);
+                            params.put("b[first_name]", sname);
+                            params.put("b[last_name]", slname);
+                            params.put("b[company]", scname);
+                            params.put("b[address_1]", saddress_1);
+                            params.put("b[address_2]", saddress_2);
+                            params.put("b[city]", scity);
+                            params.put("b[state]", sstate);
+                            params.put("b[postcode]", spostcode);
+                            params.put("b[country]", scountry);
+                            params.put("b[email]", semail);
+                            params.put("b[phone]", sphone);
+                            params.put("s[first_name]", sname);
+                            params.put("s[last_name]", slname);
+                            params.put("s[company]", scname);
+                            params.put("s[address_1]", saddress_1);
+                            params.put("s[address_2]", saddress_2);
+                            params.put("s[city]", scity);
+                            params.put("s[state]", sstate);
+                            params.put("s[postcode]", spostcode);
+                            params.put("s[country]", scountry);
+                            params.put("s[email]", semail);
+                            params.put("s[phone]", sphone);
                             return params;
                         }
 
@@ -201,10 +207,25 @@ public class Billing extends AppCompatActivity {
                             return params;
                         }
                     };
+                    sr.setRetryPolicy(new RetryPolicy() {
+                        @Override
+                        public int getCurrentTimeout() {
+                            return 50000;
+                        }
 
+                        @Override
+                        public int getCurrentRetryCount() {
+                            return 50000;
+                        }
 
+                        @Override
+                        public void retry(VolleyError error) throws VolleyError {
 
+                        }
+                    });
                     queue.add(sr);
+
+
                 }}});}}
 //                        RequestQueue requestQueue = Volley.newRequestQueue(Billing.this);
 //                        String URL = "http://nepstra.com/api/android/newcustomer.php?email=prak@email.com&first_name=fn&last_name=ln&username=prak@email.com&password=pass&b[first_name]=bfn&b[last_name]=bln&b[company]=bc&b[address_1]=ba1&b[address_2]=ba2&b[city]=bc&b[state]=bs&b[postcode]=bpc&b[country]=bc&b[email]=abcdef@email.com&b[phone]=bp&s[first_name]=sfn&s[last_name]=sln&s[company]=sc&s[address_1]=sa1&s[address_2]=sa2&s[city]=sc&s[state]=ss&s[postcode]=spc&s[country]=sc&s[email]=prak@email.com&s[phone]=sp";
