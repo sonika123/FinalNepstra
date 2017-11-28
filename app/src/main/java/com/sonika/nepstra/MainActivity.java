@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity
 
 
         else if (id == R.id.nav_about_us) {
-            Intent intentAboutUs = new Intent(this, LoginActivity.class);
+            Intent intentAboutUs = new Intent(this, LoginVolley.class);
             startActivity(intentAboutUs);
 
         }

@@ -2,12 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sonika.nepstra">
+
+    <uses-sdk tools:overrideLibrary="com.paypal.android.sdk.payments" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-sdk tools:overrideLibrary="com.paypal.android.sdk.payments" />
-
 
     <application
         android:allowBackup="true"
@@ -64,12 +65,9 @@
         <activity
             android:name=".Paypal.PaypalActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".BillingDetails"></activity>
-        <activity android:name=".Billing"></activity>
-
-
-
-
+        <activity android:name=".BillingDetails" />
+        <activity android:name=".Billing" />
+        <activity android:name=".LoginVolley"></activity>
     </application>
 
 </manifest>

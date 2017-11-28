@@ -6,16 +6,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +49,7 @@ import java.util.Map;
 
 public class Billing extends AppCompatActivity {
     EditText fname,lname, cname, address_1, address_2,
-            city, state,postcode,country,email,phone;
+            city, state,postcode,country,email,phone, password;
     Button btnplaceorder;
     ProgressDialog mprogressDialog;
     String sname ;
@@ -59,11 +63,18 @@ public class Billing extends AppCompatActivity {
     String scountry ;
     String semail;
     String sphone;
+    String spassword;
+    EditText shipfname, shiplname, shipcompany, shipcountry, shipaddress_1, shipaddress_2, shipcity, shipstate,shippostcode, shiporder;
+    String sshipfname, sshiplname, sshipcompany, sshipcountry, sshipaddress_1, sshipaddress_2, sshipcity, sshipstate,sshippostcode, sshiporder;
     int flag;
 
     TextView _name, _email, _response;
     android.support.v7.widget.AppCompatButton _sendRequest;
     ProgressBar _proProgressBar;
+    CheckBox cbCreateAccount, cbShipDifferentAddress;
+    EditText lblPassword;
+    ScrollView scrollView;
+    ConstraintLayout shipConstraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +83,6 @@ public class Billing extends AppCompatActivity {
 
         //Hooking the UI views for usage
         fname = (EditText) findViewById(R.id.lbl_first_name);
-        _response = (TextView) findViewById(R.id.response);
         lname = (EditText) findViewById(R.id.lbl_last_name);
         cname = (EditText) findViewById(R.id.lbl_company_name);
         address_1 = (EditText) findViewById(R.id.lbl_house_no);
@@ -83,12 +93,95 @@ public class Billing extends AppCompatActivity {
         country = (EditText) findViewById(R.id.lbl_country);
         phone = (EditText) findViewById(R.id.lbl_phone);
         email = (EditText) findViewById(R.id.lbl_email_address);
+        password = (EditText) findViewById(R.id.lbl_password);
+
+        shipfname = (EditText) findViewById(R.id.lbl_first_name_ship);
+        shiplname = (EditText) findViewById(R.id.lbl_last_name_ship);
+        shipcompany = (EditText) findViewById(R.id.lbl_company_name_ship);
+        shipaddress_1 = (EditText) findViewById(R.id.lbl_house_no_ship);
+        shipaddress_2 = (EditText) findViewById(R.id.lbl_apartment_suite_ship);
+        shipcity = (EditText) findViewById(R.id.lbl_town_city_ship);
+        shipstate = (EditText) findViewById(R.id.lbl_state_zone_ship);
+        shippostcode = (EditText) findViewById(R.id.lbl_postcode_zip_ship);
+        shipcountry = (EditText) findViewById(R.id.lbl_country_ship);
+        shiporder = (EditText) findViewById(R.id.lbl_order_notes_ship);
+
+
+
+
+
+        cbCreateAccount =(CheckBox) findViewById(R.id.cb_create_account);
+        cbShipDifferentAddress =(CheckBox) findViewById(R.id.cb_ship_to_different_address);
+        lblPassword = (EditText) findViewById(R.id.lbl_password);
+        scrollView = (ScrollView) findViewById(R.id.scroll_view);
+        shipConstraintLayout = (ConstraintLayout)findViewById(R.id.constraint_layout_ship);
+
+        shipConstraintLayout.setVisibility(View.GONE);
+        lblPassword.setVisibility(View.GONE);
+        cbCreateAccount.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked)
+                {
+                    if(cbCreateAccount.isChecked()){
+
+                        lblPassword.setVisibility(View.VISIBLE);
+                      //  spassword = password.getText().toString();
+                    }
+                    else{
+                        lblPassword.setVisibility(View.VISIBLE);
+                        scrollView.fullScroll(View.FOCUS_DOWN);
+                    }
+                }
+                else
+                {
+                    lblPassword.setVisibility(View.GONE);
+
+                }}
+        });
+
+        cbShipDifferentAddress.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
+                if(isChecked)
+                {
+                    if(cbCreateAccount.isChecked()) {
+                        cbCreateAccount.setChecked(false);
+                        lblPassword.setVisibility(View.GONE);
+                        shipConstraintLayout.setVisibility(View.VISIBLE);
+                        scrollView.fullScroll(View.FOCUS_DOWN);
+//                        sshipfname = shipfname.getText().toString();
+//                        sshiplname = shiplname.getText().toString();
+//                        sshipcompany = shipcompany.getText().toString();
+//                        sshipaddress_1 =shipaddress_1.getText().toString();
+//                        sshipaddress_2 = shipaddress_2.getText().toString();
+//                        sshipcity = shipcity.getText().toString();
+//                        sshipstate = shipstate.getText().toString();
+//                        sshippostcode = shippostcode.getText().toString();
+//                        sshipcountry = shipcountry.getText().toString();
+//                        sshiporder = shiporder.getText().toString();
+                    }
+                    else
+                    {
+                        shipConstraintLayout.setVisibility(View.VISIBLE);
+                        scrollView.fullScroll(View.FOCUS_DOWN);
+                    }
+                }
+                else
+                {
+                    shipConstraintLayout.setVisibility(View.GONE);
+
+                }
+
+
         btnplaceorder = (Button) findViewById(R.id.btn_place_order);
         btnplaceorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sname = fname.getText().toString();
                 slname = lname.getText().toString();
+                spassword = password.getText().toString();
                 scname = cname.getText().toString();
                 saddress_1 = address_1.getText().toString();
                 saddress_2 = address_2.getText().toString();
@@ -98,13 +191,31 @@ public class Billing extends AppCompatActivity {
                 scountry = country.getText().toString();
                 sphone = phone.getText().toString();
                 semail = email.getText().toString();
+                sshipfname = shipfname.getText().toString();
+                sshiplname = shiplname.getText().toString();
+                sshipcompany = shipcompany.getText().toString();
+                sshipaddress_1 =shipaddress_1.getText().toString();
+                sshipaddress_2 = shipaddress_2.getText().toString();
+                sshipcity = shipcity.getText().toString();
+                sshipstate = shipstate.getText().toString();
+                sshippostcode = shippostcode.getText().toString();
+                sshipcountry = shipcountry.getText().toString();
+                sshiporder = shiporder.getText().toString();
+                if (sshipfname.length() <= 0 || sshiplname.length() <= 0 || sshipcompany.length() <= 0 || sshipcountry.length() <= 0 || sshipaddress_2.length() <= 0 || sshipaddress_1.length() <= 0
+                            || sshipcity.length() <= 0 || sshipstate.length() <= 0 || sshippostcode.length() <= 0 || sshiporder.length() <= 0 )
+                    {
+                        Toast.makeText(Billing.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else {
+                        shipConstraintLayout.setVisibility(View.VISIBLE);
+                        scrollView.fullScroll(View.FOCUS_DOWN);
+                    }
                 if (sname.length() <= 0 || slname.length() <= 0 || scname.length() <= 0 || scountry.length() <= 0 || saddress_2.length() <= 0 || saddress_1.length() <= 0
-                        || scity.length() <= 0 || sstate.length() <= 0 || sphone.length() <= 0 || spostcode.length() <= 0 || semail.length() <= 0) {
+                        || scity.length() <= 0 || sstate.length() <= 0 || sphone.length() <= 0 || spostcode.length() <= 0 || semail.length() <= 0)
+                {
                     Toast.makeText(Billing.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
-//                } else if (!isValidContact(sphone)) {
-//                    phone.setError("Please enter your valid number");
-
-
+//
                     SharedPreferences sm = getSharedPreferences("USER_LOGIN", 0);
                     SharedPreferences.Editor editor = sm.edit();
                     editor.putString("name", sname);
@@ -149,8 +260,34 @@ public class Billing extends AppCompatActivity {
 //                            .buildUpon()
 //                            .appendQueryParameter("email", "val")
 //                            .build().toString();
-                    StringRequest sr = new StringRequest(Request.Method.POST, "http://nepstra.com/api/android/newcustomer.php/",
-
+                    StringRequest sr = new StringRequest(Request.Method.POST, "http://nepstra.com/api/android/newcustomer.php?" +
+                            "email="+semail +
+                            "&first_name="+sname +
+                            "&last_name="+slname +
+                            "&username="+sname +
+                            "&password="+spassword +
+                            "&b[first_name]="+sname +
+                            "&b[last_name]="+slname +
+                            "&b[company]="+sname +
+                            "&b[address_1]="+saddress_1 +
+                            "&b[address_2]="+saddress_2+
+                            "&b[city]="+scity +
+                            "&b[state]="+sstate +
+                            "&b[postcode]="+spostcode +
+                            "&b[country]="+scountry +
+                            "&b[email]="+semail +
+                            "&b[phone]="+sphone +
+                            "&s[first_name]="+sshipfname +
+                            "&s[last_name]="+sshiplname +
+                            "&s[company]="+sshipcompany +
+                            "&s[address_1]="+sshipaddress_1 +
+                            "&s[address_2]="+sshipaddress_2 +
+                            "&s[city]="+sshipcity +
+                            "&s[state]="+sshipstate +
+                            "&s[postcode]="+sshippostcode +
+                            "&s[country]="+sshipcountry +
+                            "&s[email]="+semail +
+                            "&s[phone]="+sphone,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
@@ -174,7 +311,7 @@ public class Billing extends AppCompatActivity {
                             params.put("first_name", sname);
                             params.put("last_name", slname);
                             params.put("username", sname);
-                            params.put("password", sname);
+                            params.put("password", "password");
                             params.put("b[first_name]", sname);
                             params.put("b[last_name]", slname);
                             params.put("b[company]", scname);
@@ -226,78 +363,4 @@ public class Billing extends AppCompatActivity {
                     queue.add(sr);
 
 
-                }}});}}
-//                        RequestQueue requestQueue = Volley.newRequestQueue(Billing.this);
-//                        String URL = "http://nepstra.com/api/android/newcustomer.php?email=prak@email.com&first_name=fn&last_name=ln&username=prak@email.com&password=pass&b[first_name]=bfn&b[last_name]=bln&b[company]=bc&b[address_1]=ba1&b[address_2]=ba2&b[city]=bc&b[state]=bs&b[postcode]=bpc&b[country]=bc&b[email]=abcdef@email.com&b[phone]=bp&s[first_name]=sfn&s[last_name]=sln&s[company]=sc&s[address_1]=sa1&s[address_2]=sa2&s[city]=sc&s[state]=ss&s[postcode]=spc&s[country]=sc&s[email]=prak@email.com&s[phone]=sp";
-//                        JSONObject jsonBody = new JSONObject();
-//                       jsonBody.put("Title", " Demo");
-//                       jsonBody.put("Author", "BNK");
-//                     final String requestBody = jsonBody.toString();
-//                        // Instantiate the RequestQueue.
-//                  //  RequestQueue queue = Volley.newRequestQueue(Billing.this);
-//                    //this is the url where you want to send the request
-//                    //TODO: replace with your own url to send request, as I am using my own localhost for this tutorial
-//                  //  String url = "http://nepstra.com/api/android/newcustomer.php";
-//
-//                    // Request a string response from the provided URL.
-//                    StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
-//                            new Response.Listener<String>() {
-//                                @Override
-//                                public void onResponse(String response) {
-//                                    // Display the response string.
-//                                    Intent i = new Intent(Billing.this, PaypalActivity.class);
-//                                    startActivity(i);
-//
-//
-//                                    Log.i("VOLLEYSUCESS", response);
-//                                    // _response.setText(response);
-//                                }
-//                            }, new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                           // _response.setText("That didn't work!");
-//                            Log.i("VOLLEYERROR", error.toString());
-//                        }
-//                    }) {
-//                        //adding parameters to the request
-//                        @Override
-//                        protected Map<String, String> getParams() throws AuthFailureError {
-//                            Map<String, String> params = new HashMap<>();
-//                            params.put("email", semail);
-//                            params.put("first_name", sname);
-//                            params.put("last_name", slname);
-//                            params.put("username", sname);
-//                            params.put("password", sname);
-//                            params.put("b[first_name]", sname);
-//                            params.put("b[last_name]", slname);
-//                            params.put("b[company]", scname);
-//                            params.put("b[address_1]", saddress_1);
-//                            params.put("b[address_2]", saddress_2);
-//                            params.put("b[city]", scity);
-//                            params.put("b[state]", sstate);
-//                            params.put("b[postcode]", spostcode);
-//                            params.put("b[country]", scountry);
-//                            params.put("b[email]", semail);
-//                            params.put("b[phone]", sphone);
-////                            params.put("first_name", sname);
-////                            params.put("last_name", slname);
-////                            params.put("company", scname);
-////                            params.put("address_1", saddress_1);
-////                            params.put("address_2", saddress_2);
-////                            params.put("city", scity);
-////                            params.put("state", sstate);
-////                            params.put("postcode", spostcode);
-////                            params.put("country", scountry);
-////                            params.put("email", semail);
-////                            params.put("phone", sphone);
-//                            return params;
-//                        }
-//
-//
-//                    };
-//
-//                    // Add the request to the RequestQueue.
-//                    requestQueue.add(stringRequest);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }}}});}}
+                }}});}});}}

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView
+    android:id="@+id/scroll_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -291,7 +292,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:layout_marginLeft="16dp"
-                android:background="@drawable/thin_red_rectangular_border"        app:layout_constraintEnd_toEndOf="@+id/lbl_last_name"
+                android:background="@drawable/thin_red_rectangular_border"        app:layout_constraintEnd_toEndOf="@+id/lbl_last_name_ship"
                 />
 
         </LinearLayout>
@@ -327,28 +328,319 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lbl_email_address" />
 
+
+        <CheckBox
+            android:id="@+id/cb_create_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:text="Create an account?"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_newsletter" />
+
+
+        <CheckBox
+            android:id="@+id/cb_ship_to_different_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:text="Ship to an different address?"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_create_account" />
+
+
+
+
+        <EditText
+            android:id="@+id/lbl_password"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/thin_red_rectangular_border"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Enter password"
+            android:paddingLeft="4dp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_email_address"
+            app:layout_constraintStart_toStartOf="@+id/lbl_email_address"
+            app:layout_constraintTop_toBottomOf="@+id/cb_ship_to_different_address" />
+
+
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint_layout_ship"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/lbl_password"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp">
+
+
+            <LinearLayout
+                android:id="@+id/linear_layout_for_txtfirstname_txtlastname_ship"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:weightSum="2"
+                app:layout_constraintEnd_toEndOf="@id/constraint_layout_ship"
+                app:layout_constraintStart_toStartOf="@id/constraint_layout_ship"
+                app:layout_constraintTop_toTopOf="@id/constraint_layout_ship">
+
+
+                <TextView
+                    android:id="@+id/txt_first_name_ship"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="First name"
+                    android:textColor="@color/colorAppBlack" />
+
+                <TextView
+                    android:id="@+id/txt_last_name_ship"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:text="Last name"
+                    android:textColor="@color/colorAppBlack" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_layout_for_firstname_lastname_ship"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:weightSum="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear_layout_for_txtfirstname_txtlastname_ship">
+
+
+                <EditText
+                    android:id="@+id/lbl_first_name_ship"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/thin_red_rectangular_border"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/lbl_last_name_ship"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/thin_red_rectangular_border"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    />
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/txt_company_name_ship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Company name"
+                android:textColor="@color/colorAppBlack"
+                app:layout_constraintStart_toStartOf="@+id/linear_layout_for_firstname_lastname_ship"
+                app:layout_constraintTop_toBottomOf="@+id/linear_layout_for_firstname_lastname_ship" />
+
+            <EditText
+                android:id="@+id/lbl_company_name_ship"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/thin_red_rectangular_border"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/linear_layout_for_firstname_lastname_ship"
+                app:layout_constraintStart_toStartOf="@+id/linear_layout_for_firstname_lastname_ship"
+                app:layout_constraintTop_toBottomOf="@+id/txt_company_name_ship" />
+
+            <TextView
+                android:id="@+id/txt_country_ship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Country"
+                android:textColor="@color/colorAppBlack"
+                app:layout_constraintStart_toStartOf="@+id/lbl_company_name_ship"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_company_name_ship" />
+
+            <EditText
+                android:id="@+id/lbl_country_ship"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:background="@drawable/thin_red_rectangular_border"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_company_name_ship"
+                app:layout_constraintStart_toStartOf="@+id/lbl_company_name_ship"
+                app:layout_constraintTop_toBottomOf="@+id/txt_country_ship" />
+
+            <TextView
+                android:id="@+id/txt_street_address_ship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Street address"
+                android:textColor="@color/colorAppBlack"
+                app:layout_constraintStart_toStartOf="@+id/lbl_country_ship"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_country_ship" />
+
+            <EditText
+                android:id="@+id/lbl_house_no_ship"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="House number and street name"
+                android:paddingLeft="4dp"
+                android:background="@drawable/thin_red_rectangular_border"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_country_ship"
+                app:layout_constraintStart_toStartOf="@+id/lbl_country_ship"
+                app:layout_constraintTop_toBottomOf="@+id/txt_street_address_ship" />
+
+            <EditText
+                android:id="@+id/lbl_apartment_suite_ship"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/thin_red_rectangular_border"
+                android:ems="10"
+                android:hint="Apartment, suite, unit etc.(optional)"
+                android:paddingLeft="4dp"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_house_no_ship"
+                app:layout_constraintStart_toStartOf="@+id/lbl_house_no_ship"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_house_no_ship" />
+
+            <TextView
+                android:id="@+id/txt_town_city_ship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Town / City"
+                android:textColor="@color/colorAppBlack"
+                app:layout_constraintStart_toStartOf="@+id/lbl_apartment_suite_ship"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_apartment_suite_ship" />
+
+            <EditText
+                android:id="@+id/lbl_town_city_ship"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:background="@drawable/thin_red_rectangular_border"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_apartment_suite_ship"
+                app:layout_constraintStart_toStartOf="@+id/lbl_apartment_suite_ship"
+                app:layout_constraintTop_toBottomOf="@+id/txt_town_city_ship" />
+
+            <TextView
+                android:id="@+id/txt_state_zone_ship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="State / Zone"
+                android:textColor="@color/colorAppBlack"
+                app:layout_constraintStart_toStartOf="@+id/lbl_town_city_ship"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_town_city_ship" />
+
+            <EditText
+                android:id="@+id/lbl_state_zone_ship"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:background="@drawable/thin_red_rectangular_border"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_town_city_ship"
+                app:layout_constraintStart_toStartOf="@+id/lbl_town_city_ship"
+                app:layout_constraintTop_toBottomOf="@+id/txt_state_zone_ship" />
+
+            <TextView
+                android:id="@+id/txt_postcode_zip_ship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Postcode / ZIP"
+                android:textColor="@color/colorAppBlack"
+                app:layout_constraintStart_toStartOf="@+id/lbl_state_zone_ship"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_state_zone_ship" />
+
+            <EditText
+                android:id="@+id/lbl_postcode_zip_ship"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:background="@drawable/thin_red_rectangular_border"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_town_city_ship"
+                app:layout_constraintStart_toStartOf="@+id/lbl_state_zone_ship"
+                app:layout_constraintTop_toBottomOf="@+id/txt_postcode_zip_ship" />
+
+            <TextView
+                android:id="@+id/txt_order_notes_ship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Order notes"
+                android:textColor="@color/colorAppBlack"
+                app:layout_constraintStart_toStartOf="@+id/lbl_postcode_zip_ship"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_postcode_zip_ship" />
+
+            <EditText
+                android:id="@+id/lbl_order_notes_ship"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:background="@drawable/thin_red_rectangular_border"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_state_zone_ship"
+                app:layout_constraintStart_toStartOf="@+id/lbl_state_zone_ship"
+                app:layout_constraintTop_toBottomOf="@+id/txt_order_notes_ship" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+
+
         <Button
             android:id="@+id/btn_place_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/rounded_red_button_designs"
-            android:text="Place order"
-            android:textStyle="bold"
-            android:textColor="@color/colorWhite"
-            android:textAllCaps="false"
             android:paddingLeft="64dp"
             android:paddingRight="64dp"
+            android:text="Place order"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/lbl_email_address"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/lbl_email_address"
-            app:layout_constraintTop_toBottomOf="@+id/cb_newsletter" />
-        <TextView
-            android:id="@+id/response"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:layout_constraintTop_toBottomOf="@+id/constraint_layout_ship" />
 
 
     </android.support.constraint.ConstraintLayout>
+
 
 
 </ScrollView>
