@@ -24,6 +24,7 @@ public class ArtAndCraftHelper extends SQLiteOpenHelper {
     String ART_TABLE = "CREATE TABLE if not exists `artandcraft`  (\n" +
             "                       `id` INTEGER PRIMARY KEY ,\n" +
             "                       `c_id` INTEGER,\n" +
+            "                       `i_id` INTEGER,\n" +
             "                       `name` TEXT,\n" +
             "                       `price` TEXT,\n" +
             "                       `desc` TEXT,\n" +
@@ -62,6 +63,7 @@ public class ArtAndCraftHelper extends SQLiteOpenHelper {
             ArtAndCraft_pojo orderinfo = new ArtAndCraft_pojo();
             orderinfo.artid = cursor.getInt(cursor.getColumnIndex("id"));
             orderinfo.artcid = cursor.getInt(cursor.getColumnIndex("c_id"));
+            orderinfo.artimgid = cursor.getInt(cursor.getColumnIndex("i_id"));
             orderinfo.artname = cursor.getString(cursor.getColumnIndex("name"));
             orderinfo.artprice = cursor.getString(cursor.getColumnIndex("price"));
             orderinfo.artdesc = cursor.getString(cursor.getColumnIndex("desc"));

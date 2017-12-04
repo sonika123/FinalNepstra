@@ -25,6 +25,7 @@ import com.sonika.nepstra.pojo.OrderedProducts_pojo;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -36,9 +37,9 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
     private List<AllProducts> allProductList;
 
     String oname, oprice, oimage, odesc;
-    Integer cat_id;
+    Integer cat_id, img_id;
     OrderHelper dbHelper;
-    List<OrderedProducts_pojo> cartProductsList = new ArrayList<>();
+    List<OrderedProducts_pojo> cartProductsList;
     //DetailsHelper detailsHelper;
     WomenHelper womenHelper;
     NewArrivalsHelper arrivalsHelper;
@@ -107,26 +108,33 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show();
-
                 oname = allProductList.get(position).getName();
                 oprice = allProductList.get(position).getPrice();
                 oimage = allProductList.get(position).getI_src();
-                cat_id = allProductList.get(position).getC_id();
-
-                //odesc = allProductList.get(position).getDescription();
+                img_id = allProductList.get(position).getI_id();
 
                 ContentValues contentValues = new ContentValues();
+                ArrayList<OrderedProducts_pojo> cartItems = dbHelper.getOrderMessage();
+                for(OrderedProducts_pojo cartItem: cartItems){
+                    if(cartItem.getOrderedcat_id().equals(String.valueOf(img_id))){
+                        contentValues.put("count",cartItem.count+1);
+                        dbHelper.updateCount(img_id.toString(),contentValues);
+                        return;
+                    }
+                }
+
                 contentValues.put("name", oname);
                 contentValues.put("price", oprice);
                 contentValues.put("imageone", oimage);
-                contentValues.put("cat_id", cat_id);
-                // contentValues.put("desc", odesc);
-
-//                Log.e("pizza", "lovet");
-//                Log.e("momo", oname);
-//                Log.e("burger", oprice);
-//                Log.e("oooo", oimage);
+                contentValues.put("cat_id", img_id);
+                contentValues.put("count", 1);
                 dbHelper.insertOrderInfo(contentValues);
+
+
+
+
+
+
                 //detailsHelper.insertdetails(contentValues);
 //                cartProductsList = dbHelper.getOrderMessage();
 //                Log.e("orderedsonika", String.valueOf(cartProductsList.size()));
@@ -144,10 +152,12 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
         oimage = allProductList.get(position).getI_src();
         odesc = allProductList.get(position).getDescription();
         cat_id = allProductList.get(position).getC_id();
+        img_id = allProductList.get(position).getI_id();
 
         if (cat_id == 29) {
             ContentValues contentValues = new ContentValues();
             contentValues.put("c_id", cat_id);
+            contentValues.put("i_id", img_id);
             contentValues.put("name", oname);
             contentValues.put("price", oprice);
             contentValues.put("imageone", oimage);
@@ -157,6 +167,7 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
         if (cat_id == 17) {
             ContentValues contentValues = new ContentValues();
             contentValues.put("c_id", cat_id);
+            contentValues.put("i_id", img_id);
             contentValues.put("name", oname);
             contentValues.put("price", oprice);
             contentValues.put("imageone", oimage);
@@ -166,6 +177,7 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
         if (cat_id == 30) {
             ContentValues contentValues = new ContentValues();
             contentValues.put("c_id", cat_id);
+            contentValues.put("i_id", img_id);
             contentValues.put("name", oname);
             contentValues.put("price", oprice);
             contentValues.put("imageone", oimage);
@@ -175,6 +187,7 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
         if (cat_id == 28){
             ContentValues contentValues = new ContentValues();
             contentValues.put("c_id", cat_id);
+            contentValues.put("i_id", img_id);
             contentValues.put("name", oname);
             contentValues.put("price", oprice);
             contentValues.put("imageone", oimage);
@@ -184,6 +197,7 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
         if (cat_id == 25){
             ContentValues contentValues = new ContentValues();
             contentValues.put("c_id", cat_id);
+            contentValues.put("i_id", img_id);
             contentValues.put("name", oname);
             contentValues.put("price", oprice);
             contentValues.put("imageone", oimage);
@@ -193,12 +207,15 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
         if (cat_id == 27){
             ContentValues contentValues = new ContentValues();
             contentValues.put("c_id", cat_id);
+            contentValues.put("i_id", img_id);
             contentValues.put("name", oname);
             contentValues.put("price", oprice);
             contentValues.put("imageone", oimage);
             contentValues.put("desc", odesc);
             sportsHelper.insertsports(contentValues);
         }
+
+
 
     }
 

@@ -23,6 +23,7 @@ public class WomenHelper extends SQLiteOpenHelper {
     String WOMEN_TABLE = "CREATE TABLE if not exists `women`  (\n" +
             "                       `id` INTEGER PRIMARY KEY ,\n" +
             "                       `c_id` INTEGER,\n" +
+            "                       `i_id` INTEGER,\n" +
             "                       `name` TEXT,\n" +
             "                       `price` TEXT,\n" +
             "                       `desc` TEXT,\n" +
@@ -60,6 +61,7 @@ public class WomenHelper extends SQLiteOpenHelper {
             WomenPoducts_pojo orderinfo = new WomenPoducts_pojo();
             orderinfo.id = cursor.getInt(cursor.getColumnIndex("id"));
             orderinfo.cid = cursor.getInt(cursor.getColumnIndex("c_id"));
+            orderinfo.img_id = cursor.getInt(cursor.getColumnIndex("i_id"));
             orderinfo.wname = cursor.getString(cursor.getColumnIndex("name"));
             orderinfo.wprice = cursor.getString(cursor.getColumnIndex("price"));
             orderinfo.wimage = cursor.getString(cursor.getColumnIndex("imageone"));

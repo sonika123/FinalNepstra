@@ -23,6 +23,7 @@ public class JwelleryHelper extends SQLiteOpenHelper {
     String Jwellery_TABLE = "CREATE TABLE if not exists `jwellery`  (\n" +
             "                       `id` INTEGER PRIMARY KEY ,\n" +
             "                       `c_id` INTEGER,\n" +
+            "                       `i_id` INTEGER,\n" +
             "                       `name` TEXT,\n" +
             "                       `price` TEXT,\n" +
             "                       `desc` TEXT,\n" +
@@ -61,6 +62,7 @@ public class JwelleryHelper extends SQLiteOpenHelper {
             Jwellery_pojo orderinfo = new Jwellery_pojo();
             orderinfo.jwelleryid = cursor.getInt(cursor.getColumnIndex("id"));
             orderinfo.jwellerycid = cursor.getInt(cursor.getColumnIndex("c_id"));
+            orderinfo.jwelleryi_id = cursor.getInt(cursor.getColumnIndex("i_id"));
             orderinfo.jwelleryname = cursor.getString(cursor.getColumnIndex("name"));
             orderinfo.jwelleryprice = cursor.getString(cursor.getColumnIndex("price"));
             orderinfo.jwelleryimage = cursor.getString(cursor.getColumnIndex("imageone"));
