@@ -83,15 +83,19 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             HashMap<String, String> loginHashMap = new HashMap<>();
-            loginHashMap.put("user", sname);
+            loginHashMap.put("email", sname);
             loginHashMap.put("pass", spassword);
             JsonParserA jsonParser = new JsonParserA();
-            jsonObject = jsonParser.performPostCI("http://nepstra.com/api/android/verifyuser.php", loginHashMap);
+            jsonObject = jsonParser.performPostCI("https://nepstra.com/api/android/verifyuser.php", loginHashMap);
+            //https://nepstra.com/api/android/verifyuser.php/?email=send_correct_user&pass=send_correct_password
 
             try {
                 if (jsonObject == null) {
                     flag = 1;
-                } else if (jsonObject.getString("status").equals("success")) {
+                }
+               // else if (jsonObject.getString("data").equals("1")){
+
+                else if (jsonObject.getString("status").equals("success")) {
 
                     flag = 2;
 

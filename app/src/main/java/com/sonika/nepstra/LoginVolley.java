@@ -16,68 +16,103 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.sonika.nepstra.Paypal.PaypalActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginVolley extends AppCompatActivity {
-    EditText username, password;
-    String sname, spassword;
+    EditText email, password;
+    String semail, spassword;
     Button btnRegister, login;
     ProgressDialog mprogressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_volley);
-        username = (EditText) findViewById(R.id.lbl_username_login);
+        email = (EditText) findViewById(R.id.lbl_username_login);
         password = (EditText) findViewById(R.id.lbl_password_login);
         login = (Button) findViewById(R.id.btn_login_login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sname = username.getText().toString();
+                semail = email.getText().toString();
                 spassword = password.getText().toString();
 
-                if (sname.length() <= 0 || spassword.length() <= 0) {
+                if (semail.length() <= 0 || spassword.length() <= 0) {
                     Toast.makeText(LoginVolley.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e("Tag", "signupPrakriti");
                     mprogressDialog= new ProgressDialog(LoginVolley.this);
                     mprogressDialog.setMessage("Loading...");
+
                     mprogressDialog.show();
 
                     RequestQueue queue = Volley.newRequestQueue(LoginVolley.this);
 
 
 
-                    StringRequest sr = new StringRequest(Request.Method.POST, "http://nepstra.com/api/android/verifyuser.php?"+
-                            "user="+sname +
-                            "pass="+spassword,
+                  StringRequest sr = new StringRequest(Request.Method.POST, "https://nepstra.com/api/android/verifyuser.php?email="+semail+"&pass="+spassword,
+// +
+//                            "email="+semail +
+//                            "pass="+spassword,
+                          //  https://nepstra.com/api/android/verifyuser.php/?email=send_correct_user&pass=send_correct_password
+                          //  http://nepstra.com/api/android/verifyuser.php?email=email&pass=password
+                           // https://nepstra.com/api/android/verifyuser.php/?user=send_correct_user&pass=send_correct_password
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    Intent i = new Intent(LoginVolley.this, MainActivity.class);
-                                    startActivity(i);
+                                  Log.e("response", response);
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(response);
+                                        Log.e("simi", "monkey");
+                                        String status = jsonObject.getString("status");
+                                        String message = jsonObject.getString("message");
+//                                        Integer data = jsonObject.getInt(String.valueOf(1)); //yo k gareko?? data =
+//yo email add xa tei ni eror akoxa
+                                        Log.e("status",status);
+
+
+                                        if(status.equals("success")){
+                                            Intent i = new Intent(LoginVolley.this, MainActivity.class);
+                                            startActivity(i); }
+                                         else if (status.equals("error")) {
+                                            Toast.makeText(LoginVolley.this, "Wrong email adddress", Toast.LENGTH_SHORT).show();
+                                        }
+                                        //check what is this status ??? you are getting.ok?
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+
+                                    //  msgResponse.setText(response.toString());
+
                                     mprogressDialog.hide();
 
-                                    Log.e("HttpClient", "success! response: " + response.toString());
+                                   Log.e("HttpClientlogin", "success! response: " + response.toString());
                                 }},
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Log.e("HttpClient", "error: " + error.toString());
+                                    Log.e("HttpClientlogin", "error: " + error.toString());
                                     mprogressDialog.hide();
                                 }
                             }) {
                         @Override
                         protected Map<String, String> getParams() {
                             Map<String, String> params = new HashMap<String, String>();
-                            params.put("user", sname);
-                            params.put("pass", spassword);
+//                            params.put("email", semail);
+//                            params.put("pass", spassword);
                             return params;
                         }
 

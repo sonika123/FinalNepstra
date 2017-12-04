@@ -118,7 +118,8 @@ public class Billing extends AppCompatActivity {
 
         shipConstraintLayout.setVisibility(View.GONE);
         lblPassword.setVisibility(View.GONE);
-        cbCreateAccount.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        
+         cbCreateAccount.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(isChecked)
@@ -126,9 +127,20 @@ public class Billing extends AppCompatActivity {
                     if(cbCreateAccount.isChecked()){
 
                         lblPassword.setVisibility(View.VISIBLE);
-                      //  spassword = password.getText().toString();
+
+                        spassword = password.getText().toString();
+                        if (spassword.length() <= 0 )
+                        {
+                            Toast.makeText(Billing.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
+
+                        }
+                        else {
+                            shipConstraintLayout.setVisibility(View.VISIBLE);
+                            scrollView.fullScroll(View.FOCUS_DOWN);
+                        }
                     }
                     else{
+                        Toast.makeText(Billing.this, "Fill pwd", Toast.LENGTH_SHORT).show();
                         lblPassword.setVisibility(View.VISIBLE);
                         scrollView.fullScroll(View.FOCUS_DOWN);
                     }
@@ -139,6 +151,7 @@ public class Billing extends AppCompatActivity {
 
                 }}
         });
+
 
         cbShipDifferentAddress.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -151,19 +164,30 @@ public class Billing extends AppCompatActivity {
                         lblPassword.setVisibility(View.GONE);
                         shipConstraintLayout.setVisibility(View.VISIBLE);
                         scrollView.fullScroll(View.FOCUS_DOWN);
-//                        sshipfname = shipfname.getText().toString();
-//                        sshiplname = shiplname.getText().toString();
-//                        sshipcompany = shipcompany.getText().toString();
-//                        sshipaddress_1 =shipaddress_1.getText().toString();
-//                        sshipaddress_2 = shipaddress_2.getText().toString();
-//                        sshipcity = shipcity.getText().toString();
-//                        sshipstate = shipstate.getText().toString();
-//                        sshippostcode = shippostcode.getText().toString();
-//                        sshipcountry = shipcountry.getText().toString();
-//                        sshiporder = shiporder.getText().toString();
+
+                        sshipfname = shipfname.getText().toString();
+                        sshiplname = shiplname.getText().toString();
+                        sshipcompany = shipcompany.getText().toString();
+                        sshipaddress_1 =shipaddress_1.getText().toString();
+                        sshipaddress_2 = shipaddress_2.getText().toString();
+                        sshipcity = shipcity.getText().toString();
+                        sshipstate = shipstate.getText().toString();
+                        sshippostcode = shippostcode.getText().toString();
+                        sshipcountry = shipcountry.getText().toString();
+                        sshiporder = shiporder.getText().toString();
+                        if (sshipfname.length() <= 0 || sshiplname.length() <= 0 || sshipcompany.length() <= 0 || sshipcountry.length() <= 0 || sshipaddress_2.length() <= 0 || sshipaddress_1.length() <= 0
+                                || sshipcity.length() <= 0 || sshipstate.length() <= 0 || sshippostcode.length() <= 0 || sshiporder.length() <= 0 )
+                        {
+                            Toast.makeText(Billing.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
+
+                        }
+                        else {
+                            shipConstraintLayout.setVisibility(View.VISIBLE);
+                            scrollView.fullScroll(View.FOCUS_DOWN);
+                        }
                     }
                     else
-                    {
+                    {  Toast.makeText(Billing.this, "Fill the fields", Toast.LENGTH_SHORT).show();
                         shipConstraintLayout.setVisibility(View.VISIBLE);
                         scrollView.fullScroll(View.FOCUS_DOWN);
                     }
@@ -181,7 +205,7 @@ public class Billing extends AppCompatActivity {
             public void onClick(View view) {
                 sname = fname.getText().toString();
                 slname = lname.getText().toString();
-                spassword = password.getText().toString();
+            //    spassword = password.getText().toString();
                 scname = cname.getText().toString();
                 saddress_1 = address_1.getText().toString();
                 saddress_2 = address_2.getText().toString();
@@ -201,16 +225,16 @@ public class Billing extends AppCompatActivity {
                 sshippostcode = shippostcode.getText().toString();
                 sshipcountry = shipcountry.getText().toString();
                 sshiporder = shiporder.getText().toString();
-                if (sshipfname.length() <= 0 || sshiplname.length() <= 0 || sshipcompany.length() <= 0 || sshipcountry.length() <= 0 || sshipaddress_2.length() <= 0 || sshipaddress_1.length() <= 0
-                            || sshipcity.length() <= 0 || sshipstate.length() <= 0 || sshippostcode.length() <= 0 || sshiporder.length() <= 0 )
-                    {
-                        Toast.makeText(Billing.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
-
-                    }
-                    else {
-                        shipConstraintLayout.setVisibility(View.VISIBLE);
-                        scrollView.fullScroll(View.FOCUS_DOWN);
-                    }
+//                if (sshipfname.length() <= 0 || sshiplname.length() <= 0 || sshipcompany.length() <= 0 || sshipcountry.length() <= 0 || sshipaddress_2.length() <= 0 || sshipaddress_1.length() <= 0
+//                            || sshipcity.length() <= 0 || sshipstate.length() <= 0 || sshippostcode.length() <= 0 || sshiporder.length() <= 0 )
+//                    {
+//                        Toast.makeText(Billing.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                    else {
+//                        shipConstraintLayout.setVisibility(View.VISIBLE);
+//                        scrollView.fullScroll(View.FOCUS_DOWN);
+//                    }
                 if (sname.length() <= 0 || slname.length() <= 0 || scname.length() <= 0 || scountry.length() <= 0 || saddress_2.length() <= 0 || saddress_1.length() <= 0
                         || scity.length() <= 0 || sstate.length() <= 0 || sphone.length() <= 0 || spostcode.length() <= 0 || semail.length() <= 0)
                 {
