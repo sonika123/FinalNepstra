@@ -2,6 +2,7 @@ package com.sonika.nepstra;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,7 @@ public class LoginVolley extends AppCompatActivity {
     String semail, spassword;
     Button btnRegister, login;
     ProgressDialog mprogressDialog;
+    SharedPreferences loginpref;
 
 
     @Override
@@ -49,7 +51,8 @@ public class LoginVolley extends AppCompatActivity {
 
                 if (semail.length() <= 0 || spassword.length() <= 0) {
                     Toast.makeText(LoginVolley.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else {
                     Log.e("Tag", "signupPrakriti");
                     mprogressDialog= new ProgressDialog(LoginVolley.this);
                     mprogressDialog.setMessage("Loading...");
@@ -60,10 +63,8 @@ public class LoginVolley extends AppCompatActivity {
 
 
 
-                  StringRequest sr = new StringRequest(Request.Method.POST, "https://nepstra.com/api/android/verifyuser.php?email="+semail+"&pass="+spassword,
-// +
-//                            "email="+semail +
-//                            "pass="+spassword,
+                  StringRequest sr = new StringRequest(Request.Method.POST,
+                          "https://nepstra.com/api/android/verifyuser.php?email="+semail+"&pass="+spassword,
                           //  https://nepstra.com/api/android/verifyuser.php/?email=send_correct_user&pass=send_correct_password
                           //  http://nepstra.com/api/android/verifyuser.php?email=email&pass=password
                            // https://nepstra.com/api/android/verifyuser.php/?user=send_correct_user&pass=send_correct_password
@@ -75,19 +76,25 @@ public class LoginVolley extends AppCompatActivity {
                                         JSONObject jsonObject = new JSONObject(response);
                                         Log.e("simi", "monkey");
                                         String status = jsonObject.getString("status");
-                                        String message = jsonObject.getString("message");
-//                                        Integer data = jsonObject.getInt(String.valueOf(1)); //yo k gareko?? data =
-//yo email add xa tei ni eror akoxa
+//                                        String message = jsonObject.getString("message");
+////                                      Integer data = jsonObject.getInt(String.valueOf(1)); //yo k gareko?? data =
                                         Log.e("status",status);
 
+                                        loginpref = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
+                                        SharedPreferences.Editor loginedit = loginpref.edit();
 
                                         if(status.equals("success")){
                                             Intent i = new Intent(LoginVolley.this, MainActivity.class);
-                                            startActivity(i); }
+                                            startActivity(i);
+                                            loginedit.putBoolean("login", true);
+                                            loginedit.commit();}
+
                                          else if (status.equals("error")) {
+                                            loginedit.putBoolean("login", false);
+                                            loginedit.putString("email", semail);
+                                            loginedit.commit();
                                             Toast.makeText(LoginVolley.this, "Wrong email adddress", Toast.LENGTH_SHORT).show();
                                         }
-                                        //check what is this status ??? you are getting.ok?
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();

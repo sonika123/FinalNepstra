@@ -3,6 +3,7 @@ package com.sonika.nepstra;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,7 +21,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.roughike.bottombar.BottomBar;
 import com.sonika.nepstra.Navigations.ArtAndCraft;
 import com.sonika.nepstra.Navigations.Jwellery;
@@ -131,11 +134,26 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_new_arrival) {
             Intent i = new Intent(MainActivity.this, NewArrival.class);
             startActivity(i);
-        } else if (id == R.id.nav_mens) {
+        }
+        else if (id == R.id.nav_mens) {
             Intent i = new Intent(MainActivity.this, Mens.class);
             startActivity(i);
 
-        } else if (id == R.id.nav_womens)
+        }
+        else if (id == R.id.nav_my_orders) {
+            SharedPreferences loginpref = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
+            Intent i = null;
+
+            if (loginpref.getBoolean("login", false)) {
+                 i = new Intent(MainActivity.this, MyOrders.class);
+                startActivity(i);
+            }
+            else
+            {
+                Toast.makeText(this, "you must login first", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if (id == R.id.nav_womens)
         {
             Intent i = new Intent(MainActivity.this, Womens.class);
             startActivity(i);
@@ -171,6 +189,7 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this, Sports.class);
             startActivity(i);
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
