@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     CarouselView carouselview;
     MySharedPreference sharedPreference;
+    String useremail;
+    TextView mloginemail;
     ArrayAdapter<CharSequence> adapter;
     BottomBar bottomBar;
     ViewPager viewPager;
@@ -55,19 +59,30 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
+        useremail = sharedPreferences.getString("email", null);
+        //Log.e("mmpemail", useremail);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (sharedPreferences.getBoolean("login", false)) {
+            View view = navigationView.getHeaderView(0);
+            mloginemail = (TextView)view.findViewById(R.id.tv_useremail);
+            mloginemail.setText(useremail);
+        }
+
 
         carouselview = (CarouselView) findViewById(R.id.carouselview);
         carouselview.setPageCount(images.length);
@@ -160,9 +175,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_contact) {
 
-        } else if (id == R.id.nav_category) {
 
-        } else if (id == R.id.nav_arts_and_craft) {
+        }
+
+         else if (id == R.id.nav_arts_and_craft) {
 
             Intent i = new Intent(MainActivity.this, ArtAndCraft.class);
             startActivity(i);
