@@ -10,33 +10,30 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sonika.nepstra.R;
 import com.sonika.nepstra.helpers.OrderHelper;
+import com.sonika.nepstra.listener.CountListener;
 import com.sonika.nepstra.listener.ListViewListener;
 import com.sonika.nepstra.pojo.OrderedProducts_pojo;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by sonika on 5/9/2017.
  */
 
-public class OrderAdapter extends BaseAdapter {
+public class OrderAdapter extends BaseAdapter  {
     Context context;
     List<OrderedProducts_pojo> cartlist = new ArrayList<OrderedProducts_pojo>();
     int resource;
     OrderHelper dbHelper;
     private ListViewListener mListener;
+    private CountListener countListener;
 
 
     public OrderAdapter(Context context, List<OrderedProducts_pojo> objects, int resource) {
@@ -61,7 +58,8 @@ public class OrderAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, final ViewGroup parent) {
+    public View getView(final int position, final View convertView, final ViewGroup parent) {
+
         View row = convertView;
         ViewHolder holder = null;
         if (row == null) {
@@ -71,8 +69,9 @@ public class OrderAdapter extends BaseAdapter {
             holder.name = row.findViewById(R.id.txt_name_add_to_cart);
             holder.price = row.findViewById(R.id.txt_price_add_to_cart);
             holder.img_product = row.findViewById(R.id.img_add_to_cart);
-            holder.orderid = row.findViewById(R.id.ordered_productlist_id);
+            holder.qty = row.findViewById(R.id.ordered_productlist_id);
             holder.btnRemove = row.findViewById(R.id.btn_add_to_cart_remove);
+
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
@@ -84,7 +83,39 @@ public class OrderAdapter extends BaseAdapter {
         String itemTotalPrice = String.valueOf(Integer.valueOf(orderInfo.getCount()) * (Integer.valueOf(orderInfo.getOrderedprice())));
         holder.price.setText(itemTotalPrice);
         Picasso.with(context).load(orderInfo.getOrderedimage()).into(holder.img_product);
-        holder.orderid.setText("Quantity: " +orderInfo.getCount() + " ");
+        holder.qty.setText("Quantity: " +orderInfo.getCount() + " ");
+
+
+
+            final ViewHolder finalHolder = holder;
+            holder.btnRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (orderInfo.getCount() > 1)
+                    {
+                        //getItemCount();
+//                        String itemTotalPrice = String.valueOf(Integer.valueOf(orderInfo.getCount()) * (Integer.valueOf(orderInfo.getOrderedprice())));
+//                        finalHolder.price.setText(itemTotalPrice);
+//                        finalHolder.qty.setText("Quantity: " +orderInfo.getCount() + " ");
+//
+//                        countListener.getItemCount();
+//                        mListener.getMyTotal();
+//                        notifyDataSetChanged();
+                    }
+
+                    else {
+                        dbHelper.delete(cartlist.get(position).getOrderid()
+                                .toString(), null, null);
+                        Toast.makeText(context, "removed", Toast.LENGTH_SHORT).show();
+                        mListener.getMyTotal();
+                        cartlist.remove(position);
+                        notifyDataSetChanged();
+                    }
+
+                }
+
+            });
+
 
         int sum = 0;
         for (int i = 0; i < cartlist.size(); i++)
@@ -92,38 +123,36 @@ public class OrderAdapter extends BaseAdapter {
             sum = Integer.parseInt(holder.price.getText().toString());
         }
         Log.e("sum", String.valueOf(sum));
-
+        return row;
 
 //        Log.e("price", String.valueOf(holder.price.getText()));
 //        OrderHelper dbhelper = new OrderHelper(context);
 //        ContentValues cv =  new ContentValues();
 //        cv.put("price", holder.orderid.getText().toString());
 //        dbhelper.insertOrderInfo(cv);
-
-        holder.btnRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //dbHelper.delete(orderInfo.getOrderid().toString(), null, null);
-
-                dbHelper.delete(cartlist.get(position).getOrderid()
-                        .toString(), null, null);
-                Toast.makeText(context, "removed", Toast.LENGTH_SHORT).show();
-                mListener.getMyTotal();
-                cartlist.remove(position);
-                notifyDataSetChanged();
-            }
-        });
-        return row;
     }
+//    @Override
+//    public void getItemCount() {
+//        int position = 1;
+//        final OrderedProducts_pojo orderInfo = cartlist.get(position);
+//        dbHelper = new OrderHelper(context);
+//        ContentValues abc = new ContentValues();
+//        abc.put("count", orderInfo.getCount()-1);
+//        dbHelper.updateCount(orderInfo.getOrderedcat_id(), abc);
+//
+//    }
     public void setListener(ListViewListener listener) {
         mListener = listener;
     }
+//    public void setCountListener(CountListener listeners) {
+//        countListener = listeners;
+//    }
 
 
 
 
     static class ViewHolder {
-        TextView name, price, orderid, catid;
+        TextView name, price, qty, catid;
         Button btnRemove;
         ImageView img_product;
     }
