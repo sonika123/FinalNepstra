@@ -111,280 +111,245 @@ public class Billing extends AppCompatActivity {
 
 
         cbCreateAccount =(CheckBox) findViewById(R.id.cb_create_account);
+
         cbShipDifferentAddress =(CheckBox) findViewById(R.id.cb_ship_to_different_address);
+
         lblPassword = (EditText) findViewById(R.id.lbl_password);
+        btnplaceorder = (Button) findViewById(R.id.btn_place_order);
         scrollView = (ScrollView) findViewById(R.id.scroll_view);
         shipConstraintLayout = (ConstraintLayout)findViewById(R.id.constraint_layout_ship);
 
+
+
         shipConstraintLayout.setVisibility(View.GONE);
         lblPassword.setVisibility(View.GONE);
-        
-         cbCreateAccount.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        cbCreateAccount.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked)
-                {
-                    if(cbCreateAccount.isChecked()){
-
+                if(isChecked) {
+                    if(cbCreateAccount.isChecked())
+                    {
+                        //cbShipDifferentAddress.setChecked(true);
                         lblPassword.setVisibility(View.VISIBLE);
-
-                        spassword = password.getText().toString();
-                        if (spassword.length() <= 0 )
-                        {
-                            Toast.makeText(Billing.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
-
-                        }
-                        else {
-                            shipConstraintLayout.setVisibility(View.VISIBLE);
-                            scrollView.fullScroll(View.FOCUS_DOWN);
-                        }
+                        //spassword = password.getText().toString();
                     }
-                    else{
-                        Toast.makeText(Billing.this, "Fill pwd", Toast.LENGTH_SHORT).show();
-                        lblPassword.setVisibility(View.VISIBLE);
+                    else
+                    {
+                        lblPassword.setVisibility(View.GONE);
                         scrollView.fullScroll(View.FOCUS_DOWN);
                     }
                 }
                 else
                 {
                     lblPassword.setVisibility(View.GONE);
+                    //scrollView.fullScroll(View.FOCUS_DOWN);
 
-                }}
-        });
+                }
+            }});
 
-
-        cbShipDifferentAddress.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-
-                if(isChecked)
-                {
-                    if(cbCreateAccount.isChecked()) {
-                        cbCreateAccount.setChecked(false);
-                        lblPassword.setVisibility(View.GONE);
-                        shipConstraintLayout.setVisibility(View.VISIBLE);
-                        scrollView.fullScroll(View.FOCUS_DOWN);
-
-                        sshipfname = shipfname.getText().toString();
-                        sshiplname = shiplname.getText().toString();
-                        sshipcompany = shipcompany.getText().toString();
-                        sshipaddress_1 =shipaddress_1.getText().toString();
-                        sshipaddress_2 = shipaddress_2.getText().toString();
-                        sshipcity = shipcity.getText().toString();
-                        sshipstate = shipstate.getText().toString();
-                        sshippostcode = shippostcode.getText().toString();
-                        sshipcountry = shipcountry.getText().toString();
-                        sshiporder = shiporder.getText().toString();
-                        if (sshipfname.length() <= 0 || sshiplname.length() <= 0 || sshipcompany.length() <= 0 || sshipcountry.length() <= 0 || sshipaddress_2.length() <= 0 || sshipaddress_1.length() <= 0
-                                || sshipcity.length() <= 0 || sshipstate.length() <= 0 || sshippostcode.length() <= 0 || sshiporder.length() <= 0 )
+        cbShipDifferentAddress.setOnCheckedChangeListener
+                (new CompoundButton.OnCheckedChangeListener(){
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if(isChecked)
                         {
-                            Toast.makeText(Billing.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
+                            if(cbCreateAccount.isChecked()) {
+                                cbCreateAccount.setChecked(false);
+                                lblPassword.setVisibility(View.GONE);
+                            }
+                                shipConstraintLayout.setVisibility(View.VISIBLE);
+                                scrollView.fullScroll(View.FOCUS_DOWN);
+
+                                sshipfname = shipfname.getText().toString();
+                                sshiplname = shiplname.getText().toString();
+                                sshipcompany = shipcompany.getText().toString();
+                                sshipaddress_1 =shipaddress_1.getText().toString();
+                                sshipaddress_2 = shipaddress_2.getText().toString();
+                                sshipcity = shipcity.getText().toString();
+                                sshipstate = shipstate.getText().toString();
+                                sshippostcode = shippostcode.getText().toString();
+                                sshipcountry = shipcountry.getText().toString();
+                                sshiporder = shiporder.getText().toString();
+                        }
+                        else
+                        {
+                            shipConstraintLayout.setVisibility(View.GONE);
 
                         }
-                        else {
-                            shipConstraintLayout.setVisibility(View.VISIBLE);
-                            scrollView.fullScroll(View.FOCUS_DOWN);
+
+
+
+
+    btnplaceorder.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+
+        sname = fname.getText().toString();
+        slname = lname.getText().toString();
+        spassword = password.getText().toString();
+        scname = cname.getText().toString();
+        saddress_1 = address_1.getText().toString();
+        saddress_2 = address_2.getText().toString();
+        scity = city.getText().toString();
+        sstate = state.getText().toString();
+        spostcode = postcode.getText().toString();
+        scountry = country.getText().toString();
+        sphone = phone.getText().toString();
+        semail = email.getText().toString();
+        sshipfname = shipfname.getText().toString();
+        sshiplname = shiplname.getText().toString();
+        sshipcompany = shipcompany.getText().toString();
+        sshipaddress_1 =shipaddress_1.getText().toString();
+        sshipaddress_2 = shipaddress_2.getText().toString();
+        sshipcity = shipcity.getText().toString();
+        sshipstate = shipstate.getText().toString();
+        sshippostcode = shippostcode.getText().toString();
+        sshipcountry = shipcountry.getText().toString();
+        sshiporder = shiporder.getText().toString();
+
+        SharedPreferences sm = getSharedPreferences("USER_LOGIN", 0);
+        SharedPreferences.Editor editor = sm.edit();
+        editor.putString("name", sname);
+        editor.apply();
+        editor.commit();
+        SharedPreferences sm11 = getSharedPreferences("USER_LOGIN", 0);
+        SharedPreferences.Editor editor11 = sm11.edit();
+        editor11.putString("name", scity);
+        editor11.apply();
+        editor11.commit();
+        SharedPreferences sm112 = getSharedPreferences("USER_LOGIN", 0);
+        SharedPreferences.Editor editor112 = sm11.edit();
+        editor112.putString("name", sstate);
+        editor112.apply();
+        editor11.commit();
+        SharedPreferences sm1 = getSharedPreferences("USER_LOGIN", 0);
+        SharedPreferences.Editor editor1 = sm1.edit();
+        editor1.putString("country", scountry);
+        editor.apply();
+        editor.commit();
+        SharedPreferences sm2 = getSharedPreferences("USER_LOGIN", 0);
+        SharedPreferences.Editor editor2 = sm2.edit();
+        editor2.putString("phone", sphone);
+        editor.apply();
+        editor.commit();
+        SharedPreferences sm3 = getSharedPreferences("USER_LOGIN", 0);
+        SharedPreferences.Editor editor3 = sm3.edit();
+        editor3.putString("email", semail);
+        editor.apply();
+        editor.commit();
+
+            Log.e("Tag", "signupPrakriti");
+            mprogressDialog= new ProgressDialog(Billing.this);
+            mprogressDialog.setMessage("Loading...");
+            mprogressDialog.show();
+
+            RequestQueue queue = Volley.newRequestQueue(Billing.this);
+            StringRequest sr = new StringRequest
+                    (Request.Method.POST, "http://nepstra.com/api/android/newcustomer.php?" +
+                    "email="+semail +
+                    "&first_name="+sname +
+                    "&last_name="+slname +
+                    "&username="+sname +
+                    "&password="+spassword +
+                    "&b[first_name]="+sname +
+                    "&b[last_name]="+slname +
+                    "&b[company]="+sname +
+                    "&b[address_1]="+saddress_1 +
+                    "&b[address_2]="+saddress_2+
+                    "&b[city]="+scity +
+                    "&b[state]="+sstate +
+                    "&b[postcode]="+spostcode +
+                    "&b[country]="+scountry +
+                    "&b[email]="+semail +
+                    "&b[phone]="+sphone +
+                    "&s[first_name]="+sshipfname +
+                    "&s[last_name]="+sshiplname +
+                    "&s[company]="+sshipcompany +
+                    "&s[address_1]="+sshipaddress_1 +
+                    "&s[address_2]="+sshipaddress_2 +
+                    "&s[city]="+sshipcity +
+                    "&s[state]="+sshipstate +
+                    "&s[postcode]="+sshippostcode +
+                    "&s[country]="+sshipcountry +
+                    "&s[email]="+semail +
+                    "&s[phone]="+sphone,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                              Intent i = new Intent(Billing.this, PaypalActivity.class);
+                                startActivity(i);
+                                mprogressDialog.hide();
+                            Log.e("HttpClient", "success! response: " + response.toString());
+                        }},
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("HttpClient", "error: " + error.toString());
+                            mprogressDialog.hide();
                         }
-                    }
-                    else
-                    {  Toast.makeText(Billing.this, "Fill the fields", Toast.LENGTH_SHORT).show();
-                        shipConstraintLayout.setVisibility(View.VISIBLE);
-                        scrollView.fullScroll(View.FOCUS_DOWN);
-                    }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("email", semail);
+                    params.put("first_name", sname);
+                    params.put("last_name", slname);
+                    params.put("username", sname);
+                    params.put("password", "password");
+                    params.put("b[first_name]", sname);
+                    params.put("b[last_name]", slname);
+                    params.put("b[company]", scname);
+                    params.put("b[address_1]", saddress_1);
+                    params.put("b[address_2]", saddress_2);
+                    params.put("b[city]", scity);
+                    params.put("b[state]", sstate);
+                    params.put("b[postcode]", spostcode);
+                    params.put("b[country]", scountry);
+                    params.put("b[email]", semail);
+                    params.put("b[phone]", sphone);
+                    params.put("s[first_name]", sname);
+                    params.put("s[last_name]", slname);
+                    params.put("s[company]", scname);
+                    params.put("s[address_1]", saddress_1);
+                    params.put("s[address_2]", saddress_2);
+                    params.put("s[city]", scity);
+                    params.put("s[state]", sstate);
+                    params.put("s[postcode]", spostcode);
+                    params.put("s[country]", scountry);
+                    params.put("s[email]", semail);
+                    params.put("s[phone]", sphone);
+                    return params;
                 }
-                else
-                {
-                    shipConstraintLayout.setVisibility(View.GONE);
 
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("Content-Type", "application/x-www-form-urlencoded");
+                    return params;
+                }
+            };
+            sr.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 50000;
                 }
 
+                @Override
+                public int getCurrentRetryCount() {
+                    return 50000;
+                }
 
-        btnplaceorder = (Button) findViewById(R.id.btn_place_order);
-        btnplaceorder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sname = fname.getText().toString();
-                slname = lname.getText().toString();
-            //    spassword = password.getText().toString();
-                scname = cname.getText().toString();
-                saddress_1 = address_1.getText().toString();
-                saddress_2 = address_2.getText().toString();
-                scity = city.getText().toString();
-                sstate = state.getText().toString();
-                spostcode = postcode.getText().toString();
-                scountry = country.getText().toString();
-                sphone = phone.getText().toString();
-                semail = email.getText().toString();
-                sshipfname = shipfname.getText().toString();
-                sshiplname = shiplname.getText().toString();
-                sshipcompany = shipcompany.getText().toString();
-                sshipaddress_1 =shipaddress_1.getText().toString();
-                sshipaddress_2 = shipaddress_2.getText().toString();
-                sshipcity = shipcity.getText().toString();
-                sshipstate = shipstate.getText().toString();
-                sshippostcode = shippostcode.getText().toString();
-                sshipcountry = shipcountry.getText().toString();
-                sshiporder = shiporder.getText().toString();
-//                if (sshipfname.length() <= 0 || sshiplname.length() <= 0 || sshipcompany.length() <= 0 || sshipcountry.length() <= 0 || sshipaddress_2.length() <= 0 || sshipaddress_1.length() <= 0
-//                            || sshipcity.length() <= 0 || sshipstate.length() <= 0 || sshippostcode.length() <= 0 || sshiporder.length() <= 0 )
-//                    {
-//                        Toast.makeText(Billing.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                    else {
-//                        shipConstraintLayout.setVisibility(View.VISIBLE);
-//                        scrollView.fullScroll(View.FOCUS_DOWN);
-//                    }
-                if (sname.length() <= 0 || slname.length() <= 0 || scname.length() <= 0 || scountry.length() <= 0 || saddress_2.length() <= 0 || saddress_1.length() <= 0
-                        || scity.length() <= 0 || sstate.length() <= 0 || sphone.length() <= 0 || spostcode.length() <= 0 || semail.length() <= 0)
-                {
-                    Toast.makeText(Billing.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
-//
-                    SharedPreferences sm = getSharedPreferences("USER_LOGIN", 0);
-                    SharedPreferences.Editor editor = sm.edit();
-                    editor.putString("name", sname);
-                    editor.apply();
-                    editor.commit();
-                    SharedPreferences sm11 = getSharedPreferences("USER_LOGIN", 0);
-                    SharedPreferences.Editor editor11 = sm11.edit();
-                    editor11.putString("name", scity);
-                    editor11.apply();
-                    editor11.commit();
-                    SharedPreferences sm112 = getSharedPreferences("USER_LOGIN", 0);
-                    SharedPreferences.Editor editor112 = sm11.edit();
-                    editor112.putString("name", sstate);
-                    editor112.apply();
-                    editor11.commit();
-                    SharedPreferences sm1 = getSharedPreferences("USER_LOGIN", 0);
-                    SharedPreferences.Editor editor1 = sm1.edit();
-                    editor1.putString("country", scountry);
-                    editor.apply();
-                    editor.commit();
-                    SharedPreferences sm2 = getSharedPreferences("USER_LOGIN", 0);
-                    SharedPreferences.Editor editor2 = sm2.edit();
-                    editor2.putString("phone", sphone);
-                    editor.apply();
-                    editor.commit();
-                    SharedPreferences sm3 = getSharedPreferences("USER_LOGIN", 0);
-                    SharedPreferences.Editor editor3 = sm3.edit();
-                    editor3.putString("email", semail);
-                    editor.apply();
-                    editor.commit();
+                @Override
+                public void retry(VolleyError error) throws VolleyError {
 
-                } else {
-                    Log.e("Tag", "signupPrakriti");
-                    mprogressDialog= new ProgressDialog(Billing.this);
-                    mprogressDialog.setMessage("Loading...");
-                    mprogressDialog.show();
-
-                    RequestQueue queue = Volley.newRequestQueue(Billing.this);
+                }
+            });
+            queue.add(sr);
 
 
-//                    String uri = Uri.parse("http://nepstra.com/api/android/newcustomer.php?email=prakash1111@email.com&first_name=fn&last_name=ln&username=prakriti1111@email.com&password=pass&b[first_name]=bfn&b[last_name]=bln&b[company]=bc&b[address_1]=ba1&b[address_2]=ba2&b[city]=bc&b[state]=bs&b[postcode]=bpc&b[country]=bc&b[email]=prakriti1111@email.com&b[phone]=bp&s[first_name]=sfn&s[last_name]=sln&s[company]=sc&s[address_1]=sa1&s[address_2]=sa2&s[city]=sc&s[state]=ss&s[postcode]=spc&s[country]=sc&s[email]=prakriti1111@email.com&s[phone]=sphttp://nepstra.com/api/android/newcustomer.php?email=prakriti1111@email.com&first_name=fn&last_name=ln&username=prakriti1111@email.com&password=pass&b[first_name]=bfn&b[last_name]=bln&b[company]=bc&b[address_1]=ba1&b[address_2]=ba2&b[city]=bc&b[state]=bs&b[postcode]=bpc&b[country]=bc&b[email]=prakriti1111@email.com&b[phone]=bp&s[first_name]=sfn&s[last_name]=sln&s[company]=sc&s[address_1]=sa1&s[address_2]=sa2&s[city]=sc&s[state]=ss&s[postcode]=spc&s[country]=sc&s[email]=prakriti1111@email.com&s[phone]=sp")
-//                            .buildUpon()
-//                            .appendQueryParameter("email", "val")
-//                            .build().toString();
-                    StringRequest sr = new StringRequest(Request.Method.POST, "http://nepstra.com/api/android/newcustomer.php?" +
-                            "email="+semail +
-                            "&first_name="+sname +
-                            "&last_name="+slname +
-                            "&username="+sname +
-                            "&password="+spassword +
-                            "&b[first_name]="+sname +
-                            "&b[last_name]="+slname +
-                            "&b[company]="+sname +
-                            "&b[address_1]="+saddress_1 +
-                            "&b[address_2]="+saddress_2+
-                            "&b[city]="+scity +
-                            "&b[state]="+sstate +
-                            "&b[postcode]="+spostcode +
-                            "&b[country]="+scountry +
-                            "&b[email]="+semail +
-                            "&b[phone]="+sphone +
-                            "&s[first_name]="+sshipfname +
-                            "&s[last_name]="+sshiplname +
-                            "&s[company]="+sshipcompany +
-                            "&s[address_1]="+sshipaddress_1 +
-                            "&s[address_2]="+sshipaddress_2 +
-                            "&s[city]="+sshipcity +
-                            "&s[state]="+sshipstate +
-                            "&s[postcode]="+sshippostcode +
-                            "&s[country]="+sshipcountry +
-                            "&s[email]="+semail +
-                            "&s[phone]="+sphone,
-                            new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    Intent i = new Intent(Billing.this, PaypalActivity.class);
-                                    startActivity(i);
-                                    mprogressDialog.hide();
-
-                                    Log.e("HttpClient", "success! response: " + response.toString());
-                                }},
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.e("HttpClient", "error: " + error.toString());
-                                    mprogressDialog.hide();
-                                }
-                            }) {
-                        @Override
-                        protected Map<String, String> getParams() {
-                            Map<String, String> params = new HashMap<String, String>();
-                            params.put("email", semail);
-                            params.put("first_name", sname);
-                            params.put("last_name", slname);
-                            params.put("username", sname);
-                            params.put("password", "password");
-                            params.put("b[first_name]", sname);
-                            params.put("b[last_name]", slname);
-                            params.put("b[company]", scname);
-                            params.put("b[address_1]", saddress_1);
-                            params.put("b[address_2]", saddress_2);
-                            params.put("b[city]", scity);
-                            params.put("b[state]", sstate);
-                            params.put("b[postcode]", spostcode);
-                            params.put("b[country]", scountry);
-                            params.put("b[email]", semail);
-                            params.put("b[phone]", sphone);
-                            params.put("s[first_name]", sname);
-                            params.put("s[last_name]", slname);
-                            params.put("s[company]", scname);
-                            params.put("s[address_1]", saddress_1);
-                            params.put("s[address_2]", saddress_2);
-                            params.put("s[city]", scity);
-                            params.put("s[state]", sstate);
-                            params.put("s[postcode]", spostcode);
-                            params.put("s[country]", scountry);
-                            params.put("s[email]", semail);
-                            params.put("s[phone]", sphone);
-                            return params;
-                        }
-
-                        @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            Map<String, String> params = new HashMap<String, String>();
-                            params.put("Content-Type", "application/x-www-form-urlencoded");
-                            return params;
-                        }
-                    };
-                    sr.setRetryPolicy(new RetryPolicy() {
-                        @Override
-                        public int getCurrentTimeout() {
-                            return 50000;
-                        }
-
-                        @Override
-                        public int getCurrentRetryCount() {
-                            return 50000;
-                        }
-
-                        @Override
-                        public void retry(VolleyError error) throws VolleyError {
-
-                        }
-                    });
-                    queue.add(sr);
+        }});}});}}
 
 
-                }}});}});}}
+
+
+

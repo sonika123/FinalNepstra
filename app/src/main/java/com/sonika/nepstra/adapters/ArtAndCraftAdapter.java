@@ -95,7 +95,7 @@ public class ArtAndCraftAdapter extends BaseAdapter {
 
 
         holder.artname.setText("Name:"+" "+orderInfo.getArtname());
-        holder.artprice.setText("Price:" + " "+orderInfo.getArtprice());
+        holder.artprice.setText("A$" + " "+orderInfo.getArtprice());
         Picasso.with(context).load(orderInfo.getArtimage()).into(holder.artimg_product);
 
 

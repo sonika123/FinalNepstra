@@ -3,6 +3,7 @@ package com.sonika.nepstra;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.BottomBarTab;
+import com.roughike.bottombar.OnTabSelectListener;
 import com.sonika.nepstra.Paypal.PaypalActivity;
 
 import org.json.JSONException;
@@ -87,11 +91,12 @@ public class LoginVolley extends AppCompatActivity {
                                             Intent i = new Intent(LoginVolley.this, MainActivity.class);
                                             startActivity(i);
                                             loginedit.putBoolean("login", true);
+                                            loginedit.putString("email", semail);
                                             loginedit.commit();}
 
                                          else if (status.equals("error")) {
                                             loginedit.putBoolean("login", false);
-                                            loginedit.putString("email", semail);
+
                                             loginedit.commit();
                                             Toast.makeText(LoginVolley.this, "Wrong email adddress", Toast.LENGTH_SHORT).show();
                                         }
@@ -149,5 +154,59 @@ public class LoginVolley extends AppCompatActivity {
                     queue.add(sr);
 
 
-                }}});}}
+                }}});
+
+        final BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        BottomBarTab dummy = bottomBar.getTabWithId(R.id.tab_dummy);
+        dummy.setVisibility(View.GONE);
+
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                switch (tabId) {
+                    case R.id.tab_dummy:
+                        break;
+
+                    case R.id.tab_home:
+                        Intent intentHome = new Intent(LoginVolley.this, MainActivity.class);
+                        startActivity(intentHome);
+
+
+                        break;
+
+
+                    case R.id.tab_products:
+                            Intent iiproducts = new Intent(LoginVolley.this,CategoriesActivity.class);
+                            startActivity(iiproducts);
+
+
+                        break;
+                    case R.id.tab_order:
+                        Intent intentOrder = new Intent(LoginVolley.this, OrderedProducts.class);
+                        startActivity(intentOrder);
+
+                        break;
+                    case R.id.tab_account:
+                        Toast.makeText(LoginVolley.this, "Account", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+        });
+    }
+
+
+
+//    btnRegister = (Button) findViewById(R.id.btn_register_login);
+//            btnRegister.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//
+//            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+//        }
+//    });
+}
+
 

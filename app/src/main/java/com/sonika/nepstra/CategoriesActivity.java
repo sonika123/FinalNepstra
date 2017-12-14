@@ -1,6 +1,7 @@
 package com.sonika.nepstra;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.sonika.nepstra.Navigations.ArtAndCraft;
+import com.sonika.nepstra.Navigations.Womens;
 import com.sonika.nepstra.adapters.CategoryAdapter;
 import com.sonika.nepstra.parser.JsonParserA;
 import com.sonika.nepstra.pojo.MyData;
@@ -100,19 +103,17 @@ public class CategoriesActivity extends AppCompatActivity  {
                         //same as above
                         Integer menu_order = object.getInt("menu_order");
                         Integer count = object.getInt("count");
-                        Log.e("monkey", "suman");
+
 
                         JSONObject _links = object.getJSONObject("_links");
-                        Log.e("monkey", "prakash");
+
 
                         JSONArray self = _links.getJSONArray("self");
-                        Log.e("monkey", "swikriti");
 
                         String self_href = self.getJSONObject(0).getString("href");
-                        Log.e("monkey", "kritik");
+
 
                         JSONArray collection = _links.getJSONArray("collection");
-                        Log.e("monkey", "binamra");
 
                         String collection_href = collection.getJSONObject(0).getString("href");
                         //String character = FoodArray.getJSONObject(i).getString("char");
@@ -124,7 +125,7 @@ public class CategoriesActivity extends AppCompatActivity  {
                         //   JSONObject status = response.getJSONObject("status");
                         MyData myData= new MyData(id, count, menu_order, parent,image_id,name, slug, description, display,date_created, date_created_gmt, date_modified,date_modified_gmt, src, title, alt, self_href, collection_href);
                         // Log.e("monkey", "prakriti");
-                        Log.e("prakash", data_list.size() + "" );
+
                         data_list.add(myData);
                         flag = 2;
                     }
@@ -152,15 +153,12 @@ public class CategoriesActivity extends AppCompatActivity  {
                 //mAdapter.notifyDataSetChanged();
                 Toast.makeText(CategoriesActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 listView_category= (ListView) findViewById(R.id.list_category);
-
-
                 Log.e("monkey" , String.valueOf(data_list.size()));
-                CategoryAdapter mAdapter = new CategoryAdapter(CategoriesActivity.this, data_list, R.layout.category_list );
+                CategoryAdapter mAdapter = new CategoryAdapter(CategoriesActivity.this, data_list, R.layout.category_list);
                 listView_category.setAdapter(mAdapter);
+                }
 
-
-
-            } else if(flag == 3) {
+            else if(flag == 3) {
                 Toast.makeText(CategoriesActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
             }
 

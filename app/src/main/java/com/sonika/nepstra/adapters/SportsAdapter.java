@@ -92,7 +92,7 @@ public class SportsAdapter extends BaseAdapter{
 
 
         holder.sportsname.setText("Name:"+" "+sportsinfo.getSportsname());
-        holder.sportsprice.setText("Price:" + " "+sportsinfo.getSportsprice());
+        holder.sportsprice.setText("A$" + " "+sportsinfo.getSportsprice());
         Picasso.with(context).load(sportsinfo.getSportsimage()).into(holder.sportsimg_product);
 
         holder.btn_sport_view_more.setOnClickListener(new View.OnClickListener() {

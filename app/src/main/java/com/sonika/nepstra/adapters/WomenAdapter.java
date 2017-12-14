@@ -93,7 +93,7 @@ public class WomenAdapter extends BaseAdapter {
 
 
         holder.wname.setText("Name:"+" "+orderInfo.getWname());
-        holder.wprice.setText("Price:" + " "+orderInfo.getWprice());
+        holder.wprice.setText("A$" + " "+orderInfo.getWprice());
         Picasso.with(context).load(orderInfo.getWimage()).into(holder.wimg_product);
 
         holder.btn_women_view_more.setOnClickListener(new View.OnClickListener() {

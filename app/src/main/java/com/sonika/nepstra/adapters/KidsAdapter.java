@@ -94,7 +94,7 @@ public class KidsAdapter extends BaseAdapter{
 
 
         holder.kidsname.setText("Name:"+" "+orderInfo.getKidsname());
-        holder.kidsprice.setText("Price:" + " "+orderInfo.getKidsprice());
+        holder.kidsprice.setText("A$" + " "+orderInfo.getKidsprice());
         Picasso.with(context).load(orderInfo.getKidsimage()).into(holder.kidsimg_product);
 
         holder.btn_kids_view_more.setOnClickListener(new View.OnClickListener() {

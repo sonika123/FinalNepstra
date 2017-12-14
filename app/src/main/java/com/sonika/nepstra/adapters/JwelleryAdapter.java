@@ -96,7 +96,7 @@ public class JwelleryAdapter extends BaseAdapter{
 
 
         holder.jwelleryname.setText("Name:"+" "+orderInfo.getJwelleryname());
-        holder.jwelleryprice.setText("Price:" + " "+orderInfo.getJwelleryprice());
+        holder.jwelleryprice.setText("A$" + " "+orderInfo.getJwelleryprice());
         Picasso.with(context).load(orderInfo.getJwelleryimage()).into(holder.jwelleryimg_product);
 
 

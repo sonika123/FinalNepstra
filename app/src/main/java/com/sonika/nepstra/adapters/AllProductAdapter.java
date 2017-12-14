@@ -73,7 +73,7 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
     @Override
     public void onBindViewHolder(final AllProductHolder allholder, final int position) {
         allholder.allproductName.setText(allProductList.get(position).getName());
-        allholder.allproductPrice.setText("$" + allProductList.get(position).getPrice());
+        allholder.allproductPrice.setText("A$" + allProductList.get(position).getPrice());
         Picasso.with(context).load(allProductList.get(position).getI_src()).into(allholder.allproductImage);
         Log.e("chankhey", "monkey");
 
@@ -119,6 +119,7 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
                     if(cartItem.getOrderedcat_id().equals(String.valueOf(img_id))){
                         contentValues.put("count",cartItem.count+1);
                         dbHelper.updateCount(img_id.toString(),contentValues);
+                        Log.e("opop", img_id.toString());
                         return;
                     }
                 }

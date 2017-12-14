@@ -90,7 +90,7 @@ public class NewArrivalAdapter extends BaseAdapter{
 
 
         holder.newname.setText("Name:"+" "+orderInfo.getNewname());
-        holder.newprice.setText("Price:" + " "+orderInfo.getNewprice());
+        holder.newprice.setText("A$" + " "+orderInfo.getNewprice());
         Picasso.with(context).load(orderInfo.getNewimage()).into(holder.newimg_product);
 
 

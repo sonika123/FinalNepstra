@@ -93,7 +93,7 @@ public class MensAdapter extends BaseAdapter {
 
 
         holder.menname.setText("Name:"+" "+orderInfo.getMenname());
-        holder.menprice.setText("Price:" + " "+orderInfo.getMenprice());
+        holder.menprice.setText("A$" + " "+orderInfo.getMenprice());
         Picasso.with(context).load(orderInfo.getMenimage()).into(holder.menimg_product);
 
         holder.btn_men_view_more.setOnClickListener(new View.OnClickListener() {

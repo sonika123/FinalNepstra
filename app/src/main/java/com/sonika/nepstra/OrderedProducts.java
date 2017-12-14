@@ -28,6 +28,7 @@ import com.sonika.nepstra.Navigations.Womens;
 import com.sonika.nepstra.Paypal.PaypalActivity;
 import com.sonika.nepstra.adapters.OrderAdapter;
 import com.sonika.nepstra.helpers.OrderHelper;
+import com.sonika.nepstra.listener.CountListener;
 import com.sonika.nepstra.listener.ListViewListener;
 import com.sonika.nepstra.pojo.OrderedProducts_pojo;
 
@@ -110,8 +111,8 @@ public class OrderedProducts extends AppCompatActivity implements ListViewListen
         editor.putString("total_amount",text);
         editor.apply();
         editor.commit();
-
     }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -131,9 +132,8 @@ public class OrderedProducts extends AppCompatActivity implements ListViewListen
 
         } else if (id == R.id.nav_contact) {
 
-        } else if (id == R.id.nav_category) {
-
-        } else if (id == R.id.nav_arts_and_craft) {
+        }
+        else if (id == R.id.nav_arts_and_craft) {
 
             Intent i = new Intent(this, ArtAndCraft.class);
             startActivity(i);
@@ -142,7 +142,7 @@ public class OrderedProducts extends AppCompatActivity implements ListViewListen
 
 
         else if (id == R.id.nav_about_us) {
-            Intent intentAboutUs = new Intent(this, LoginActivity.class);
+            Intent intentAboutUs = new Intent(this, LoginVolley.class);
             startActivity(intentAboutUs);
 
         }
@@ -173,8 +173,10 @@ public class OrderedProducts extends AppCompatActivity implements ListViewListen
 
         for (int i = 0; i < orderedProductsList.size(); i++) {
             final OrderedProducts_pojo info = orderedProductsList.get(i);
+
             mOrderAdapter = new OrderAdapter(this, orderedProductsList, R.layout.ordered_productlist);
             mOrderAdapter.setListener(this);
+
             lv.setAdapter(mOrderAdapter);
             lv.deferNotifyDataSetChanged();
         }

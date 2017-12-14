@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class MyData implements Serializable {
     Integer id, count, menu_order, parent, image_id;
-   String name, slug, description, display, _, date_created, date_created_gmt, date_modified, date_modified_gmt, src, title, alt, self_href, collection_href;
+   String name, slug, description, display, date_created, date_created_gmt, date_modified, date_modified_gmt, src, title, alt, self_href, collection_href;
 
     public MyData(Integer id, Integer count, Integer menu_order, Integer parent, Integer image_id, String name, String slug, String description, String display , String date_created, String date_created_gmt, String date_modified, String date_modified_gmt, String src, String title, String alt, String self_href, String collection_href) {
         this.id = id;
