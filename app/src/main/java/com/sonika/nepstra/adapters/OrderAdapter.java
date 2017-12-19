@@ -27,13 +27,13 @@ import java.util.List;
  * Created by sonika on 5/9/2017.
  */
 
-public class OrderAdapter extends BaseAdapter  {
+public class OrderAdapter extends BaseAdapter implements CountListener  {
     Context context;
     List<OrderedProducts_pojo> cartlist = new ArrayList<OrderedProducts_pojo>();
     int resource;
     OrderHelper dbHelper;
     private ListViewListener mListener;
-    private CountListener countListener;
+    private CountListener mcountListener;
 
 
     public OrderAdapter(Context context, List<OrderedProducts_pojo> objects, int resource) {
@@ -58,8 +58,48 @@ public class OrderAdapter extends BaseAdapter  {
     }
 
     @Override
-    public View getView(final int position, final View convertView, final ViewGroup parent) {
+    public int getItemCount(int a) {
 
+        int position = a;
+        final OrderedProducts_pojo orderInfo = cartlist.get(position);
+        dbHelper = new OrderHelper(context);
+
+        ContentValues contentValues = new ContentValues();
+        ArrayList<OrderedProducts_pojo> cartItems = dbHelper.getOrderMessage();
+        for (int i = position; i < cartlist.size(); i++)
+        {
+        for(OrderedProducts_pojo cartItem: cartItems){
+            if(cartItem.getOrderedcat_id().equals(orderInfo.getOrderedcat_id())) {
+
+                if (cartItem.getCount() > 1) {
+
+                    contentValues.put("count", cartItem.count - 1);
+                    dbHelper.updateCount(orderInfo.getOrderedcat_id(), contentValues);
+                    int count = cartItem.getCount() - 1;
+
+                    mListener.getMyTotal();
+                    notifyDataSetChanged();
+                    return count;
+                }
+
+                else {
+                    dbHelper.delete(cartlist.get(position).getOrderid()
+                            .toString(), null, null);
+                    Toast.makeText(context, "removed", Toast.LENGTH_SHORT).show();
+                    mListener.getMyTotal();
+                    cartlist.remove(position);
+                    notifyDataSetChanged();
+                }
+            }
+        }
+            contentValues.put("count", 1);
+
+        }
+        return getCount()-1;
+    }
+
+    @Override
+    public View getView(final int position, final View convertView, final ViewGroup parent) {
         View row = convertView;
         ViewHolder holder = null;
         if (row == null) {
@@ -78,41 +118,47 @@ public class OrderAdapter extends BaseAdapter  {
         }
         final OrderedProducts_pojo orderInfo = cartlist.get(position);
         dbHelper = new OrderHelper(context);
-
-        holder.name.setText("Name : " + orderInfo.getOrderedname());
-        String itemTotalPrice = String.valueOf(Integer.valueOf(orderInfo.getCount()) * (Integer.valueOf(orderInfo.getOrderedprice())));
-        holder.price.setText(itemTotalPrice);
-        Picasso.with(context).load(orderInfo.getOrderedimage()).into(holder.img_product);
-        holder.qty.setText("Quantity: " +orderInfo.getCount() + " ");
-
+        final ViewHolder finalHolder = holder;
+        finalHolder.name.setText("Name : " + orderInfo.getOrderedname());
+        final String itemTotalPrice = String.valueOf(Integer.valueOf(orderInfo.getCount()) * (Integer.valueOf(orderInfo.getOrderedprice())));
+        finalHolder.price.setText(itemTotalPrice);
+        Picasso.with(context).load(orderInfo.getOrderedimage()).into(finalHolder.img_product);
 
 
-            final ViewHolder finalHolder = holder;
-            holder.btnRemove.setOnClickListener(new View.OnClickListener() {
+
+       // finalHolder.qty.setText(orderInfo.getCount() + " ");
+
+        holder.btnRemove.setOnClickListener(new View.OnClickListener() {
+
                 @Override
-                public void onClick(View view) {
-                    if (orderInfo.getCount() > 1)
-                    {
-                        //getItemCount();
-//                        String itemTotalPrice = String.valueOf(Integer.valueOf(orderInfo.getCount()) * (Integer.valueOf(orderInfo.getOrderedprice())));
-//                        finalHolder.price.setText(itemTotalPrice);
-//                        finalHolder.qty.setText("Quantity: " +orderInfo.getCount() + " ");
-//
-//                        countListener.getItemCount();
-//                        mListener.getMyTotal();
-//                        notifyDataSetChanged();
+                public void onClick(View view)
+                {
+                    if (orderInfo.getCount() > 1) {
+                        int a = position;
+                        int cv = getItemCount(a);
+
+                        String sonika = cv + "";
+                        Toast.makeText(context, sonika, Toast.LENGTH_SHORT).show();
+                        //ViewHolder viewHolder = (ViewHolder) finalRow.getTag();
+                        finalHolder.qty.setText(sonika);
+                        
+
+
+
                     }
 
                     else {
-                        dbHelper.delete(cartlist.get(position).getOrderid()
-                                .toString(), null, null);
-                        Toast.makeText(context, "removed", Toast.LENGTH_SHORT).show();
-                        mListener.getMyTotal();
-                        cartlist.remove(position);
-                        notifyDataSetChanged();
+                            dbHelper.delete(cartlist.get(position).getOrderid()
+                                    .toString(), null, null);
+                            Toast.makeText(context, "removed", Toast.LENGTH_SHORT).show();
+                            mListener.getMyTotal();
+                            cartlist.remove(position);
+                            notifyDataSetChanged();
+                        }
+                    notifyDataSetChanged();
                     }
 
-                }
+
 
             });
 
@@ -131,24 +177,15 @@ public class OrderAdapter extends BaseAdapter  {
 //        cv.put("price", holder.orderid.getText().toString());
 //        dbhelper.insertOrderInfo(cv);
     }
-//    @Override
-//    public void getItemCount() {
-//        int position = 1;
-//        final OrderedProducts_pojo orderInfo = cartlist.get(position);
-//        dbHelper = new OrderHelper(context);
-//        ContentValues abc = new ContentValues();
-//        abc.put("count", orderInfo.getCount()-1);
-//        dbHelper.updateCount(orderInfo.getOrderedcat_id(), abc);
-//
+
 //    }
     public void setListener(ListViewListener listener) {
         mListener = listener;
     }
-//    public void setCountListener(CountListener listeners) {
-//        countListener = listeners;
-//    }
 
-
+    public void setCountListener(CountListener countListener){
+        mcountListener = countListener;
+    }
 
 
     static class ViewHolder {

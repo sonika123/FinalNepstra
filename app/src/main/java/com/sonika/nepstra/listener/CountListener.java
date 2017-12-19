@@ -5,5 +5,5 @@ package com.sonika.nepstra.listener;
  */
 
 public interface CountListener {
-    void getItemCount();
+    int getItemCount(int a);
 }

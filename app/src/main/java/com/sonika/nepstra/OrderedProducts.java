@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -103,6 +104,7 @@ public class OrderedProducts extends AppCompatActivity implements ListViewListen
     public void getMyTotal() {
         String result = dbhelper.GetTotal();
         totalAmount.setText(result);
+        Log.e("fofo", result);
 
         String text = (String) totalAmount.getText();
 

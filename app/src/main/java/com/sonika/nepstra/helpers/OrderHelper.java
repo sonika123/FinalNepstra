@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.sonika.nepstra.pojo.OrderedProducts_pojo;
 
@@ -107,15 +106,18 @@ public class OrderHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public void updateCount(String id,ContentValues cv){
+    public ContentValues updateCount(String id, ContentValues cv){
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             db.update("user_orders",cv,"cat_id="+id,null);
+
             db.close();
+            return  cv;
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
+        return cv;
     }
 
 }

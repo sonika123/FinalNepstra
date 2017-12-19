@@ -94,6 +94,7 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
                 contentValue.put("desc", odesc);
                 contentValue.put("c_id", cat_id);
                 detailsHelper.insertdetails(contentValue);
+
                 Intent intent =  new Intent(context, DetailsActivity.class);
                 context.startActivity(intent);
 //                AllProducts intentprod = allProductList.get(position);
@@ -114,12 +115,13 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
                 img_id = allProductList.get(position).getI_id();
 
                 ContentValues contentValues = new ContentValues();
+                Log.e("csonik", contentValues.toString());
                 ArrayList<OrderedProducts_pojo> cartItems = dbHelper.getOrderMessage();
                 for(OrderedProducts_pojo cartItem: cartItems){
                     if(cartItem.getOrderedcat_id().equals(String.valueOf(img_id))){
                         contentValues.put("count",cartItem.count+1);
                         dbHelper.updateCount(img_id.toString(),contentValues);
-                        Log.e("opop", img_id.toString());
+
                         return;
                     }
                 }
