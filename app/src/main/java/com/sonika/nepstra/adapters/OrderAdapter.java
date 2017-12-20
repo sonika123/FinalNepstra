@@ -27,7 +27,7 @@ import java.util.List;
  * Created by sonika on 5/9/2017.
  */
 
-public class OrderAdapter extends BaseAdapter implements CountListener  {
+public class OrderAdapter extends BaseAdapter  {
     Context context;
     List<OrderedProducts_pojo> cartlist = new ArrayList<OrderedProducts_pojo>();
     int resource;
@@ -57,46 +57,7 @@ public class OrderAdapter extends BaseAdapter implements CountListener  {
         return i;
     }
 
-    @Override
-    public int getItemCount(int a) {
 
-        int position = a;
-        final OrderedProducts_pojo orderInfo = cartlist.get(position);
-        dbHelper = new OrderHelper(context);
-
-        ContentValues contentValues = new ContentValues();
-        ArrayList<OrderedProducts_pojo> cartItems = dbHelper.getOrderMessage();
-        for (int i = position; i < cartlist.size(); i++)
-        {
-        for(OrderedProducts_pojo cartItem: cartItems){
-            if(cartItem.getOrderedcat_id().equals(orderInfo.getOrderedcat_id())) {
-
-                if (cartItem.getCount() > 1) {
-
-                    contentValues.put("count", cartItem.count - 1);
-                    dbHelper.updateCount(orderInfo.getOrderedcat_id(), contentValues);
-                    int count = cartItem.getCount() - 1;
-
-                    mListener.getMyTotal();
-                    notifyDataSetChanged();
-                    return count;
-                }
-
-                else {
-                    dbHelper.delete(cartlist.get(position).getOrderid()
-                            .toString(), null, null);
-                    Toast.makeText(context, "removed", Toast.LENGTH_SHORT).show();
-                    mListener.getMyTotal();
-                    cartlist.remove(position);
-                    notifyDataSetChanged();
-                }
-            }
-        }
-            contentValues.put("count", 1);
-
-        }
-        return getCount()-1;
-    }
 
     @Override
     public View getView(final int position, final View convertView, final ViewGroup parent) {
@@ -123,39 +84,34 @@ public class OrderAdapter extends BaseAdapter implements CountListener  {
         final String itemTotalPrice = String.valueOf(Integer.valueOf(orderInfo.getCount()) * (Integer.valueOf(orderInfo.getOrderedprice())));
         finalHolder.price.setText(itemTotalPrice);
         Picasso.with(context).load(orderInfo.getOrderedimage()).into(finalHolder.img_product);
+        finalHolder.qty.setText(orderInfo.getCount() + " ");
 
-
-
-       // finalHolder.qty.setText(orderInfo.getCount() + " ");
 
         holder.btnRemove.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view)
                 {
-                    if (orderInfo.getCount() > 1) {
-                        int a = position;
-                        int cv = getItemCount(a);
+//                    if (orderInfo.getCount() > 1) {
+                    int a = position;
+                    int count = mcountListener.getItemCount(a);
+                    Toast.makeText(context, count + "", Toast.LENGTH_SHORT).show();
+                    finalHolder.qty.setText(count + "");
+                    final String itemTotalPrice = String.valueOf(Integer.valueOf(count) * (Integer.valueOf(orderInfo.getOrderedprice())));
+                    Log.e("totlprice", itemTotalPrice);
+                    finalHolder.price.setText(itemTotalPrice);
+                        notifyDataSetChanged();
+//                    }
 
-                        String sonika = cv + "";
-                        Toast.makeText(context, sonika, Toast.LENGTH_SHORT).show();
-                        //ViewHolder viewHolder = (ViewHolder) finalRow.getTag();
-                        finalHolder.qty.setText(sonika);
-                        
+//                    else {
+//                            dbHelper.delete(cartlist.get(position).getOrderid()
+//                                    .toString(), null, null);
+//                            Toast.makeText(context, "removed", Toast.LENGTH_SHORT).show();
+//                            mListener.getMyTotal();
+//                            cartlist.remove(position);
+//                            notifyDataSetChanged();
+//                        }
 
-
-
-                    }
-
-                    else {
-                            dbHelper.delete(cartlist.get(position).getOrderid()
-                                    .toString(), null, null);
-                            Toast.makeText(context, "removed", Toast.LENGTH_SHORT).show();
-                            mListener.getMyTotal();
-                            cartlist.remove(position);
-                            notifyDataSetChanged();
-                        }
-                    notifyDataSetChanged();
                     }
 
 

@@ -1,5 +1,6 @@
 package com.sonika.nepstra;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sonika.nepstra.Navigations.ArtAndCraft;
 import com.sonika.nepstra.Navigations.Jwellery;
@@ -42,7 +44,7 @@ import java.util.List;
  * Created by sonika on 9/22/2017.
  */
 
-public class OrderedProducts extends AppCompatActivity implements ListViewListener,NavigationView.OnNavigationItemSelectedListener {
+public class OrderedProducts extends AppCompatActivity implements CountListener, ListViewListener,NavigationView.OnNavigationItemSelectedListener {
     //RecyclerView orders_recyclerView;
     ListView lv;
     OrderHelper dbhelper;
@@ -167,26 +169,56 @@ public class OrderedProducts extends AppCompatActivity implements ListViewListen
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-
     public void show() {
         orderedProductsList = dbhelper.getOrderMessage();
-
         for (int i = 0; i < orderedProductsList.size(); i++) {
             final OrderedProducts_pojo info = orderedProductsList.get(i);
-
             mOrderAdapter = new OrderAdapter(this, orderedProductsList, R.layout.ordered_productlist);
             mOrderAdapter.setListener(this);
-
+            mOrderAdapter.setCountListener(this);
+            mOrderAdapter.notifyDataSetChanged();
             lv.setAdapter(mOrderAdapter);
             lv.deferNotifyDataSetChanged();
         }
     }
 
+    @Override
+    public int getItemCount(int a) {
+        int position = a;
+        final OrderedProducts_pojo orderInfo = orderedProductsList.get(position);
+        dbhelper = new OrderHelper(this);
 
+        ContentValues contentValues = new ContentValues();
+        ArrayList<OrderedProducts_pojo> cartItems = dbhelper.getOrderMessage();
+        for (int i = position; i < orderedProductsList.size(); i++)
+        {
+            for(OrderedProducts_pojo cartItem: cartItems){
+                if(cartItem.getOrderedcat_id().equals(orderInfo.getOrderedcat_id())) {
+                    if (cartItem.getCount() > 1) {
+                        contentValues.put("count", cartItem.count - 1);
+                        dbhelper.updateCount(orderInfo.getOrderedcat_id(), contentValues);
+                        int count = cartItem.getCount() - 1;
+                        getMyTotal();
+                        return count;
+                    }
 
-}
+                    else {
+                        dbhelper.delete(orderedProductsList.get(position).getOrderid()
+                                .toString(), null, null);
+                        Toast.makeText(OrderedProducts.this, "removed", Toast.LENGTH_SHORT).show();
+                        orderedProductsList.remove(position);
+                        getMyTotal();
+
+                    }
+
+                    Log.e("popopo",cartItem.getCount().toString());
+                }
+            }
+            contentValues.put("count", 1);
+
+        }
+        return cartItems.size();
+    }
 //        orders_recyclerView = (RecyclerView) findViewById(R.id.or);
 //        //Toast.makeText(this, orderedProducts.getOrderedname(), Toast.LENGTH_SHORT).show();
 //
@@ -222,5 +254,5 @@ public class OrderedProducts extends AppCompatActivity implements ListViewListen
 //        allProductList.add(mProduct);
 //        Collections.addAll(allProductList, allProducts);
 //        return allProductList;
-//   }
-//}
+   }
+
