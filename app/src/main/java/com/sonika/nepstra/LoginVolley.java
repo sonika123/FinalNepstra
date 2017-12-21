@@ -35,7 +35,7 @@ import java.util.Map;
 public class LoginVolley extends AppCompatActivity {
     EditText email, password;
     String semail, spassword;
-    Button btnRegister, login;
+    Button login;
     ProgressDialog mprogressDialog;
     SharedPreferences loginpref;
 
@@ -55,10 +55,9 @@ public class LoginVolley extends AppCompatActivity {
 
                 if (semail.length() <= 0 || spassword.length() <= 0) {
                     Toast.makeText(LoginVolley.this, "Please, fill all the fields! ", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Log.e("Tag", "signupPrakriti");
-                    mprogressDialog= new ProgressDialog(LoginVolley.this);
+                    mprogressDialog = new ProgressDialog(LoginVolley.this);
                     mprogressDialog.setMessage("Loading...");
 
                     mprogressDialog.show();
@@ -66,37 +65,34 @@ public class LoginVolley extends AppCompatActivity {
                     RequestQueue queue = Volley.newRequestQueue(LoginVolley.this);
 
 
-
-                  StringRequest sr = new StringRequest(Request.Method.POST,
-                          "https://nepstra.com/api/android/verifyuser.php?email="+semail+"&pass="+spassword,
-                          //  https://nepstra.com/api/android/verifyuser.php/?email=send_correct_user&pass=send_correct_password
-                          //  http://nepstra.com/api/android/verifyuser.php?email=email&pass=password
-                           // https://nepstra.com/api/android/verifyuser.php/?user=send_correct_user&pass=send_correct_password
+                    StringRequest sr = new StringRequest(Request.Method.POST,
+                            "https://nepstra.com/api/android/verifyuser.php?email=" + semail + "&pass=" + spassword,
+                            //  https://nepstra.com/api/android/verifyuser.php/?email=send_correct_user&pass=send_correct_password
+                            //  http://nepstra.com/api/android/verifyuser.php?email=email&pass=password
+                            // https://nepstra.com/api/android/verifyuser.php/?user=send_correct_user&pass=send_correct_password
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                  Log.e("response", response);
+                                    Log.e("response", response);
                                     try {
                                         JSONObject jsonObject = new JSONObject(response);
                                         Log.e("simi", "monkey");
                                         String status = jsonObject.getString("status");
 //                                        String message = jsonObject.getString("message");
 ////                                      Integer data = jsonObject.getInt(String.valueOf(1)); //yo k gareko?? data =
-                                        Log.e("status",status);
+                                        Log.e("status", status);
 
                                         loginpref = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
                                         SharedPreferences.Editor loginedit = loginpref.edit();
 
-                                        if(status.equals("success")){
+                                        if (status.equals("success")) {
                                             Intent i = new Intent(LoginVolley.this, MainActivity.class);
                                             startActivity(i);
                                             loginedit.putBoolean("login", true);
                                             loginedit.putString("email", semail);
-                                            loginedit.commit();}
-
-                                         else if (status.equals("error")) {
+                                            loginedit.commit();
+                                        } else if (status.equals("error")) {
                                             loginedit.putBoolean("login", false);
-
                                             loginedit.commit();
                                             Toast.makeText(LoginVolley.this, "Wrong email adddress", Toast.LENGTH_SHORT).show();
                                         }
@@ -106,13 +102,13 @@ public class LoginVolley extends AppCompatActivity {
                                     }
 
 
-
                                     //  msgResponse.setText(response.toString());
 
                                     mprogressDialog.hide();
 
-                                   Log.e("HttpClientlogin", "success! response: " + response.toString());
-                                }},
+                                    Log.e("HttpClientlogin", "success! response: " + response.toString());
+                                }
+                            },
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
@@ -154,7 +150,9 @@ public class LoginVolley extends AppCompatActivity {
                     queue.add(sr);
 
 
-                }}});
+                }
+            }
+        });
 
         final BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         BottomBarTab dummy = bottomBar.getTabWithId(R.id.tab_dummy);
@@ -176,8 +174,8 @@ public class LoginVolley extends AppCompatActivity {
 
 
                     case R.id.tab_products:
-                            Intent iiproducts = new Intent(LoginVolley.this,CategoriesActivity.class);
-                            startActivity(iiproducts);
+                        Intent iiproducts = new Intent(LoginVolley.this, CategoriesActivity.class);
+                        startActivity(iiproducts);
 
 
                         break;
@@ -196,17 +194,6 @@ public class LoginVolley extends AppCompatActivity {
             }
         });
     }
-
-
-
-//    btnRegister = (Button) findViewById(R.id.btn_register_login);
-//            btnRegister.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//
-//            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-//        }
-//    });
 }
 
 
