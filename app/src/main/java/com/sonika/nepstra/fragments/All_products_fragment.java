@@ -20,6 +20,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ import com.sonika.nepstra.helpers.OrderHelper;
 import com.sonika.nepstra.parser.JsonParserA;
 import com.sonika.nepstra.pojo.AllProducts;
 import com.sonika.nepstra.pojo.OrderedProducts_pojo;
+import com.synnapps.carouselview.CarouselView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +55,8 @@ public class All_products_fragment extends Fragment
     List<OrderedProducts_pojo> cartlist = new ArrayList<>();
     AllProductAdapter allProductAdapter = null;
     SearchView search;
+    CarouselView carouselView;
+    ScrollView scrollView;
     List<AllProducts> savedList=new ArrayList<>();
 
 
@@ -64,12 +69,16 @@ public class All_products_fragment extends Fragment
         orderHelper = new OrderHelper(getContext());
         allProductAdapter = new AllProductAdapter(getContext(), allProductList );
         search= v.findViewById(R.id.search_it);
+        carouselView = v.findViewById(R.id.carouselview);
+        scrollView = v.findViewById(R.id.scroll_view);
         search.setQueryHint("Search");
+
         setHasOptionsMenu(true);
         search.setOnQueryTextListener(this);
         search.setOnCloseListener(this);
         search.setInputType(InputType.TYPE_CLASS_TEXT);
-        search.requestFocus();
+        //search.requestFocus();
+//        carouselView.setVisibility(View.GONE);
         perform(v);
         return v;
     }
@@ -96,26 +105,33 @@ public class All_products_fragment extends Fragment
 
     @Override
     public boolean onQueryTextSubmit(String newText) {
+
         filterData(newText);
         // displayList();
         return false;
     }
     public void filterData(String charText){
         charText = charText.toLowerCase(Locale.getDefault());
+
         allProductList.clear();
 
         if (charText.length() == 0) {
+
             allProductList.addAll(savedList);
         } else {
-            for (AllProducts wp : savedList) {
+
+                for (AllProducts wp : savedList) {
                 if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
+
                     allProductList.add(wp);
 
-                    Log.e("LIst",wp.getName()+""+charText+allProductList.size()+allProductList.get(0).getName());
+
                 }
             }
-        }
+             }
+
         allProductAdapter.notifyDataSetChanged();
+
     }
 
 
@@ -148,8 +164,6 @@ public class All_products_fragment extends Fragment
 
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            Log.e("forkatichoti", "khaikhai");
-
                             JSONObject dataObject = jsonArray.getJSONObject(i);
 
                             Integer id = dataObject.getInt("id");
@@ -236,7 +250,7 @@ public class All_products_fragment extends Fragment
                                 c_id = categories_array.getJSONObject(j).getInt("id");
                                 c_name = categories_array.getJSONObject(j).getString("name");
                                 c_slug = categories_array.getJSONObject(j).getString("slug");
-                                Log.e("catogory", "catogory");
+
                             }
 
                             JSONArray tags = dataObject.getJSONArray("tags");
@@ -335,7 +349,6 @@ public class All_products_fragment extends Fragment
                 mRecyclerView.setHasFixedSize(true);
                 mRecyclerView.setNestedScrollingEnabled(false);
 
-                Log.e("rrrrrrrrrrrrr", String.valueOf(allProductList.size()));
 
                 allProductAdapter = new AllProductAdapter(getContext(), allProductList);
                 mRecyclerView.setAdapter(allProductAdapter);

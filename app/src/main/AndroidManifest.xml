@@ -19,7 +19,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="adjustPan">
+            <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,9 +36,7 @@
         <activity
             android:name=".RegisterActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name=".LoginActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+
         <activity
             android:name=".Navigations.Womens"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -70,6 +69,7 @@
         <activity android:name=".LoginVolley" />
         <activity android:name=".MyOrders"></activity>
         <activity android:name=".CategoriesActivity"></activity>
+        <activity android:name=".Navigations.Books"/>
     </application>
 
 </manifest>

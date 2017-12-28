@@ -34,7 +34,11 @@ public class JwelleryHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         getWritableDatabase().execSQL(Jwellery_TABLE);
     }
-
+    public  void  deleteJwellery()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from jwellery");
+    }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 

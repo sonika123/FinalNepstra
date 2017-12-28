@@ -49,7 +49,11 @@ public class SportsHelper extends SQLiteOpenHelper {
         Log.e("sportsinsertvaeraxa", "yes");
 
     }
-
+    public  void  deleteSports()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from sports");
+    }
     public ArrayList<Sports_pojo> getsports() {
         Log.e("getsportMessage", "vaeraxa");
         String sql = "select * from sports";

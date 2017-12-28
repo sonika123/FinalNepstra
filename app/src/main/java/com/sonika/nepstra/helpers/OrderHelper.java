@@ -93,8 +93,6 @@ public class OrderHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql = "SELECT Sum(price * count) " +
                 "AS myTotal FROM  user_orders";
-
-
         Cursor GetTotal = db.rawQuery(sql, null);
         String result = " ";
 

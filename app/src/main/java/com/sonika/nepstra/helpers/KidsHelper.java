@@ -45,6 +45,11 @@ public class KidsHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
+    public  void  deleteKids()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from kids");
+    }
     public void insertkids(ContentValues cv) {
         getWritableDatabase().insert("kids", "", cv);
         Log.e("poker", "yes");

@@ -50,6 +50,11 @@ public class WomenHelper extends SQLiteOpenHelper {
 
     }
 
+    public  void  deleteWomen()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+         db.execSQL("delete from women");
+    }
     public ArrayList<WomenPoducts_pojo> getwomen() {
         Log.e("womenOrder", "vaeraxa");
         String sql = "select * from women";

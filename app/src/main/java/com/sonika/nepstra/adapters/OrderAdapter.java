@@ -72,7 +72,6 @@ public class OrderAdapter extends BaseAdapter  {
             holder.img_product = row.findViewById(R.id.img_add_to_cart);
             holder.qty = row.findViewById(R.id.ordered_productlist_id);
             holder.btnRemove = row.findViewById(R.id.btn_add_to_cart_remove);
-
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
@@ -92,26 +91,12 @@ public class OrderAdapter extends BaseAdapter  {
                 @Override
                 public void onClick(View view)
                 {
-//                    if (orderInfo.getCount() > 1) {
-                    int a = position;
-                    int count = mcountListener.getItemCount(a);
-                    Toast.makeText(context, count + "", Toast.LENGTH_SHORT).show();
-                    finalHolder.qty.setText(count + "");
-                    final String itemTotalPrice = String.valueOf(Integer.valueOf(count) * (Integer.valueOf(orderInfo.getOrderedprice())));
-                    Log.e("totlprice", itemTotalPrice);
-                    finalHolder.price.setText(itemTotalPrice);
-                        notifyDataSetChanged();
-//                    }
-
-//                    else {
-//                            dbHelper.delete(cartlist.get(position).getOrderid()
-//                                    .toString(), null, null);
-//                            Toast.makeText(context, "removed", Toast.LENGTH_SHORT).show();
-//                            mListener.getMyTotal();
-//                            cartlist.remove(position);
-//                            notifyDataSetChanged();
-//                        }
-
+                   int a = position;
+                   int count = mcountListener.getItemCount(a);
+                   finalHolder.qty.setText(count + "");
+//                   notifyDataSetChanged();
+                   final String itemTotalPrice = String.valueOf(Integer.valueOf(count) * (Integer.valueOf(orderInfo.getOrderedprice())));
+                   finalHolder.price.setText(itemTotalPrice);
                     }
 
 
@@ -119,12 +104,13 @@ public class OrderAdapter extends BaseAdapter  {
             });
 
 
-        int sum = 0;
-        for (int i = 0; i < cartlist.size(); i++)
-        {
-            sum = Integer.parseInt(holder.price.getText().toString());
-        }
-        Log.e("sum", String.valueOf(sum));
+//        int sum = 0;
+//        for (int i = 0; i < cartlist.size(); i++)
+//        {
+//            sum = Integer.parseInt(holder.price.getText().toString());
+//
+//        }
+//        Log.e("sum", String.valueOf(sum));
         return row;
 
 //        Log.e("price", String.valueOf(holder.price.getText()));

@@ -45,6 +45,11 @@ public class MensHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
+    public  void  deleteMen()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from mens");
+    }
     public void insertmen(ContentValues cv) {
         getWritableDatabase().insert("mens", "", cv);
         Log.e("poker", "yes");

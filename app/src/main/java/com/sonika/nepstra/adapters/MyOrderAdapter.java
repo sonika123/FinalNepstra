@@ -34,14 +34,19 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrder>
 
     @Override
     public void onBindViewHolder(MyOrder holder, int position) {
-        holder.productName.setText(myorderlist.get(position).getLine_item_name());
-        holder.productQuantity.setText(myorderlist.get(position).getLine_quantity() + "");
-        holder.productPrice.setText(myorderlist.get(position).getLine_price() + "");
-       // holder.productName.setText(myorderlist.get(position).getLine_quantity() + "");
-        //allholder.allproductName1.setText(allProductList.get(position).getI_name());
 
-        //Glide.with(context).load(allProductList.get(position).getI_src()).into(allholder.allproductImage);
-        //Glide.with(context).load(allProductList.get(position).getI_date_created()).into(allholder.allproductImage);
+            holder.productName.setText(myorderlist.get(position).getLine_item_name());
+            holder.productQuantity.setText(myorderlist.get(position).getLine_quantity() + "");
+            String totalprice_item = String.valueOf(Integer.valueOf(myorderlist.get(position).getLine_quantity()) * (Integer.valueOf(myorderlist.get(position).getLine_price())));
+
+            holder.productPrice.setText(totalprice_item+ "");
+
+//            for (int g = 0; g < myorderlist.size(); g++)
+//        {
+//            holder.productName.setText(myorderlist.get(position).getLine_item_name());
+//            holder.productQuantity.setText(myorderlist.get(position).getLine_quantity() + "");
+//            holder.productPrice.setText(myorderlist.get(position).getLine_price() + "");
+//        }
 
     }
     @Override

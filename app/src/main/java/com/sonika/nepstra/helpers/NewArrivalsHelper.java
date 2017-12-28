@@ -50,6 +50,11 @@ public class NewArrivalsHelper extends SQLiteOpenHelper{
 
     }
 
+    public  void  deleteArrival()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from newarrival");
+    }
     public ArrayList<Newarrivals_pojo> getarrivals() {
         Log.e("getOrderMessage", "vaeraxa");
         String sql = "select * from newarrival";

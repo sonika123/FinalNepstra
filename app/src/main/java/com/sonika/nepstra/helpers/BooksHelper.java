@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.sonika.nepstra.Navigations.ArtAndCraft;
 import com.sonika.nepstra.pojo.ArtAndCraft_pojo;
+import com.sonika.nepstra.pojo.Books_Pojo;
 import com.sonika.nepstra.pojo.WomenPoducts_pojo;
 
 import java.util.ArrayList;
@@ -17,11 +18,11 @@ import java.util.ArrayList;
  * Created by sonika on 10/17/2017.
  */
 
-public class ArtAndCraftHelper extends SQLiteOpenHelper {
+public class BooksHelper extends SQLiteOpenHelper {
     static int DATABASE_VERSION = 1;
-    static String DATABASE_NAME = "artandcraft";
+    static String DATABASE_NAME = "books";
 
-    String ART_TABLE = "CREATE TABLE if not exists `artandcraft`  (\n" +
+    String BOOKS_TABLE = "CREATE TABLE if not exists `books`  (\n" +
             "                       `id` INTEGER PRIMARY KEY ,\n" +
             "                       `c_id` INTEGER,\n" +
             "                       `i_id` INTEGER,\n" +
@@ -31,9 +32,9 @@ public class ArtAndCraftHelper extends SQLiteOpenHelper {
             "                       `imageone` TEXT\n" +
             "                      );";
 
-    public ArtAndCraftHelper(Context context) {
+    public BooksHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        getWritableDatabase().execSQL(ART_TABLE);
+        getWritableDatabase().execSQL(BOOKS_TABLE);
     }
 
     @Override
@@ -47,33 +48,33 @@ public class ArtAndCraftHelper extends SQLiteOpenHelper {
 
     }
 
-    public  void  deleteArtAndCraft()
+    public  void  deleteBooks()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from artandcraft");
+        db.execSQL("delete from books");
     }
-    public void insertwartandcraft(ContentValues cv) {
-        getWritableDatabase().insert("artandcraft", "", cv);
+    public void insertbooks(ContentValues cv) {
+        getWritableDatabase().insert("books", "", cv);
         Log.e("poker", "yes");
 
     }
 
-    public ArrayList<ArtAndCraft_pojo> getartandcraft() {
+    public ArrayList<Books_Pojo> getbooks() {
         Log.e("getOrderMessage", "vaeraxa");
-        String sql = "select * from artandcraft";
-        ArrayList<ArtAndCraft_pojo> list = new ArrayList<ArtAndCraft_pojo>();
+        String sql = "select * from books";
+        ArrayList<Books_Pojo> list = new ArrayList<Books_Pojo>();
         Cursor cursor = getWritableDatabase().rawQuery(sql, null);
         while (cursor.moveToNext()) {
             Log.e("movettonext", "lolo");
             // Do Somehing here
-            ArtAndCraft_pojo orderinfo = new ArtAndCraft_pojo();
-            orderinfo.artid = cursor.getInt(cursor.getColumnIndex("id"));
-            orderinfo.artcid = cursor.getInt(cursor.getColumnIndex("c_id"));
-            orderinfo.artimgid = cursor.getInt(cursor.getColumnIndex("i_id"));
-            orderinfo.artname = cursor.getString(cursor.getColumnIndex("name"));
-            orderinfo.artprice = cursor.getString(cursor.getColumnIndex("price"));
-            orderinfo.artdesc = cursor.getString(cursor.getColumnIndex("desc"));
-            orderinfo.artimage = cursor.getString(cursor.getColumnIndex("imageone"));
+            Books_Pojo orderinfo = new Books_Pojo();
+            orderinfo.bookid= cursor.getInt(cursor.getColumnIndex("id"));
+            orderinfo.bookcid = cursor.getInt(cursor.getColumnIndex("c_id"));
+            orderinfo.bookimgid = cursor.getInt(cursor.getColumnIndex("i_id"));
+            orderinfo.bookname = cursor.getString(cursor.getColumnIndex("name"));
+            orderinfo.bookprice = cursor.getString(cursor.getColumnIndex("price"));
+            orderinfo.bookdesc = cursor.getString(cursor.getColumnIndex("desc"));
+            orderinfo.bookimage = cursor.getString(cursor.getColumnIndex("imageone"));
             list.add(orderinfo);
         }
         cursor.close();

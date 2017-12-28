@@ -18,10 +18,12 @@ import com.sonika.nepstra.DetailsActivity;
 import com.sonika.nepstra.Navigations.ArtAndCraft;
 import com.sonika.nepstra.R;
 import com.sonika.nepstra.helpers.ArtAndCraftHelper;
+import com.sonika.nepstra.helpers.BooksHelper;
 import com.sonika.nepstra.helpers.DetailsHelper;
 import com.sonika.nepstra.helpers.NewArrivalsHelper;
 import com.sonika.nepstra.helpers.OrderHelper;
 import com.sonika.nepstra.pojo.ArtAndCraft_pojo;
+import com.sonika.nepstra.pojo.Books_Pojo;
 import com.sonika.nepstra.pojo.Newarrivals_pojo;
 import com.sonika.nepstra.pojo.OrderedProducts_pojo;
 import com.squareup.picasso.Picasso;
@@ -33,25 +35,25 @@ import java.util.List;
  * Created by sonika on 10/17/2017.
  */
 
-public class ArtAndCraftAdapter extends BaseAdapter {
+public class BooksAdapter extends BaseAdapter {
     Context context;
-    List<ArtAndCraft_pojo> artAndCraft_pojos = new ArrayList<ArtAndCraft_pojo>();
+    List<Books_Pojo> books_pojos = new ArrayList<Books_Pojo>();
     int resource;
-    ArtAndCraftHelper dbHelper;
+    BooksHelper dbHelper;
     DetailsHelper detailsHelper;
     OrderHelper orderHelper;
     String aname, aprice, aimage, adesc;
     Integer cid, i_id;
-    public ArtAndCraftAdapter(Context context, List<ArtAndCraft_pojo> artAndCraft_pojos, int resource) {
+    public BooksAdapter(Context context, List<Books_Pojo> books_pojos, int resource) {
         this.context = context;
-        this.artAndCraft_pojos = artAndCraft_pojos;
+        this.books_pojos = books_pojos;
         this.resource = resource;
     }
 
 
     @Override
     public int getCount() {
-        return artAndCraft_pojos.size();
+        return books_pojos.size();
     }
 
     @Override
@@ -74,11 +76,11 @@ public class ArtAndCraftAdapter extends BaseAdapter {
             row = inflater.inflate(resource, viewGroup, false);
             holder = new ViewHolder();
 
-            holder.artname = row.findViewById(R.id.artandcraft_product_name);
-            holder.artprice= row.findViewById(R.id.artandcraft_product_price);
-            holder.artimg_product = row.findViewById(R.id.artandcraft_product_image);
-            holder.btn_art_add_to_cart = row.findViewById(R.id.artandcraft_btn_add_to_cart);
-            holder.btn_art_view_more = row.findViewById(R.id.artandcraft_btn_view_more);
+            holder.bookname = row.findViewById(R.id.books_product_name);
+            holder.bookprice= row.findViewById(R.id.books_product_price);
+            holder.bookimg_product = row.findViewById(R.id.books_product_image);
+            holder.btn_book_add_to_cart = row.findViewById(R.id.books_btn_add_to_cart);
+            holder.btn_book_view_more = row.findViewById(R.id.books_btn_view_more);
 
             row.setTag(holder);
         }
@@ -86,9 +88,9 @@ public class ArtAndCraftAdapter extends BaseAdapter {
         {
             holder = (ViewHolder) row.getTag();
         }
-        final ArtAndCraft_pojo orderInfo = artAndCraft_pojos.get(i);
+        final Books_Pojo orderInfo = books_pojos.get(i);
 
-        dbHelper = new ArtAndCraftHelper(context);
+        dbHelper = new BooksHelper(context);
         orderHelper = new OrderHelper(context);
         detailsHelper = new DetailsHelper(context);
         //holder.orderid.setText(orderInfo.getOrderid().toString());
@@ -96,20 +98,20 @@ public class ArtAndCraftAdapter extends BaseAdapter {
 
 
 
-            holder.artname.setText("Name:" + " " + orderInfo.getArtname());
-            holder.artprice.setText("A$" + " " + orderInfo.getArtprice());
-            Picasso.with(context).load(orderInfo.getArtimage()).into(holder.artimg_product);
+        holder.bookname.setText("Name:" + " " + orderInfo.getBookname());
+        holder.bookprice.setText("A$" + " " + orderInfo.getBookprice());
+        Picasso.with(context).load(orderInfo.getBookimgid()).into(holder.bookimg_product);
 
 
-        holder.btn_art_view_more.setOnClickListener(new View.OnClickListener() {
+        holder.btn_book_view_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "view more", Toast.LENGTH_SHORT).show();
-                aname = artAndCraft_pojos.get(i).getArtname();
-                aimage = artAndCraft_pojos.get(i).getArtimage();
-                aprice = artAndCraft_pojos.get(i).getArtprice();
-                adesc = artAndCraft_pojos.get(i).getArtdesc();
-                cid  = artAndCraft_pojos .get(i).getArtcid();
+                aname = books_pojos.get(i).getBookname();
+                aimage = books_pojos.get(i).getBookimage();
+                aprice = books_pojos.get(i).getBookprice();
+                adesc = books_pojos.get(i).getBookdesc();
+                cid  = books_pojos .get(i).getBookcid();
                 ContentValues cv1 = new ContentValues();
                 cv1.put("name", aname);
                 cv1.put("price", aprice);
@@ -124,14 +126,14 @@ public class ArtAndCraftAdapter extends BaseAdapter {
             }
         });
 
-        holder.btn_art_add_to_cart.setOnClickListener(new View.OnClickListener() {
+        holder.btn_book_add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                aname = artAndCraft_pojos.get(i).getArtname();
-                aimage = artAndCraft_pojos.get(i).getArtimage();
-                aprice = artAndCraft_pojos.get(i).getArtprice();
+                aname = books_pojos.get(i).getBookname();
+                aimage = books_pojos.get(i).getBookimage();
+                aprice = books_pojos.get(i).getBookprice();
                 //adesc = artAndCraft_pojos.get(i).getArtdesc();
-                i_id = artAndCraft_pojos.get(i).getArtimgid();
+                i_id = books_pojos.get(i).getBookimgid();
 
                 ContentValues cv = new ContentValues();
                 ArrayList<OrderedProducts_pojo> cartItems = orderHelper.getOrderMessage();
@@ -155,8 +157,8 @@ public class ArtAndCraftAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        TextView artname, artprice, artid, artcid;
-        Button btn_art_add_to_cart, btn_art_view_more;
-        ImageView artimg_product;
+        TextView bookname, bookprice, bookid, bookcid;
+        Button btn_book_add_to_cart, btn_book_view_more;
+        ImageView bookimg_product;
     }
 }

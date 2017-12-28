@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -22,13 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sonika.nepstra.Navigations.ArtAndCraft;
+import com.sonika.nepstra.Navigations.Books;
 import com.sonika.nepstra.Navigations.Jwellery;
 import com.sonika.nepstra.Navigations.Kids;
 import com.sonika.nepstra.Navigations.Mens;
 import com.sonika.nepstra.Navigations.NewArrival;
 import com.sonika.nepstra.Navigations.Sports;
 import com.sonika.nepstra.Navigations.Womens;
-import com.sonika.nepstra.Paypal.PaypalActivity;
 import com.sonika.nepstra.adapters.OrderAdapter;
 import com.sonika.nepstra.helpers.OrderHelper;
 import com.sonika.nepstra.listener.CountListener;
@@ -53,12 +52,18 @@ public class OrderedProducts extends AppCompatActivity implements CountListener,
     TextView totalAmount;
     Button checkout;
     SharedPreferences sm;
+    String useremail;
+    TextView mloginemail;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_for_add_to_cart_design);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
+        useremail = sharedPreferences.getString("email", null);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,6 +81,12 @@ public class OrderedProducts extends AppCompatActivity implements CountListener,
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (sharedPreferences.getBoolean("login", false)) {
+            View view = navigationView.getHeaderView(0);
+            mloginemail = (TextView)view.findViewById(R.id.tv_useremail);
+            mloginemail.setText(useremail);
+        }
 
         dbhelper = new OrderHelper(this);
         lv = (ListView) findViewById(R.id.ordered_productlist);
@@ -107,67 +118,12 @@ public class OrderedProducts extends AppCompatActivity implements CountListener,
         String result = dbhelper.GetTotal();
         totalAmount.setText(result);
         Log.e("fofo", result);
-
         String text = (String) totalAmount.getText();
-
         sm = getSharedPreferences("USER_LOGIN", 0);
         SharedPreferences.Editor editor = sm.edit();
         editor.putString("total_amount",text);
         editor.apply();
         editor.commit();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_new_arrival) {
-            Intent i = new Intent(this, NewArrival.class);
-            startActivity(i);
-        } else if (id == R.id.nav_mens) {
-            Intent i = new Intent(this, Mens.class);
-            startActivity(i);
-
-        } else if (id == R.id.nav_womens)
-        {
-            Intent i = new Intent(this, Womens.class);
-            startActivity(i);
-
-        } else if (id == R.id.nav_contact) {
-
-        }
-        else if (id == R.id.nav_arts_and_craft) {
-
-            Intent i = new Intent(this, ArtAndCraft.class);
-            startActivity(i);
-
-        }
-
-
-        else if (id == R.id.nav_about_us) {
-            Intent intentAboutUs = new Intent(this, LoginVolley.class);
-            startActivity(intentAboutUs);
-
-        }
-        else if (id == R.id.nav_books) {
-
-            Intent i = new Intent(this, Kids.class);
-            startActivity(i);
-
-        }
-        else if (id == R.id.nav_jewellry) {
-            Intent i = new Intent(this, Jwellery.class);
-            startActivity(i);
-        }
-        else if (id == R.id.nav_sports) {
-            Intent i = new Intent(this, Sports.class);
-            startActivity(i);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
     public void show() {
         orderedProductsList = dbhelper.getOrderMessage();
@@ -176,15 +132,16 @@ public class OrderedProducts extends AppCompatActivity implements CountListener,
             mOrderAdapter = new OrderAdapter(this, orderedProductsList, R.layout.ordered_productlist);
             mOrderAdapter.setListener(this);
             mOrderAdapter.setCountListener(this);
-            mOrderAdapter.notifyDataSetChanged();
             lv.setAdapter(mOrderAdapter);
-            lv.deferNotifyDataSetChanged();
+//            lv.deferNotifyDataSetChanged();
         }
     }
 
     @Override
     public int getItemCount(int a) {
         int position = a;
+        int count = 0;
+
         final OrderedProducts_pojo orderInfo = orderedProductsList.get(position);
         dbhelper = new OrderHelper(this);
 
@@ -197,27 +154,24 @@ public class OrderedProducts extends AppCompatActivity implements CountListener,
                     if (cartItem.getCount() > 1) {
                         contentValues.put("count", cartItem.count - 1);
                         dbhelper.updateCount(orderInfo.getOrderedcat_id(), contentValues);
-                        int count = cartItem.getCount() - 1;
                         getMyTotal();
+                        count = cartItem.getCount() - 1;
                         return count;
                     }
-
-                    else {
+                    else
+                        {
                         dbhelper.delete(orderedProductsList.get(position).getOrderid()
                                 .toString(), null, null);
                         Toast.makeText(OrderedProducts.this, "removed", Toast.LENGTH_SHORT).show();
                         orderedProductsList.remove(position);
                         getMyTotal();
-
+                        mOrderAdapter.notifyDataSetChanged();
+                        return orderedProductsList.size();
                     }
-
-                    Log.e("popopo",cartItem.getCount().toString());
                 }
             }
-            contentValues.put("count", 1);
-
         }
-        return cartItems.size();
+        return count;
     }
 //        orders_recyclerView = (RecyclerView) findViewById(R.id.or);
 //        //Toast.makeText(this, orderedProducts.getOrderedname(), Toast.LENGTH_SHORT).show();
@@ -254,5 +208,75 @@ public class OrderedProducts extends AppCompatActivity implements CountListener,
 //        allProductList.add(mProduct);
 //        Collections.addAll(allProductList, allProducts);
 //        return allProductList;
+
+
+@Override
+public boolean onNavigationItemSelected(MenuItem item) {
+    // Handle navigation view item clicks here.
+    int id = item.getItemId();
+
+    if (id == R.id.nav_new_arrival) {
+        Intent i = new Intent(this, NewArrival.class);
+        startActivity(i);
+    } else if (id == R.id.nav_mens) {
+        Intent i = new Intent(this, Mens.class);
+        startActivity(i);
+
+    } else if (id == R.id.nav_womens)
+    {
+        Intent i = new Intent(this, Womens.class);
+        startActivity(i);
+
+    }
+    else if (id == R.id.nav_kids)
+    {
+        Intent i = new Intent(this, Kids.class);
+        startActivity(i);
+
+    }
+    else if (id == R.id.nav_arts_and_craft) {
+
+        Intent i = new Intent(this, ArtAndCraft.class);
+        startActivity(i);
+
+    }
+    else if (id == R.id.nav_my_orders) {
+        SharedPreferences loginpref = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
+        Intent i = null;
+
+        if (loginpref.getBoolean("login", false)) {
+            i = new Intent(OrderedProducts.this, MyOrders.class);
+            startActivity(i);
+        }
+        else
+        {
+            Toast.makeText(this, "you must login first", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    else if (id == R.id.nav_login) {
+        Intent intentAboutUs = new Intent(this, LoginVolley.class);
+        startActivity(intentAboutUs);
+
+    }
+    else if (id == R.id.nav_books) {
+
+        Intent i = new Intent(this, Books.class);
+        startActivity(i);
+
+    }
+    else if (id == R.id.nav_jewellry) {
+        Intent i = new Intent(this, Jwellery.class);
+        startActivity(i);
+    }
+    else if (id == R.id.nav_sports) {
+        Intent i = new Intent(this, Sports.class);
+        startActivity(i);
+    }
+
+    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    drawer.closeDrawer(GravityCompat.START);
+    return true;
+}
    }
 
