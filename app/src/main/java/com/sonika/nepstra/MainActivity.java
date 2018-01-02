@@ -1,8 +1,12 @@
 package com.sonika.nepstra;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +15,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     TextView mloginemail;
 
     int[] images = {R.drawable.nepstrab, R.drawable.nepstraa, R.drawable.nepstrac};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +53,12 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
@@ -59,7 +66,7 @@ public class MainActivity extends AppCompatActivity
 
         if (sharedPreferences.getBoolean("login", false)) {
             View view = navigationView.getHeaderView(0);
-            mloginemail = (TextView)view.findViewById(R.id.tv_useremail);
+            mloginemail = (TextView) view.findViewById(R.id.tv_useremail);
             mloginemail.setText(useremail);
         }
 
@@ -76,8 +83,9 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+            Log.e("pri", "po");
         } else {
-            super.onBackPressed();
+            finish();
         }
     }
 
@@ -122,74 +130,55 @@ public class MainActivity extends AppCompatActivity
 //            return super.onOptionsItemSelected(item);
 //    }
 
-//    @SuppressWarnings("StatementWithEmptyBody")
+    //    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_new_arrival) {
             Intent i = new Intent(MainActivity.this, NewArrival.class);
             startActivity(i);
-        }
-        else if (id == R.id.nav_mens) {
+        } else if (id == R.id.nav_mens) {
             Intent i = new Intent(MainActivity.this, Mens.class);
             startActivity(i);
 
-        }
-        else if (id == R.id.nav_my_orders) {
+        } else if (id == R.id.nav_my_orders) {
             SharedPreferences loginpref = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
             Intent i = null;
 
             if (loginpref.getBoolean("login", false)) {
-                 i = new Intent(MainActivity.this, MyOrders.class);
+                i = new Intent(MainActivity.this, MyOrders.class);
                 startActivity(i);
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "you must login first", Toast.LENGTH_SHORT).show();
             }
-        }
-        else if (id == R.id.nav_womens)
-        {
-//            WomenHelper womenHelper = new WomenHelper(this);
-//            womenHelper.deleteWomen();
+        } else if (id == R.id.nav_womens) {
             Intent i = new Intent(MainActivity.this, Womens.class);
             startActivity(i);
 
-        }
-
-         else if (id == R.id.nav_arts_and_craft) {
+        } else if (id == R.id.nav_arts_and_craft) {
 
             Intent i = new Intent(MainActivity.this, ArtAndCraft.class);
             startActivity(i);
 
-        }
-
-
-        else if (id == R.id.nav_login) {
+        } else if (id == R.id.nav_login) {
             Intent intentAboutUs = new Intent(this, LoginVolley.class);
             startActivity(intentAboutUs);
 
-        }
-        else if (id == R.id.nav_kids) {
+        } else if (id == R.id.nav_kids) {
             Intent intentAboutUs = new Intent(this, Kids.class);
             startActivity(intentAboutUs);
 
-        }
-
-        else if (id == R.id.nav_books) {
+        } else if (id == R.id.nav_books) {
 
             Intent i = new Intent(MainActivity.this, Books.class);
             startActivity(i);
 
-        }
-        else if (id == R.id.nav_jewellry) {
+        } else if (id == R.id.nav_jewellry) {
             Intent i = new Intent(this, Jwellery.class);
             startActivity(i);
-        }
-        else if (id == R.id.nav_sports) {
+        } else if (id == R.id.nav_sports) {
             Intent i = new Intent(this, Sports.class);
             startActivity(i);
         }
@@ -197,6 +186,7 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
