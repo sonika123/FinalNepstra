@@ -1,7 +1,9 @@
 package com.sonika.nepstra.fragments;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -21,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -46,7 +50,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class All_products_fragment extends Fragment
-        implements SearchView.OnQueryTextListener,SearchView.OnCloseListener  {
+        implements SearchView.OnQueryTextListener,SearchView.OnCloseListener {
     int flag = 0;
     RecyclerView mRecyclerView;
     List<AllProducts> allProductList = new ArrayList<AllProducts>();
@@ -56,29 +60,31 @@ public class All_products_fragment extends Fragment
     AllProductAdapter allProductAdapter = null;
     SearchView search;
     CarouselView carouselView;
-    ScrollView scrollView;
+    ScrollView scrollViewa;
     List<AllProducts> savedList=new ArrayList<>();
-
+    InputMethodManager imm;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_all_products, container, false);
+        imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         orderHelper = new OrderHelper(getContext());
         allProductAdapter = new AllProductAdapter(getContext(), allProductList );
         search= v.findViewById(R.id.search_it);
         carouselView = v.findViewById(R.id.carouselview);
-        scrollView = v.findViewById(R.id.scroll_view);
+        scrollViewa = v.findViewById(R.id.scroll_viewa);
         search.setQueryHint("Search");
-
         setHasOptionsMenu(true);
         search.setOnQueryTextListener(this);
         search.setOnCloseListener(this);
         search.setInputType(InputType.TYPE_CLASS_TEXT);
-        //search.requestFocus();
-//        carouselView.setVisibility(View.GONE);
+
+//        v.findViewById(R.id.carouselview).requestFocus();
+
+
         perform(v);
         return v;
     }
@@ -90,6 +96,8 @@ public class All_products_fragment extends Fragment
 
     @Override
     public boolean onClose() {
+
+        carouselView.setVisibility(View.VISIBLE);
         filterData("");
         // expandAll();
         return false;
@@ -97,7 +105,16 @@ public class All_products_fragment extends Fragment
 
     @Override
     public boolean onQueryTextChange(String query) {
-        filterData(query);
+
+        if (query.isEmpty() == false)
+        {
+            carouselView.setVisibility(View.GONE);
+        }
+        else {
+            carouselView.setVisibility(View.VISIBLE);
+      }
+          filterData(query);
+
         // alladapter.filter(query);
         //displayList();
         return false;
@@ -106,6 +123,7 @@ public class All_products_fragment extends Fragment
     @Override
     public boolean onQueryTextSubmit(String newText) {
 
+        carouselView.setVisibility(View.VISIBLE);
         filterData(newText);
         // displayList();
         return false;
@@ -124,14 +142,11 @@ public class All_products_fragment extends Fragment
                 if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
 
                     allProductList.add(wp);
-
-
                 }
             }
              }
 
         allProductAdapter.notifyDataSetChanged();
-
     }
 
 
