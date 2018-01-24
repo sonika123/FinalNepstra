@@ -119,8 +119,6 @@ public class Billing extends AppCompatActivity {
         scrollView = (ScrollView) findViewById(R.id.scroll_view);
         shipConstraintLayout = (ConstraintLayout)findViewById(R.id.constraint_layout_ship);
 
-
-
         shipConstraintLayout.setVisibility(View.GONE);
         lblPassword.setVisibility(View.GONE);
         cbCreateAccount.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -206,37 +204,37 @@ public class Billing extends AppCompatActivity {
         sshippostcode = shippostcode.getText().toString();
         sshipcountry = shipcountry.getText().toString();
         sshiporder = shiporder.getText().toString();
-
-        SharedPreferences sm = getSharedPreferences("USER_LOGIN", 0);
-        SharedPreferences.Editor editor = sm.edit();
-        editor.putString("name", sname);
-        editor.apply();
-        editor.commit();
-        SharedPreferences sm11 = getSharedPreferences("USER_LOGIN", 0);
-        SharedPreferences.Editor editor11 = sm11.edit();
-        editor11.putString("name", scity);
-        editor11.apply();
-        editor11.commit();
-        SharedPreferences sm112 = getSharedPreferences("USER_LOGIN", 0);
-        SharedPreferences.Editor editor112 = sm11.edit();
-        editor112.putString("name", sstate);
-        editor112.apply();
-        editor11.commit();
-        SharedPreferences sm1 = getSharedPreferences("USER_LOGIN", 0);
-        SharedPreferences.Editor editor1 = sm1.edit();
-        editor1.putString("country", scountry);
-        editor.apply();
-        editor.commit();
-        SharedPreferences sm2 = getSharedPreferences("USER_LOGIN", 0);
-        SharedPreferences.Editor editor2 = sm2.edit();
-        editor2.putString("phone", sphone);
-        editor.apply();
-        editor.commit();
-        SharedPreferences sm3 = getSharedPreferences("USER_LOGIN", 0);
-        SharedPreferences.Editor editor3 = sm3.edit();
-        editor3.putString("email", semail);
-        editor.apply();
-        editor.commit();
+//
+//        SharedPreferences sm = getSharedPreferences("USER_LOGIN", 0);
+//        SharedPreferences.Editor editor = sm.edit();
+//        editor.putString("name", sname);
+//        editor.apply();
+//        editor.commit();
+//        SharedPreferences sm11 = getSharedPreferences("USER_LOGIN", 0);
+//        SharedPreferences.Editor editor11 = sm11.edit();
+//        editor11.putString("name", scity);
+//        editor11.apply();
+//        editor11.commit();
+//        SharedPreferences sm112 = getSharedPreferences("USER_LOGIN", 0);
+//        SharedPreferences.Editor editor112 = sm11.edit();
+//        editor112.putString("name", sstate);
+//        editor112.apply();
+//        editor11.commit();
+//        SharedPreferences sm1 = getSharedPreferences("USER_LOGIN", 0);
+//        SharedPreferences.Editor editor1 = sm1.edit();
+//        editor1.putString("country", scountry);
+//        editor.apply();
+//        editor.commit();
+//        SharedPreferences sm2 = getSharedPreferences("USER_LOGIN", 0);
+//        SharedPreferences.Editor editor2 = sm2.edit();
+//        editor2.putString("phone", sphone);
+//        editor.apply();
+//        editor.commit();
+//        SharedPreferences sm3 = getSharedPreferences("USER_LOGIN", 0);
+//        SharedPreferences.Editor editor3 = sm3.edit();
+//        editor3.putString("email", semail);
+//        editor.apply();
+//        editor.commit();
 
             Log.e("Tag", "signupPrakriti");
             mprogressDialog= new ProgressDialog(Billing.this);
