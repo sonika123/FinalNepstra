@@ -1,10 +1,10 @@
 package com.sonika.nepstra.fragments;
 
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -23,14 +22,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sonika.nepstra.OrderedProducts;
+import com.sonika.nepstra.Orders.OrderedProducts;
 
 import com.sonika.nepstra.R;
 import com.sonika.nepstra.adapters.AllProductAdapter;
@@ -63,6 +61,7 @@ public class All_products_fragment extends Fragment
     ScrollView scrollViewa;
     List<AllProducts> savedList=new ArrayList<>();
     InputMethodManager imm;
+    Integer productid;
 
     @Nullable
     @Override
@@ -182,6 +181,7 @@ public class All_products_fragment extends Fragment
                             JSONObject dataObject = jsonArray.getJSONObject(i);
 
                             Integer id = dataObject.getInt("id");
+
                             String name = dataObject.getString("name");
                             String slug = dataObject.getString("slug");
                             String permalink = dataObject.getString("permalink");
@@ -331,6 +331,7 @@ public class All_products_fragment extends Fragment
                                 collection_href = collection_array.getJSONObject(0).getString("href");
                             }
 
+                            productid = id;
                             AllProducts allProducts =
                                     new AllProducts(id,total_sales,download_limit,download_expiry, shipping_class_id,rating_count, parent_id,c_id,i_id,i_position,menu_order,m_id,tag_id,m_key,m_value,price,name,slug,permalink,date_created,date_created_gmt,date_modified,date_modified_gmt,type,status,weight,catalog_visibility,description,short_description,sku,regular_price,sale_price,price_html,external_url,button_text,tag_id,tax_status,tax_class,backorders,length,width,height,shipping_class,purchase_note,average_rating,c_name,c_slug,i_date_created,i_date_created_gmt,i_date_modified,i_date_modified_gmt,i_src,i_name,i_alt,self_href,collection_href,tag_name,tag_slug,downloads,related_ids,upsell_ids,cross_sell_ids,tags,attributes,default_attributes,variations,grouped_products,featured,date_on_sale_from,date_on_sale_from_gmt,date_on_sale_to,date_on_sale_to_gmt,on_sale,purchasable,virtual,downloadable,manage_stock,stock_quantity,in_stock,backorders_allowed,backordered,sold_individually,shipping_required,shipping_taxable,reviews_allowed);
                             allProductList.add(allProducts);
@@ -358,6 +359,11 @@ public class All_products_fragment extends Fragment
 
             } else if (flag == 2) {
                 Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                SharedPreferences preferences = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = preferences.edit();
+                edit.putInt("productid", productid);
+                Log.e("productidcheck" , productid.toString());
+
                 mRecyclerView = getView().findViewById(R.id.recycler_view2);
                 GridLayoutManager mGrid = new GridLayoutManager(getContext(), 2);
                 mRecyclerView.setLayoutManager(mGrid);
@@ -387,6 +393,7 @@ public class All_products_fragment extends Fragment
         cartlist = orderHelper.getOrderMessage();
 
         int mCount = cartlist.size();
+
         Log.e("totalitems", String.valueOf(mCount));
         getActivity().invalidateOptionsMenu();
         menuItem.setIcon(buildCounterDrawable(mCount, R.drawable.cart));

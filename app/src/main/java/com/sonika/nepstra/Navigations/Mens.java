@@ -16,14 +16,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sonika.nepstra.OrderedProducts;
+import com.sonika.nepstra.Orders.OrderedProducts;
 import com.sonika.nepstra.R;
-import com.sonika.nepstra.adapters.ArtAndCraftAdapter;
 import com.sonika.nepstra.adapters.MensAdapter;
-import com.sonika.nepstra.helpers.ArtAndCraftHelper;
 import com.sonika.nepstra.helpers.MensHelper;
 import com.sonika.nepstra.helpers.OrderHelper;
-import com.sonika.nepstra.pojo.ArtAndCraft_pojo;
 import com.sonika.nepstra.pojo.Mens_pojo;
 import com.sonika.nepstra.pojo.OrderedProducts_pojo;
 

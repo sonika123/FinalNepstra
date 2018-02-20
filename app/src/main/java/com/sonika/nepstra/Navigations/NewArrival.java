@@ -10,22 +10,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.sonika.nepstra.OrderedProducts;
+import com.sonika.nepstra.Orders.OrderedProducts;
 import com.sonika.nepstra.R;
 import com.sonika.nepstra.adapters.NewArrivalAdapter;
-import com.sonika.nepstra.adapters.WomenAdapter;
 import com.sonika.nepstra.helpers.NewArrivalsHelper;
 import com.sonika.nepstra.helpers.OrderHelper;
-import com.sonika.nepstra.helpers.WomenHelper;
 import com.sonika.nepstra.pojo.Newarrivals_pojo;
 import com.sonika.nepstra.pojo.OrderedProducts_pojo;
-import com.sonika.nepstra.pojo.WomenPoducts_pojo;
 
 import java.util.ArrayList;
 import java.util.List;

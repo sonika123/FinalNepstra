@@ -22,6 +22,7 @@ public class OrderHelper extends SQLiteOpenHelper {
     String ORDER_TABLE = "CREATE TABLE if not exists `user_orders`  (\n" +
             "                       `id` INTEGER PRIMARY KEY ,\n" +
             "                       `name` TEXT,\n" +
+            "                       `product_id` TEXT,\n" +
             "                       `count` INTEGER,\n" +
             "                       `cat_id` TEXT,\n" +
             "                       `price` TEXT,\n" +
@@ -63,6 +64,7 @@ public class OrderHelper extends SQLiteOpenHelper {
             OrderedProducts_pojo orderinfo = new OrderedProducts_pojo();
             orderinfo.orderid = cursor.getInt(cursor.getColumnIndex("id"));
             orderinfo.orderedname = cursor.getString(cursor.getColumnIndex("name"));
+            orderinfo.product_id = cursor.getInt(cursor.getColumnIndex("product_id"));
             orderinfo.count = cursor.getInt(cursor.getColumnIndex("count"));
             orderinfo.orderedcat_id = cursor.getString(cursor.getColumnIndex("cat_id"));
             orderinfo.orderedprice = cursor.getString(cursor.getColumnIndex("price"));
@@ -117,5 +119,10 @@ public class OrderHelper extends SQLiteOpenHelper {
         }
         return cv;
     }
-
+    public void deleteAll()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("user_orders", null, null);
+        db.close();
+    }
 }

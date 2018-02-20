@@ -123,22 +123,20 @@
 ////
 ////
 ////}}
-package com.sonika.nepstra;
+package com.sonika.nepstra.Orders;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sonika.nepstra.R;
 import com.sonika.nepstra.adapters.MyOrderAdapter;
 import com.sonika.nepstra.parser.JsonParserA;
 import com.sonika.nepstra.pojo.Myorder;

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +20,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sonika.nepstra.Logins.LoginVolley;
 import com.sonika.nepstra.Navigations.ArtAndCraft;
 import com.sonika.nepstra.Navigations.Books;
 import com.sonika.nepstra.Navigations.Jwellery;
@@ -27,8 +29,13 @@ import com.sonika.nepstra.Navigations.Mens;
 import com.sonika.nepstra.Navigations.NewArrival;
 import com.sonika.nepstra.Navigations.Sports;
 import com.sonika.nepstra.Navigations.Womens;
+import com.sonika.nepstra.Orders.MyOrders;
+import com.sonika.nepstra.helpers.OrderHelper;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +47,8 @@ public class MainActivity extends AppCompatActivity
     ActionBarDrawerToggle toggle;
     DrawerLayout drawer;
     Toolbar toolbar;
+
+    OrderHelper orderHelper;
     int[] images = {R.drawable.nepstrab, R.drawable.nepstraa, R.drawable.nepstrac};
 
     @Override
@@ -60,7 +69,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-
+        orderHelper = new OrderHelper(MainActivity.this);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
@@ -156,7 +165,7 @@ public class MainActivity extends AppCompatActivity
     protected void onPostResume() {
         super.onPostResume();
         searchView.setQuery("", false);
-        root.requestFocus();
+//        root.requestFocus();
     }
 //        @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
@@ -201,9 +210,17 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
 
         } else if (id == R.id.nav_login) {
-            Intent intentAboutUs = new Intent(this, LoginVolley.class);
-            startActivity(intentAboutUs);
+            SharedPreferences loginpref = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
 
+            Boolean login = loginpref.getBoolean("login", false );
+            if (login == true)
+            {
+                Toast.makeText(this, "You are already logged in!!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Intent intentLogin = new Intent(this, LoginVolley.class);
+                startActivity(intentLogin);
+            }
         } else if (id == R.id.nav_kids) {
             Intent intentAboutUs = new Intent(this, Kids.class);
             startActivity(intentAboutUs);
@@ -220,6 +237,21 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this, Sports.class);
             startActivity(i);
         }
+
+        else if (id == R.id.nav_logout) {
+            orderHelper.deleteAll();
+            SharedPreferences loginpref = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
+            SharedPreferences.Editor loginedit = loginpref.edit();
+
+            loginedit.clear();
+
+            loginedit.commit();
+
+            loginedit.putString("email", "Nepstra");
+            finish();
+
+
+           }
 
 
 //

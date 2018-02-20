@@ -1,4 +1,4 @@
-package com.sonika.nepstra;
+package com.sonika.nepstra.Orders;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -20,6 +20,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sonika.nepstra.Billings.Billing;
+import com.sonika.nepstra.Billings.OldCustomerBilling;
+import com.sonika.nepstra.Logins.LoginVolley;
 import com.sonika.nepstra.Navigations.ArtAndCraft;
 import com.sonika.nepstra.Navigations.Books;
 import com.sonika.nepstra.Navigations.Jwellery;
@@ -28,6 +31,7 @@ import com.sonika.nepstra.Navigations.Mens;
 import com.sonika.nepstra.Navigations.NewArrival;
 import com.sonika.nepstra.Navigations.Sports;
 import com.sonika.nepstra.Navigations.Womens;
+import com.sonika.nepstra.R;
 import com.sonika.nepstra.adapters.OrderAdapter;
 import com.sonika.nepstra.helpers.OrderHelper;
 import com.sonika.nepstra.listener.CountListener;
@@ -54,6 +58,7 @@ public class OrderedProducts extends AppCompatActivity implements CountListener,
     SharedPreferences sm;
     String useremail;
     TextView mloginemail;
+    OrderHelper orderHelper;
 
 
     @Override
@@ -63,7 +68,7 @@ public class OrderedProducts extends AppCompatActivity implements CountListener,
 
         SharedPreferences sharedPreferences = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
         useremail = sharedPreferences.getString("email", null);
-
+        orderHelper = new OrderHelper(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -91,12 +96,31 @@ public class OrderedProducts extends AppCompatActivity implements CountListener,
         dbhelper = new OrderHelper(this);
         lv = (ListView) findViewById(R.id.ordered_productlist);
         checkout = (Button) findViewById(R.id.btn_proceed_add_to_cart);
+
+
         checkout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(OrderedProducts.this, Billing.class);
-                startActivity(i);
+
+                if (orderedProductsList.size() > 0) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
+                    Boolean login = sharedPreferences.getBoolean("login", false);
+                    if (login == true) {
+                        Intent i = new Intent(OrderedProducts.this, OldCustomerBilling.class);
+                        startActivity(i);
+
+                    } else {
+                        Intent i = new Intent(OrderedProducts.this, Billing.class);
+                        startActivity(i);
+
+                    }
+                }
+                else
+                {
+                    Toast.makeText(OrderedProducts.this, "Cart is empty!!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         totalAmount = (TextView) findViewById(R.id.totalamount);
@@ -255,9 +279,30 @@ public boolean onNavigationItemSelected(MenuItem item) {
     }
 
     else if (id == R.id.nav_login) {
-        Intent intentAboutUs = new Intent(this, LoginVolley.class);
-        startActivity(intentAboutUs);
+        SharedPreferences loginpref = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
 
+        Boolean login = loginpref.getBoolean("login", false );
+        if (login == true)
+        {
+            Toast.makeText(this, "You are already logged in!!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent intentLogin = new Intent(this, LoginVolley.class);
+            startActivity(intentLogin);
+        }
+    }
+
+    else if (id == R.id.nav_logout) {
+        orderHelper.deleteAll();
+        SharedPreferences loginpref = getSharedPreferences("LOGINPREF", MODE_PRIVATE);
+        SharedPreferences.Editor loginedit = loginpref.edit();
+
+        loginedit.clear();
+
+        loginedit.commit();
+
+        loginedit.putString("email", "Nepstra");
+        finish();
     }
     else if (id == R.id.nav_books) {
 
@@ -273,6 +318,7 @@ public boolean onNavigationItemSelected(MenuItem item) {
         Intent i = new Intent(this, Sports.class);
         startActivity(i);
     }
+
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);

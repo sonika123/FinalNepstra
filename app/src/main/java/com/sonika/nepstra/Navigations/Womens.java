@@ -15,9 +15,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.sonika.nepstra.OrderedProducts;
+import com.sonika.nepstra.Orders.OrderedProducts;
 import com.sonika.nepstra.R;
-import com.sonika.nepstra.adapters.OrderAdapter;
 import com.sonika.nepstra.adapters.WomenAdapter;
 import com.sonika.nepstra.helpers.OrderHelper;
 import com.sonika.nepstra.helpers.WomenHelper;

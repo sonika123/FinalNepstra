@@ -16,18 +16,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sonika.nepstra.OrderedProducts;
+import com.sonika.nepstra.Orders.OrderedProducts;
 import com.sonika.nepstra.R;
-import com.sonika.nepstra.adapters.NewArrivalAdapter;
 import com.sonika.nepstra.adapters.SportsAdapter;
-import com.sonika.nepstra.adapters.WomenAdapter;
 import com.sonika.nepstra.helpers.OrderHelper;
 import com.sonika.nepstra.helpers.SportsHelper;
-import com.sonika.nepstra.helpers.WomenHelper;
-import com.sonika.nepstra.pojo.Newarrivals_pojo;
 import com.sonika.nepstra.pojo.OrderedProducts_pojo;
 import com.sonika.nepstra.pojo.Sports_pojo;
-import com.sonika.nepstra.pojo.WomenPoducts_pojo;
 
 import java.util.ArrayList;
 import java.util.List;
