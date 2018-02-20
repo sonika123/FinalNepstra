@@ -46,7 +46,7 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
     private List<AllProducts> allProductList;
 
     String oname, oprice, oimage, odesc;
-    Integer cat_id, img_id;
+    Integer cat_id, img_id, product_id, order_id;
     OrderHelper dbHelper;
     List<OrderedProducts_pojo> cartProductsList;
     //DetailsHelper detailsHelper;
@@ -123,6 +123,8 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
                 oprice = allProductList.get(position).getPrice();
                 oimage = allProductList.get(position).getI_src();
                 img_id = allProductList.get(position).getI_id();
+                product_id = allProductList.get(position).getId();
+
 
                 ContentValues contentValues = new ContentValues();
                 ArrayList<OrderedProducts_pojo> cartItems = dbHelper.getOrderMessage();
@@ -136,6 +138,7 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductHolder> {
 
                 contentValues.put("name", oname);
                 contentValues.put("price", oprice);
+                contentValues.put("product_id", product_id);
                 contentValues.put("imageone", oimage);
                 contentValues.put("cat_id", img_id);
                 contentValues.put("count", 1);
