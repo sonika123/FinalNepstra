@@ -3,6 +3,7 @@ package com.sonika.nepstra.adapters;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +33,11 @@ public class OrderAdapter extends BaseAdapter  {
     List<OrderedProducts_pojo> cartlist = new ArrayList<OrderedProducts_pojo>();
     int resource;
     OrderHelper dbHelper;
+    String spname, spquantity, spprice;
     private ListViewListener mListener;
     private CountListener mcountListener;
+
+    SharedPreferences sharedPreferences;
 
 
     public OrderAdapter(Context context, List<OrderedProducts_pojo> objects, int resource) {
@@ -79,11 +83,13 @@ public class OrderAdapter extends BaseAdapter  {
         final OrderedProducts_pojo orderInfo = cartlist.get(position);
         dbHelper = new OrderHelper(context);
         final ViewHolder finalHolder = holder;
-        finalHolder.name.setText("Name : " + orderInfo.getOrderedname());
+        finalHolder.name.setText(orderInfo.getOrderedname());
         final String itemTotalPrice = String.valueOf(Integer.valueOf(orderInfo.getCount()) * (Integer.valueOf(orderInfo.getOrderedprice())));
         finalHolder.price.setText(itemTotalPrice);
         Picasso.with(context).load(orderInfo.getOrderedimage()).into(finalHolder.img_product);
         finalHolder.qty.setText(orderInfo.getCount() + " ");
+        Log.e("osos", String.valueOf(orderInfo.getProduct_id()));
+
 
 
         holder.btnRemove.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +109,16 @@ public class OrderAdapter extends BaseAdapter  {
 
             });
 
+        spname = finalHolder.name.getText().toString();
+        spprice = finalHolder.price.getText().toString();
+        spquantity= finalHolder.qty.getText().toString();
+
+        SharedPreferences sp = context.getSharedPreferences("ORDERPREF", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spedit = sp.edit();
+        spedit.putString("name", spname);
+        spedit.putString("price", spprice);
+        spedit.putString("quantity", spquantity);
+        spedit.commit();
 
 //        int sum = 0;
 //        for (int i = 0; i < cartlist.size(); i++)
