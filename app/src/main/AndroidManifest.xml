@@ -19,10 +19,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"
-            >
+            android:windowSoftInputMode="adjustPan">
 
-            <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
+            <!-- android:windowSoftInputMode="stateHidden|adjustResize"> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,12 +32,11 @@
             android:name=".DetailsActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".OrderedProducts"
+            android:name=".Orders.OrderedProducts"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".RegisterActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-
         <activity
             android:name=".Navigations.Womens"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -67,11 +65,22 @@
             android:name=".Paypal.PaypalActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".BillingDetails" />
-        <activity android:name=".Billing" />
-        <activity android:name=".LoginVolley" />
-        <activity android:name=".MyOrders"></activity>
-        <activity android:name=".CategoriesActivity"></activity>
-        <activity android:name=".Navigations.Books"/>
+        <activity android:name=".Billings.Billing" />
+        <activity android:name=".Logins.LoginVolley" />
+        <activity android:name=".Orders.MyOrders" />
+        <activity android:name=".CategoriesActivity" />
+        <activity android:name=".Navigations.Books" />
+        <activity android:name=".Billings.OldCustomerBilling" />
+        <activity android:name=".Paypal.BankActivity" />
+        <activity android:name=".Paypal.CashActivity" />
+        <activity android:name=".Logins.Orderweb" />
+        <activity android:name=".Logins.ForgetPwd" />
+        <activity android:name=".Orders.MyDetailsOrder" />
+        <activity android:name=".adapters.MyDetailsOrder" />
+        <activity android:name=".Orders.MyOrdersSecond" />
+        <activity android:name=".adapters.MyOrdersSecondAdapter" />
+        <activity android:name=".adapters.MyDetailsOrderAdapter" />
+        <activity android:name=".Orders.MyDetailsOrder"></activity>
     </application>
 
 </manifest>

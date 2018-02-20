@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    android:id="@+id/scroll_view"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/old_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="8dp">
@@ -16,15 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <TextView
             android:id="@+id/txt_billing_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
             android:text="Billing details"
-            android:textSize="20sp"
             android:textColor="@color/colorAppBlack"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,25 +41,22 @@
             app:layout_constraintTop_toBottomOf="@id/txt_billing_details">
 
 
-
             <TextView
                 android:id="@+id/txt_first_name"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="First name"
-                android:textColor="@color/colorAppBlack"
-                />
+                android:textColor="@color/colorAppBlack" />
 
             <TextView
                 android:id="@+id/txt_last_name"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:layout_weight="1"
                 android:text="Last name"
-                android:textColor="@color/colorAppBlack"
-                />
+                android:textColor="@color/colorAppBlack" />
 
         </LinearLayout>
 
@@ -79,27 +74,26 @@
 
 
             <EditText
-                android:id="@+id/lbl_first_name"
+                android:id="@+id/old_lbl_first_name"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:background="@drawable/thin_red_rectangular_border"
                 android:ems="10"
-                android:inputType="textPersonName"
-                />
+                android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/lbl_last_name"
+                android:id="@+id/old_lbl_last_name"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/thin_red_rectangular_border"
                 android:ems="10"
-                android:inputType="textPersonName"
-                />
+                android:inputType="textPersonName" />
 
         </LinearLayout>
+
         <TextView
             android:id="@+id/txt_company_name"
             android:layout_width="wrap_content"
@@ -111,7 +105,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linear_layout_for_firstname_lastname" />
 
         <EditText
-            android:id="@+id/lbl_company_name"
+            android:id="@+id/old_lbl_company_name"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
@@ -129,19 +123,19 @@
             android:layout_marginTop="8dp"
             android:text="Country"
             android:textColor="@color/colorAppBlack"
-            app:layout_constraintStart_toStartOf="@+id/lbl_company_name"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_company_name" />
+            app:layout_constraintStart_toStartOf="@+id/old_lbl_company_name"
+            app:layout_constraintTop_toBottomOf="@+id/old_lbl_company_name" />
 
         <EditText
-            android:id="@+id/lbl_country"
+            android:id="@+id/old_lbl_country"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
+            android:background="@drawable/thin_red_rectangular_border"
             android:ems="10"
             android:inputType="textPersonName"
-            android:background="@drawable/thin_red_rectangular_border"
-            app:layout_constraintEnd_toEndOf="@+id/lbl_company_name"
-            app:layout_constraintStart_toStartOf="@+id/lbl_company_name"
+            app:layout_constraintEnd_toEndOf="@+id/old_lbl_company_name"
+            app:layout_constraintStart_toStartOf="@+id/old_lbl_company_name"
             app:layout_constraintTop_toBottomOf="@+id/txt_country" />
 
         <TextView
@@ -151,36 +145,36 @@
             android:layout_marginTop="8dp"
             android:text="Street address"
             android:textColor="@color/colorAppBlack"
-            app:layout_constraintStart_toStartOf="@+id/lbl_country"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_country" />
+            app:layout_constraintStart_toStartOf="@+id/old_lbl_country"
+            app:layout_constraintTop_toBottomOf="@+id/old_lbl_country" />
 
         <EditText
-            android:id="@+id/lbl_house_no"
+            android:id="@+id/old_lbl_house_no"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="House number and street name"
-            android:paddingLeft="4dp"
             android:background="@drawable/thin_red_rectangular_border"
-            app:layout_constraintEnd_toEndOf="@+id/lbl_country"
-            app:layout_constraintStart_toStartOf="@+id/lbl_country"
+            android:ems="10"
+            android:hint="House number and street name"
+            android:inputType="textPersonName"
+            android:paddingLeft="4dp"
+            app:layout_constraintEnd_toEndOf="@+id/old_lbl_country"
+            app:layout_constraintStart_toStartOf="@+id/old_lbl_country"
             app:layout_constraintTop_toBottomOf="@+id/txt_street_address" />
 
         <EditText
-            android:id="@+id/lbl_apartment_suite"
+            android:id="@+id/old_lbl_apartment_suite"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
             android:background="@drawable/thin_red_rectangular_border"
             android:ems="10"
             android:hint="Apartment, suite, unit etc.(optional)"
-            android:paddingLeft="4dp"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/lbl_house_no"
-            app:layout_constraintStart_toStartOf="@+id/lbl_house_no"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_house_no" />
+            android:paddingLeft="4dp"
+            app:layout_constraintEnd_toEndOf="@+id/old_lbl_house_no"
+            app:layout_constraintStart_toStartOf="@+id/old_lbl_house_no"
+            app:layout_constraintTop_toBottomOf="@+id/old_lbl_house_no" />
 
         <TextView
             android:id="@+id/txt_town_city"
@@ -189,19 +183,19 @@
             android:layout_marginTop="8dp"
             android:text="Town / City"
             android:textColor="@color/colorAppBlack"
-            app:layout_constraintStart_toStartOf="@+id/lbl_apartment_suite"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_apartment_suite" />
+            app:layout_constraintStart_toStartOf="@+id/old_lbl_apartment_suite"
+            app:layout_constraintTop_toBottomOf="@+id/old_lbl_apartment_suite" />
 
         <EditText
-            android:id="@+id/lbl_town_city"
+            android:id="@+id/old_lbl_town_city"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
+            android:background="@drawable/thin_red_rectangular_border"
             android:ems="10"
             android:inputType="textPersonName"
-            android:background="@drawable/thin_red_rectangular_border"
-            app:layout_constraintEnd_toEndOf="@+id/lbl_apartment_suite"
-            app:layout_constraintStart_toStartOf="@+id/lbl_apartment_suite"
+            app:layout_constraintEnd_toEndOf="@+id/old_lbl_apartment_suite"
+            app:layout_constraintStart_toStartOf="@+id/old_lbl_apartment_suite"
             app:layout_constraintTop_toBottomOf="@+id/txt_town_city" />
 
         <TextView
@@ -211,19 +205,19 @@
             android:layout_marginTop="8dp"
             android:text="State / Zone"
             android:textColor="@color/colorAppBlack"
-            app:layout_constraintStart_toStartOf="@+id/lbl_town_city"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_town_city" />
+            app:layout_constraintStart_toStartOf="@+id/old_lbl_town_city"
+            app:layout_constraintTop_toBottomOf="@+id/old_lbl_town_city" />
 
         <EditText
-            android:id="@+id/lbl_state_zone"
+            android:id="@+id/old_lbl_state_zone"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
+            android:background="@drawable/thin_red_rectangular_border"
             android:ems="10"
             android:inputType="textPersonName"
-            android:background="@drawable/thin_red_rectangular_border"
-            app:layout_constraintEnd_toEndOf="@+id/lbl_town_city"
-            app:layout_constraintStart_toStartOf="@+id/lbl_town_city"
+            app:layout_constraintEnd_toEndOf="@+id/old_lbl_town_city"
+            app:layout_constraintStart_toStartOf="@+id/old_lbl_town_city"
             app:layout_constraintTop_toBottomOf="@+id/txt_state_zone" />
 
         <LinearLayout
@@ -236,28 +230,25 @@
             android:weightSum="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lbl_state_zone">
-
+            app:layout_constraintTop_toBottomOf="@id/old_lbl_state_zone">
 
 
             <TextView
                 android:id="@+id/txt_phone"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Phone"
-                android:textColor="@color/colorAppBlack"
-                />
+                android:textColor="@color/colorAppBlack" />
 
             <TextView
                 android:id="@+id/txt_post_code_zip"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:layout_weight="1"
                 android:text="Postcode / ZIP"
-                android:textColor="@color/colorAppBlack"
-                />
+                android:textColor="@color/colorAppBlack" />
 
         </LinearLayout>
 
@@ -274,28 +265,28 @@
             app:layout_constraintTop_toBottomOf="@id/linear_layout_for_txtphone_txtpostcode">
 
             <EditText
-                android:id="@+id/lbl_phone"
+                android:id="@+id/old_lbl_phone"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="40dp"
-                android:ems="10"
-                android:inputType="number"
+                android:layout_weight="1"
                 android:background="@drawable/thin_red_rectangular_border"
-                />
+                android:ems="10"
+                android:inputType="number" />
 
 
             <EditText
-                android:id="@+id/lbl_post_code_zip"
+                android:id="@+id/old_lbl_post_code_zip"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="40dp"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/thin_red_rectangular_border"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:layout_marginLeft="16dp"
-                android:background="@drawable/thin_red_rectangular_border"        app:layout_constraintEnd_toEndOf="@+id/lbl_last_name_ship"
-                />
+                app:layout_constraintEnd_toEndOf="@+id/lbl_last_name_ship" />
 
         </LinearLayout>
+
         <TextView
             android:id="@+id/txt_email_address"
             android:layout_width="wrap_content"
@@ -307,75 +298,39 @@
             app:layout_constraintTop_toBottomOf="@+id/linear_layout_for_phone_postcode" />
 
         <EditText
-            android:id="@+id/lbl_email_address"
+            android:id="@+id/old_lbl_email_address"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
+            android:background="@drawable/thin_red_rectangular_border"
             android:ems="10"
             android:inputType="textPersonName"
-            android:background="@drawable/thin_red_rectangular_border"
             app:layout_constraintEnd_toEndOf="@+id/linear_layout_for_phone_postcode"
             app:layout_constraintStart_toStartOf="@+id/linear_layout_for_phone_postcode"
             app:layout_constraintTop_toBottomOf="@+id/txt_email_address" />
-        Prakriti Upadhaye
-        <CheckBox
-            android:id="@+id/cb_newsletter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="4dp"
-            android:text="Subscribe to our newsletter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_email_address" />
-
 
         <CheckBox
-            android:id="@+id/cb_create_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="4dp"
-            android:text="Create an account?"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_newsletter" />
-
-
-        <CheckBox
-            android:id="@+id/cb_ship_to_different_address"
+            android:id="@+id/old_cb_ship_to_different_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
             android:text="Ship to an different address?"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cb_create_account" />
+            app:layout_constraintTop_toBottomOf="@+id/old_lbl_email_address" />
 
-
-        <EditText
-            android:id="@+id/lbl_password"
-            android:layout_width="0dp"
-            android:layout_height="38dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/thin_red_rectangular_border"
-            android:ems="10"
-            android:hint="Enter password"
-            android:inputType="textPersonName"
-            android:paddingLeft="4dp"
-            app:layout_constraintEnd_toEndOf="@+id/lbl_email_address"
-            app:layout_constraintStart_toStartOf="@+id/lbl_email_address"
-            app:layout_constraintTop_toBottomOf="@+id/cb_ship_to_different_address" />
 
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint_layout_ship"
-            android:layout_width="363dp"
-            android:layout_height="535dp"
+            android:id="@+id/old_constraint_layout_ship"
+            android:layout_width="match_parent"
+            android:layout_height="629dp"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lbl_password">
+            app:layout_constraintTop_toBottomOf="@id/old_cb_ship_to_different_address">
 
 
             <LinearLayout
@@ -424,7 +379,7 @@
 
 
                 <EditText
-                    android:id="@+id/lbl_first_name_ship"
+                    android:id="@+id/old_lbl_first_name_ship"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
@@ -433,7 +388,7 @@
                     android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/lbl_last_name_ship"
+                    android:id="@+id/old_lbl_last_name_ship"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="16dp"
@@ -455,7 +410,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linear_layout_for_firstname_lastname_ship" />
 
             <EditText
-                android:id="@+id/lbl_company_name_ship"
+                android:id="@+id/old_lbl_company_name_ship"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
@@ -473,19 +428,19 @@
                 android:layout_marginTop="8dp"
                 android:text="Country"
                 android:textColor="@color/colorAppBlack"
-                app:layout_constraintStart_toStartOf="@+id/lbl_company_name_ship"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_company_name_ship" />
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_company_name_ship"
+                app:layout_constraintTop_toBottomOf="@+id/old_lbl_company_name_ship" />
 
             <EditText
-                android:id="@+id/lbl_country_ship"
+                android:id="@+id/old_lbl_country_ship"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/thin_red_rectangular_border"
                 android:ems="10"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_company_name_ship"
-                app:layout_constraintStart_toStartOf="@+id/lbl_company_name_ship"
+                app:layout_constraintEnd_toEndOf="@+id/old_lbl_company_name_ship"
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_company_name_ship"
                 app:layout_constraintTop_toBottomOf="@+id/txt_country_ship" />
 
             <TextView
@@ -495,11 +450,11 @@
                 android:layout_marginTop="8dp"
                 android:text="Street address"
                 android:textColor="@color/colorAppBlack"
-                app:layout_constraintStart_toStartOf="@+id/lbl_country_ship"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_country_ship" />
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_country_ship"
+                app:layout_constraintTop_toBottomOf="@+id/old_lbl_country_ship" />
 
             <EditText
-                android:id="@+id/lbl_house_no_ship"
+                android:id="@+id/old_lbl_house_no_ship"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
@@ -508,12 +463,12 @@
                 android:hint="House number and street name"
                 android:inputType="textPersonName"
                 android:paddingLeft="4dp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_country_ship"
-                app:layout_constraintStart_toStartOf="@+id/lbl_country_ship"
+                app:layout_constraintEnd_toEndOf="@+id/old_lbl_country_ship"
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_country_ship"
                 app:layout_constraintTop_toBottomOf="@+id/txt_street_address_ship" />
 
             <EditText
-                android:id="@+id/lbl_apartment_suite_ship"
+                android:id="@+id/old_lbl_apartment_suite_ship"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
@@ -522,9 +477,9 @@
                 android:hint="Apartment, suite, unit etc.(optional)"
                 android:inputType="textPersonName"
                 android:paddingLeft="4dp"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_house_no_ship"
-                app:layout_constraintStart_toStartOf="@+id/lbl_house_no_ship"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_house_no_ship" />
+                app:layout_constraintEnd_toEndOf="@+id/old_lbl_house_no_ship"
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_house_no_ship"
+                app:layout_constraintTop_toBottomOf="@+id/old_lbl_house_no_ship" />
 
             <TextView
                 android:id="@+id/txt_town_city_ship"
@@ -533,19 +488,19 @@
                 android:layout_marginTop="8dp"
                 android:text="Town / City"
                 android:textColor="@color/colorAppBlack"
-                app:layout_constraintStart_toStartOf="@+id/lbl_apartment_suite_ship"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_apartment_suite_ship" />
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_apartment_suite_ship"
+                app:layout_constraintTop_toBottomOf="@+id/old_lbl_apartment_suite_ship" />
 
             <EditText
-                android:id="@+id/lbl_town_city_ship"
+                android:id="@+id/old_lbl_town_city_ship"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/thin_red_rectangular_border"
                 android:ems="10"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_apartment_suite_ship"
-                app:layout_constraintStart_toStartOf="@+id/lbl_apartment_suite_ship"
+                app:layout_constraintEnd_toEndOf="@+id/old_lbl_apartment_suite_ship"
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_apartment_suite_ship"
                 app:layout_constraintTop_toBottomOf="@+id/txt_town_city_ship" />
 
             <TextView
@@ -555,19 +510,19 @@
                 android:layout_marginTop="8dp"
                 android:text="State / Zone"
                 android:textColor="@color/colorAppBlack"
-                app:layout_constraintStart_toStartOf="@+id/lbl_town_city_ship"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_town_city_ship" />
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_town_city_ship"
+                app:layout_constraintTop_toBottomOf="@+id/old_lbl_town_city_ship" />
 
             <EditText
-                android:id="@+id/lbl_state_zone_ship"
+                android:id="@+id/old_lbl_state_zone_ship"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/thin_red_rectangular_border"
                 android:ems="10"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_town_city_ship"
-                app:layout_constraintStart_toStartOf="@+id/lbl_town_city_ship"
+                app:layout_constraintEnd_toEndOf="@+id/old_lbl_town_city_ship"
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_town_city_ship"
                 app:layout_constraintTop_toBottomOf="@+id/txt_state_zone_ship" />
 
             <TextView
@@ -577,19 +532,19 @@
                 android:layout_marginTop="8dp"
                 android:text="Postcode / ZIP"
                 android:textColor="@color/colorAppBlack"
-                app:layout_constraintStart_toStartOf="@+id/lbl_state_zone_ship"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_state_zone_ship" />
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_state_zone_ship"
+                app:layout_constraintTop_toBottomOf="@+id/old_lbl_state_zone_ship" />
 
             <EditText
-                android:id="@+id/lbl_postcode_zip_ship"
+                android:id="@+id/old_lbl_postcode_zip_ship"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/thin_red_rectangular_border"
                 android:ems="10"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_town_city_ship"
-                app:layout_constraintStart_toStartOf="@+id/lbl_state_zone_ship"
+                app:layout_constraintEnd_toEndOf="@+id/old_lbl_town_city_ship"
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_state_zone_ship"
                 app:layout_constraintTop_toBottomOf="@+id/txt_postcode_zip_ship" />
 
             <TextView
@@ -599,28 +554,27 @@
                 android:layout_marginTop="8dp"
                 android:text="Order notes"
                 android:textColor="@color/colorAppBlack"
-                app:layout_constraintStart_toStartOf="@+id/lbl_postcode_zip_ship"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_postcode_zip_ship" />
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_postcode_zip_ship"
+                app:layout_constraintTop_toBottomOf="@+id/old_lbl_postcode_zip_ship" />
 
             <EditText
-                android:id="@+id/lbl_order_notes_ship"
-                android:layout_width="332dp"
-                android:layout_height="39dp"
+                android:id="@+id/old_lbl_order_notes_ship"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/thin_red_rectangular_border"
                 android:ems="10"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_state_zone_ship"
-                app:layout_constraintStart_toStartOf="@+id/lbl_state_zone_ship"
+                app:layout_constraintEnd_toEndOf="@+id/old_lbl_state_zone_ship"
+                app:layout_constraintStart_toStartOf="@+id/old_lbl_state_zone_ship"
                 app:layout_constraintTop_toBottomOf="@+id/txt_order_notes_ship" />
-
-
 
 
         </android.support.constraint.ConstraintLayout>
 
+
         <Button
-            android:id="@+id/btn_place_order"
+            android:id="@+id/old_btn_place_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_red_button_designs"
@@ -630,11 +584,13 @@
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/lbl_email_address"
+            app:layout_constraintEnd_toEndOf="@+id/old_lbl_email_address"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/lbl_email_address"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintStart_toStartOf="@+id/old_lbl_email_address"
+            app:layout_constraintTop_toBottomOf="@+id/old_radiogroup" />
+
+
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
@@ -646,11 +602,11 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraint_layout_ship"
+            app:layout_constraintTop_toBottomOf="@+id/old_constraint_layout_ship"
             android:layout_marginLeft="16dp" />
 
         <RadioGroup
-            android:id="@+id/radioGroup"
+            android:id="@+id/old_radiogroup"
             android:layout_width="384dp"
             android:layout_height="100dp"
             android:layout_marginLeft="16dp"
@@ -662,14 +618,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView6">
 
             <RadioButton
-                android:id="@+id/radioButtonPaypal"
+                android:id="@+id/old_radioButtonDirectBank"
                 android:layout_width="157dp"
                 android:layout_marginEnd="274dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="274dp"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="8dp"
-                android:text="Paypal"
+                android:text="Bank"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -677,17 +633,17 @@
                 android:layout_height="wrap_content" />
 
             <RadioButton
-                android:id="@+id/radioButtonDirectBank"
+                android:id="@+id/old_radioButtonPaypal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="36dp"
                 android:layout_marginStart="36dp"
-                android:text="Bank"
+                android:text="Paypal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioButton5" />
 
             <RadioButton
-                android:id="@+id/radioButtonCash"
+                android:id="@+id/old_radioButtonCash"
                 android:layout_width="285dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="211dp"
@@ -701,25 +657,7 @@
 
         </RadioGroup>
 
-        <TextView
-            android:id="@+id/old_customer"
-            android:layout_width="133dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginStart="8dp"
-            android:text="Already have account"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txt_billing_details"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="0dp" />
     </android.support.constraint.ConstraintLayout>
-
-
 
 
 </ScrollView>
